@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using ProjectManagementAPI.Data;
+using ProjectManagementAPI.DTOs.Project;
+using ProjectManagementAPI.Mappers;
 using ProjectManagementAPI.Models;
 
 namespace ProjectManagementAPI.Controllers;
@@ -19,7 +21,7 @@ public class ProjectsController : ControllerBase
     [HttpGet]
     public IActionResult GetAll()
     {
-        var projects = _dbContext.Projects.ToList();
+        var projects = _dbContext.Projects.ToList().Select(x => x.ToProjectDto());
 
         return Ok(projects);
     }
@@ -33,19 +35,20 @@ public class ProjectsController : ControllerBase
             return NotFound();
         }
 
-        return Ok(project); 
+        return Ok(project.ToProjectDto()); 
     }
 
     [HttpPost]
-    public IActionResult Create([FromBody] Project project)
+    public IActionResult Create([FromBody] ProjectFromRequestDto projectFromRequestDto)
     {
+        var project = projectFromRequestDto.ToProjectFromRequestDto();
         _dbContext.Projects.Add(project);
         _dbContext.SaveChanges();
         return CreatedAtAction(nameof(GetById), new { id = project.Id }, project);
     }
 
     [HttpPut("{id}")]
-    public IActionResult Update([FromRoute] int id, [FromBody] Project newProject)
+    public IActionResult Update([FromRoute] int id, [FromBody] ProjectFromRequestDto projectFromRequestDto)
     {
         var project = _dbContext.Projects.FirstOrDefault(x => x.Id == id);
         if (project == null)
@@ -53,8 +56,8 @@ public class ProjectsController : ControllerBase
             return NotFound();
         }
 
-        project.Name = newProject.Name;
-        project.Description = newProject.Description;
+        project.Name = projectFromRequestDto.Name;
+        project.Description = projectFromRequestDto.Description;
         _dbContext.Projects.Update(project);
         _dbContext.SaveChanges();
         return Ok(project);
