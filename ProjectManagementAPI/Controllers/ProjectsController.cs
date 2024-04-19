@@ -71,6 +71,8 @@ public class ProjectsController : ControllerBase
 
         _dbContext.Projects.Remove(project);
 
+        _dbContext.SaveChanges();
+
         return NoContent();
     }
     
