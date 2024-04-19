@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "WZTesVK48Qy+kiTiYb+7fSiaFB2vVkBQsBwTNsz97lA6eyu17pm111WE7ZgK/lEfwbK1AOSnq1bj/Id0aTH+Xg==",
+  "success": true,
+  "projectFilePath": "/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagementAPI/ProjectManagementAPI.csproj",
+  "expectedPackageFiles": [
+    "/Users/skmkqw/.nuget/packages/microsoft.extensions.apidescription.server/6.0.5/microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "/Users/skmkqw/.nuget/packages/microsoft.openapi/1.2.3/microsoft.openapi.1.2.3.nupkg.sha512",
+    "/Users/skmkqw/.nuget/packages/swashbuckle.aspnetcore/6.4.0/swashbuckle.aspnetcore.6.4.0.nupkg.sha512",
+    "/Users/skmkqw/.nuget/packages/swashbuckle.aspnetcore.swagger/6.4.0/swashbuckle.aspnetcore.swagger.6.4.0.nupkg.sha512",
+    "/Users/skmkqw/.nuget/packages/swashbuckle.aspnetcore.swaggergen/6.4.0/swashbuckle.aspnetcore.swaggergen.6.4.0.nupkg.sha512",
+    "/Users/skmkqw/.nuget/packages/swashbuckle.aspnetcore.swaggerui/6.4.0/swashbuckle.aspnetcore.swaggerui.6.4.0.nupkg.sha512"
+  ],
+  "logs": []
+}
