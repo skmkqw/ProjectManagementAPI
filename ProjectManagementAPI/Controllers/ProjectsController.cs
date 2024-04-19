@@ -20,17 +20,17 @@ public class ProjectsController : ControllerBase
     }
     
     [HttpGet]
-    public IActionResult GetAll()
+    public async Task<IActionResult> GetAll()
     {
-        var projects = _projectRepository.GetAll();
+        var projects = await _projectRepository.GetAll();
 
         return Ok(projects);
     }
 
     [HttpGet("{id}")]
-    public IActionResult GetById([FromRoute] int id)
+    public async Task<IActionResult> GetById([FromRoute] int id)
     {
-        var project = _projectRepository.GetById(id);
+        var project = await _projectRepository.GetById(id);
         
         if (project == null)
         {
@@ -41,16 +41,16 @@ public class ProjectsController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Create([FromBody] ProjectFromRequestDto projectFromRequestDto)
+    public async Task<IActionResult> Create([FromBody] ProjectFromRequestDto projectFromRequestDto)
     {
-        var project = _projectRepository.Create(projectFromRequestDto);
+        var project = await _projectRepository.Create(projectFromRequestDto);
         return CreatedAtAction(nameof(GetById), new { id = project.Id }, project);
     }
 
     [HttpPut("{id}")]
-    public IActionResult Update([FromRoute] int id, [FromBody] ProjectFromRequestDto projectFromRequestDto)
+    public async Task<IActionResult> Update([FromRoute] int id, [FromBody] ProjectFromRequestDto projectFromRequestDto)
     {
-        var project = _projectRepository.Update(id, projectFromRequestDto);
+        var project = await _projectRepository.Update(id, projectFromRequestDto);
         
         if (project == null)
         {
@@ -61,9 +61,9 @@ public class ProjectsController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public IActionResult Delete([FromRoute] int id)
+    public async Task<IActionResult> Delete([FromRoute] int id)
     {
-        var project = _projectRepository.Delete(id);
+        var project = await _projectRepository.Delete(id);
         
         if (project == null)
         {

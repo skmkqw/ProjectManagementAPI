@@ -16,14 +16,14 @@ public class ProjectRepository : IProjectRepository
         _context = context;
     }
     
-    public IEnumerable<Project> GetAll()
+    public async Task<IEnumerable<Project>> GetAll()
     {
-        return _context.Projects.ToList();
+        return await _context.Projects.ToListAsync();
     }
 
-    public Project? GetById(int id)
+    public async Task<Project?> GetById(int id)
     {
-        var project = _context.Projects.FirstOrDefault(x => x.Id == id);
+        var project = await _context.Projects.FirstOrDefaultAsync(x => x.Id == id);
         if (project == null)
         {
             return null;
@@ -32,17 +32,17 @@ public class ProjectRepository : IProjectRepository
         return project;
     }
 
-    public Project Create(ProjectFromRequestDto projectFromRequestDto)
+    public async Task<Project> Create(ProjectFromRequestDto projectFromRequestDto)
     {
         var project = projectFromRequestDto.ToProjectFromRequestDto();
-        _context.Projects.Add(project);
-        _context.SaveChanges();
+        await _context.Projects.AddAsync(project);
+        await _context.SaveChangesAsync();
         return project;
     }
 
-    public Project? Update(int id, ProjectFromRequestDto projectFromRequestDto)
+    public async Task<Project?> Update(int id, ProjectFromRequestDto projectFromRequestDto)
     {
-        var project = GetById(id);
+        var project = await GetById(id);
         
         if (project == null)
         {
@@ -52,13 +52,13 @@ public class ProjectRepository : IProjectRepository
         project.Name = projectFromRequestDto.Name;
         project.Description = projectFromRequestDto.Description;
         _context.Projects.Update(project);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
         return project;
     }
 
-    public Project? Delete(int id)
-    {
-        var project = GetById(id);
+    public async Task<Project?> Delete(int id)
+    { 
+        var project = await GetById(id);
         
         if (project == null)
         {
@@ -67,7 +67,7 @@ public class ProjectRepository : IProjectRepository
         
         _context.Projects.Remove(project);
 
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
 
         return project;
     }

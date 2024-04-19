@@ -5,13 +5,13 @@ namespace ProjectManagementAPI.Repositories;
 
 public interface IProjectRepository
 {
-    public IEnumerable<Project> GetAll();
+    public Task<IEnumerable<Project>> GetAll();
 
-    public Project? GetById(int id);
+    public Task<Project?> GetById(int id);
 
-    public Project Create(ProjectFromRequestDto projectFromRequestDto);
+    public Task<Project?> Create(ProjectFromRequestDto projectFromRequestDto);
 
-    public Project? Update(int id, ProjectFromRequestDto projectFromRequestDto);
+    public Task<Project?> Update(int id, ProjectFromRequestDto projectFromRequestDto);
 
-    public Project? Delete(int id);
+    public Task<Project?> Delete(int id);
 }
