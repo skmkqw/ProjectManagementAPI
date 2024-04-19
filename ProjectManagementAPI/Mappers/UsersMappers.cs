@@ -3,7 +3,7 @@ using ProjectManagementAPI.Models;
 
 namespace ProjectManagementAPI.Mappers;
 
-public static class UsersMapper
+public static class UsersMappers
 {
     public static UserDto ToUserDto(this User user)
     {

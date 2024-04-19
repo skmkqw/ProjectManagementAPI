@@ -31,7 +31,7 @@ public class ProjectRepository : IProjectRepository
         return project;
     }
 
-    public async Task<Project> Create(ProjectFromRequestDto projectFromRequestDto)
+    public async Task<Project?> Create(ProjectFromRequestDto projectFromRequestDto)
     {
         var project = projectFromRequestDto.ToProjectFromRequestDto();
         await _context.Projects.AddAsync(project);

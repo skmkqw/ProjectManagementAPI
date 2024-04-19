@@ -1,17 +1,12 @@
-using System.ComponentModel.DataAnnotations;
+namespace ProjectManagementAPI.DTOs.ProjectTask;
 
-namespace ProjectManagementAPI.Models;
-
-public class ProjectTask
+public class TaskDto
 {
     public int Id { get; set; }
 
-    [Required] 
     public int ProjectId { get; set; }
     
-    [Required]
     public string Title { get; set; } = string.Empty;
     
-    [Required]
     public string Description { get; set; } = string.Empty;
 }

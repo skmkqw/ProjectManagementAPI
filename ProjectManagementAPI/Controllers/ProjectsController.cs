@@ -1,9 +1,6 @@
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using ProjectManagementAPI.Data;
 using ProjectManagementAPI.DTOs.Project;
 using ProjectManagementAPI.Mappers;
-using ProjectManagementAPI.Models;
 using ProjectManagementAPI.Repositories;
 
 namespace ProjectManagementAPI.Controllers;
