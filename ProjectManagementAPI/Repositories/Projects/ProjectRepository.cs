@@ -1,11 +1,10 @@
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using ProjectManagementAPI.Data;
 using ProjectManagementAPI.DTOs.Project;
 using ProjectManagementAPI.Mappers;
 using ProjectManagementAPI.Models;
 
-namespace ProjectManagementAPI.Repositories;
+namespace ProjectManagementAPI.Repositories.Projects;
 
 public class ProjectRepository : IProjectRepository
 {

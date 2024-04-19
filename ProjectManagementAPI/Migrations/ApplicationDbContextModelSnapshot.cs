@@ -21,7 +21,7 @@ namespace ProjectManagementAPI.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("ProjectManagementAPI.Models.Project", b =>
+            modelBuilder.Entity("ProjectManagementAPI.Models.Projects", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -66,7 +66,7 @@ namespace ProjectManagementAPI.Migrations
                     b.ToTable("ProjectTasks");
                 });
 
-            modelBuilder.Entity("ProjectManagementAPI.Models.User", b =>
+            modelBuilder.Entity("ProjectManagementAPI.Models.Users", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

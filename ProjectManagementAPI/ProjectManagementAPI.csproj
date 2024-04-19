@@ -18,7 +18,6 @@
 
     <ItemGroup>
       <Folder Include="DTOs\ProjectTask\" />
-      <Folder Include="DTOs\User\" />
     </ItemGroup>
 
 </Project>

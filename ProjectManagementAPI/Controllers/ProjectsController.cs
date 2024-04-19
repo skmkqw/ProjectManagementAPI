@@ -72,5 +72,4 @@ public class ProjectsController : ControllerBase
 
         return NoContent();
     }
-    
 }
