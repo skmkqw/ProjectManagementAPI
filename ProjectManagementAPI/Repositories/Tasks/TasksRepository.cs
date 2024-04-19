@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using ProjectManagementAPI.Data;
 using ProjectManagementAPI.DTOs.ProjectTask;
@@ -28,6 +29,18 @@ public class TasksRepository : ITasksRepository
         }
 
         return task;
+    }
+
+    public async Task<IEnumerable<ProjectTask>> GetByProjectId(int projectId)
+    {
+        var tasks = await _context.ProjectTasks.Where(task => task.ProjectId == projectId).ToListAsync();
+        
+        if (!tasks.Any())
+        {
+            return null;
+        }
+
+        return tasks;
     }
 
     public async Task<ProjectTask?> Create(TaskFromRequestDto taskFromRequestDto)

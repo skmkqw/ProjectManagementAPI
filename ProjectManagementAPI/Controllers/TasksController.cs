@@ -36,6 +36,19 @@ public class TasksController : ControllerBase
         return Ok(task.ToTaskDto());
     }
 
+    [HttpGet("project_id/{projectId}")] //remove this route, leave only param name (maybe)
+    public async Task<IActionResult> GetByProjectId([FromRoute] int projectId)
+    {
+        var tasks = await _repository.GetByProjectId(projectId);
+
+        if (tasks == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(tasks);
+    }
+
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] TaskFromRequestDto requestDto)
     {
