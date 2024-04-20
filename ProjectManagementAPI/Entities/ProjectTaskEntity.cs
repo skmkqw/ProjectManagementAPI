@@ -12,5 +12,5 @@ public class ProjectTaskEntity
 
     public Guid ProjectId { get; set; }
     
-    public Project Project { get; set; }
+    public ProjectEntity Project { get; set; }
 }

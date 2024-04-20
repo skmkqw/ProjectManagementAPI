@@ -10,5 +10,5 @@ public class UserEntity
     
     public string LastName { get; set; } = string.Empty;
     
-    public List<ProjectUser> ProjectUsers { get; set; } = new();
+    public List<ProjectUserEntity> ProjectUsers { get; set; } = new();
 }
