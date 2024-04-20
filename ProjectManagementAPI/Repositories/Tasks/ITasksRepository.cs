@@ -5,8 +5,8 @@ namespace ProjectManagementAPI.Repositories.Tasks;
 
 public interface ITasksRepository : IGenericRepository<ProjectTask>
 {
-    public Task<IEnumerable<ProjectTask>> GetByProjectId(int projectId);
+    public Task<IEnumerable<ProjectTask>> GetByProjectId(Guid projectId);
     public Task<ProjectTask?> Create(TaskFromRequestDto taskFromRequestDto);
 
-    public Task<ProjectTask?> Update(int id, TaskFromRequestDto taskFromRequestDto);
+    public Task<ProjectTask?> Update(Guid id, TaskFromRequestDto taskFromRequestDto);
 }

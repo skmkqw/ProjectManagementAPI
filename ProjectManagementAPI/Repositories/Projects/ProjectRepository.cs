@@ -20,7 +20,7 @@ public class ProjectRepository : IProjectRepository
         return await _context.Projects.ToListAsync();
     }
 
-    public async Task<Project?> GetById(int id)
+    public async Task<Project?> GetById(Guid id)
     {
         var project = await _context.Projects.FirstOrDefaultAsync(x => x.Id == id);
         if (project == null)
@@ -39,7 +39,7 @@ public class ProjectRepository : IProjectRepository
         return project;
     }
 
-    public async Task<Project?> Update(int id, ProjectFromRequestDto projectFromRequestDto)
+    public async Task<Project?> Update(Guid id, ProjectFromRequestDto projectFromRequestDto)
     {
         var project = await GetById(id);
         
@@ -55,7 +55,7 @@ public class ProjectRepository : IProjectRepository
         return project;
     }
 
-    public async Task<Project?> Delete(int id)
+    public async Task<Project?> Delete(Guid id)
     { 
         var project = await GetById(id);
         

@@ -20,7 +20,7 @@ public class TasksRepository : ITasksRepository
         return await _context.ProjectTasks.ToListAsync();
     }
 
-    public async Task<ProjectTask?> GetById(int id)
+    public async Task<ProjectTask?> GetById(Guid id)
     {
         var task = await _context.ProjectTasks.FirstOrDefaultAsync(x => x.Id == id);
         if (task == null)
@@ -31,7 +31,7 @@ public class TasksRepository : ITasksRepository
         return task;
     }
 
-    public async Task<IEnumerable<ProjectTask>> GetByProjectId(int projectId)
+    public async Task<IEnumerable<ProjectTask>> GetByProjectId(Guid projectId)
     {
         var tasks = await _context.ProjectTasks.Where(task => task.ProjectId == projectId).ToListAsync();
         
@@ -51,7 +51,7 @@ public class TasksRepository : ITasksRepository
         return task;
     }
 
-    public async Task<ProjectTask?> Update(int id, TaskFromRequestDto taskFromRequestDto)
+    public async Task<ProjectTask?> Update(Guid id, TaskFromRequestDto taskFromRequestDto)
     {
         var task = await GetById(id);
         
@@ -67,7 +67,7 @@ public class TasksRepository : ITasksRepository
         return task;
     }
     
-    public async Task<ProjectTask?> Delete(int id)
+    public async Task<ProjectTask?> Delete(Guid id)
     {
         var task = await GetById(id);
         

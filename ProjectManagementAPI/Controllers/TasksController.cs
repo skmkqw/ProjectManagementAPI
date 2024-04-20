@@ -25,7 +25,7 @@ public class TasksController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetById([FromRoute] int id)
+    public async Task<IActionResult> GetById([FromRoute] Guid id)
     {
         var task = await _repository.GetById(id);
         if (task == null)
@@ -36,8 +36,8 @@ public class TasksController : ControllerBase
         return Ok(task.ToTaskDto());
     }
 
-    [HttpGet("project_id/{projectId}")] //remove this route, leave only param name (maybe)
-    public async Task<IActionResult> GetByProjectId([FromRoute] int projectId)
+    [HttpGet("project_id/{projectId}")]
+    public async Task<IActionResult> GetByProjectId([FromRoute] Guid projectId)
     {
         var tasks = await _repository.GetByProjectId(projectId);
 
@@ -58,7 +58,7 @@ public class TasksController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update([FromRoute] int id, [FromBody] TaskFromRequestDto requestDto)
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] TaskFromRequestDto requestDto)
     {
         var task = await _repository.Update(id, requestDto);
 
@@ -71,7 +71,7 @@ public class TasksController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete([FromRoute] int id)
+    public async Task<IActionResult> Delete([FromRoute] Guid id)
     {
         var task = await _repository.Delete(id);
 

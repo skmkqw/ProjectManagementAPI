@@ -7,5 +7,5 @@ public interface IUsersRepository : IGenericRepository<User>
 {
     public Task<User?> Create(UserFromRequestDto userFromRequestDto);
 
-    public Task<User?> Update(int id, UserFromRequestDto userFromRequestDto);
+    public Task<User?> Update(Guid id, UserFromRequestDto userFromRequestDto);
 }

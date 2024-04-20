@@ -25,7 +25,7 @@ public class ProjectsController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetById([FromRoute] int id)
+    public async Task<IActionResult> GetById([FromRoute] Guid id)
     {
         var project = await _projectRepository.GetById(id);
         
@@ -45,7 +45,7 @@ public class ProjectsController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update([FromRoute] int id, [FromBody] ProjectFromRequestDto projectFromRequestDto)
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] ProjectFromRequestDto projectFromRequestDto)
     {
         var project = await _projectRepository.Update(id, projectFromRequestDto);
         
@@ -58,7 +58,7 @@ public class ProjectsController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete([FromRoute] int id)
+    public async Task<IActionResult> Delete([FromRoute] Guid id)
     {
         var project = await _projectRepository.Delete(id);
         
