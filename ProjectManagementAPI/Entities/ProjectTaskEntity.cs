@@ -1,12 +1,15 @@
-using System.ComponentModel.DataAnnotations;
+using ProjectManagementAPI.Models;
 
-namespace ProjectManagementAPI.Models;
+namespace ProjectManagementAPI.Entities;
 
-public class ProjectTask
+public class ProjectTaskEntity
 {
     public Guid Id { get; set; }
+    
     public string Title { get; set; } = string.Empty;
+    
     public string Description { get; set; } = string.Empty;
+
     public Guid ProjectId { get; set; }
     
     public Project Project { get; set; }
