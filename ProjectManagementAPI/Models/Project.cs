@@ -12,4 +12,8 @@ public class Project
     
     [MaxLength(500)]
     public string Description { get; set; } = string.Empty;
+
+    public List<ProjectTask> Tasks { get; set; } = new();
+
+    public List<ProjectUser> ProjectUsers { get; set; } = new();
 }

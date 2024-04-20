@@ -5,9 +5,6 @@ namespace ProjectManagementAPI.Models;
 public class ProjectTask
 {
     public Guid Id { get; set; }
-
-    [Required] 
-    public Guid ProjectId { get; set; }
     
     [Required]
     [MaxLength(250)]
@@ -16,4 +13,9 @@ public class ProjectTask
     [Required]
     [MaxLength(500)]
     public string Description { get; set; } = string.Empty;
+
+    [Required] 
+    public Guid ProjectId { get; set; }
+    
+    public Project Project { get; set; }
 }

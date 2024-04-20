@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProjectManagementAPI.Models;
 
@@ -14,4 +13,6 @@ public class User
     [Required] 
     [MaxLength(50)]
     public string LastName { get; set; } = string.Empty;
+    
+    public List<ProjectUser> ProjectUsers { get; set; } = new();
 }
