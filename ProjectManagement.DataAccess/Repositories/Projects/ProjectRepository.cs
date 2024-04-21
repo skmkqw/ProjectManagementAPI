@@ -1,8 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using ProjectManagement.DataAccess.Data;
-using ProjectManagement.DataAccess.DTOs.Projects;
 using ProjectManagement.DataAccess.Entities;
-using ProjectManagement.DataAccess.Mappers;
 
 namespace ProjectManagement.DataAccess.Repositories.Projects;
 

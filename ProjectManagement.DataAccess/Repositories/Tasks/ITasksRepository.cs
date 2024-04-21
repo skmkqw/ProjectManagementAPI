@@ -1,20 +1,18 @@
-using ProjectManagement.Core.Models;
-using ProjectManagement.DataAccess.DTOs.Tasks;
 using ProjectManagement.DataAccess.Entities;
 
 namespace ProjectManagement.DataAccess.Repositories.Tasks;
 
 public interface ITasksRepository
 {
-    public Task<IEnumerable<ProjectTask>> GetAll();
+    public Task<IEnumerable<ProjectTaskEntity>> GetAll();
 
     public Task<ProjectTaskEntity?> GetById(Guid id);
 
-    public Task<IEnumerable<ProjectTask>> GetByProjectId(Guid projectId);
+    public Task<IEnumerable<ProjectTaskEntity>> GetByProjectId(Guid projectId);
     
-    public Task<ProjectTaskEntity?> Create(ProjectTaskFromRequestDto projectTaskFromRequest);
+    public Task<ProjectTaskEntity?> Create(ProjectTaskEntity projectTaskEntity);
 
-    public Task<ProjectTaskEntity?> Update(Guid id, ProjectTaskFromRequestDto projectTaskFromRequest);
+    public Task<ProjectTaskEntity?> Update(ProjectTaskEntity projectTaskEntity);
 
-    public Task<int> Delete(Guid id);
+    public Task Delete(Guid id);
 }

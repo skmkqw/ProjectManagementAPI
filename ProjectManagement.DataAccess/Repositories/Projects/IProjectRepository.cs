@@ -1,5 +1,3 @@
-using ProjectManagement.Core.Models;
-using ProjectManagement.DataAccess.DTOs.Projects;
 using ProjectManagement.DataAccess.Entities;
 
 namespace ProjectManagement.DataAccess.Repositories.Projects;

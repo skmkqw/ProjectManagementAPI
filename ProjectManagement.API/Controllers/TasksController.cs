@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using ProjectManagement.Application.Services.Tasks;
 using ProjectManagement.DataAccess.DTOs.Tasks;
-using ProjectManagement.DataAccess.Repositories.Tasks;
 
 namespace ProjectManagement.API.Controllers;
 
@@ -8,24 +8,24 @@ namespace ProjectManagement.API.Controllers;
 [Route("api/[controller]")]
 public class TasksController : ControllerBase
 {
-    private readonly ITasksRepository _repository;
+    private readonly ITasksService _tasksService;
 
-    public TasksController(ITasksRepository repository)
+    public TasksController(ITasksService tasksService)
     {
-        _repository = repository;
+        _tasksService = tasksService;
     }
 
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        var tasks = await _repository.GetAll();
+        var tasks = await _tasksService.GetAllTasks();
         return Ok(tasks);
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById([FromRoute] Guid id)
     {
-        var task = await _repository.GetById(id);
+        var task = await _tasksService.GetTasktById(id);
         if (task == null)
         {
             return NotFound();
@@ -37,7 +37,7 @@ public class TasksController : ControllerBase
     [HttpGet("project_id/{projectId}")]
     public async Task<IActionResult> GetByProjectId([FromRoute] Guid projectId)
     {
-        var tasks = await _repository.GetByProjectId(projectId);
+        var tasks = await _tasksService.GetTasktByProjectId(projectId);
 
         return Ok(tasks);
     }
@@ -45,7 +45,7 @@ public class TasksController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] ProjectTaskFromRequestDto projectTaskFromRequest)
     {
-        var task = await _repository.Create(projectTaskFromRequest);
+        var task = await _tasksService.CreateTask(projectTaskFromRequest);
         
         return CreatedAtAction(nameof(GetById), new { id = task.Id }, task);
     }
@@ -53,26 +53,28 @@ public class TasksController : ControllerBase
     [HttpPut("{id}")]
     public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] ProjectTaskFromRequestDto projectTaskFromRequest)
     {
-        var task = await _repository.Update(id, projectTaskFromRequest);
-
-        if (task == null)
+        try
         {
-            return NotFound();
+            await _tasksService.UpdateTask(id, projectTaskFromRequest);
+            return NoContent();
         }
-        
-        return Ok(task);
+        catch (ArgumentException ex)
+        {
+            return NotFound(ex.Message);
+        }
     }
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete([FromRoute] Guid id)
     {
-        var isDeleted = await _repository.Delete(id);
-
-        if (isDeleted == 0)
+        try
         {
-            return NotFound();
+            await _tasksService.DeleteTask(id);
+            return NoContent();
         }
-
-        return NoContent();
+        catch (KeyNotFoundException ex)
+        {
+            return NotFound(ex.Message);
+        }
     }
 }

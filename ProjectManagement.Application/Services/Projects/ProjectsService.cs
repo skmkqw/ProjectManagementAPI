@@ -1,10 +1,9 @@
-using ProjectManagement.Application.Services.Projects;
 using ProjectManagement.Core.Models;
 using ProjectManagement.DataAccess.DTOs.Projects;
 using ProjectManagement.DataAccess.Mappers;
 using ProjectManagement.DataAccess.Repositories.Projects;
 
-namespace ProjectManagement.Application.Services;
+namespace ProjectManagement.Application.Services.Projects;
 
 public class ProjectsService : IProjectsService
 {
@@ -18,6 +17,7 @@ public class ProjectsService : IProjectsService
     public async Task<IEnumerable<Project>> GetAllProjects()
     {
         var projectEntities = await _repository.GetAll();
+        
         List<Project> projects = new();
         foreach (var projectEntity in projectEntities)
         {
@@ -25,7 +25,6 @@ public class ProjectsService : IProjectsService
         }
 
         return projects;
-
     }
 
     public async Task<Project> GetProjectById(Guid id)

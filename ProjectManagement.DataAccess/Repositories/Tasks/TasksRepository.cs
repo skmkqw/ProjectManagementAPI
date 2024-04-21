@@ -1,9 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using ProjectManagement.Core.Models;
 using ProjectManagement.DataAccess.Data;
-using ProjectManagement.DataAccess.DTOs.Tasks;
 using ProjectManagement.DataAccess.Entities;
-using ProjectManagement.DataAccess.Mappers;
 
 namespace ProjectManagement.DataAccess.Repositories.Tasks;
 
@@ -15,67 +12,44 @@ public class TasksRepository : ITasksRepository
     {
         _context = context;
     }
-    public async Task<IEnumerable<ProjectTask>> GetAll()
+
+    public async Task<IEnumerable<ProjectTaskEntity>> GetAll()
     {
-        var taskEntities =  await _context.ProjectTasks.AsNoTracking().ToListAsync();
-        var tasks = taskEntities.Select(x => ProjectTask.Create(x.Id, x.Title, x.Description, x.ProjectId));
-        return tasks;
+        return await _context.ProjectTasks.AsNoTracking().ToListAsync();
     }
 
     public async Task<ProjectTaskEntity?> GetById(Guid id)
     {
-        var taskEntity = await _context.ProjectTasks.FirstOrDefaultAsync(x => x.Id == id);
-        if (taskEntity == null)
-        {
-            return null;
-        }
-
-        ProjectTask.Create(taskEntity.Id, taskEntity.Title, taskEntity.Description, taskEntity.ProjectId);
-        
-        return taskEntity;
+        return await _context.ProjectTasks.FindAsync(id);
     }
 
-    public async Task<IEnumerable<ProjectTask>> GetByProjectId(Guid projectId)
+    public async Task<IEnumerable<ProjectTaskEntity>> GetByProjectId(Guid projectId)
     {
-        var taskEntities = await _context.ProjectTasks.Where(task => task.ProjectId == projectId).ToListAsync();
-        
-        if (!taskEntities.Any())
-        {
-            return null;
-        }
-        
-        var tasks = taskEntities.Select(x => ProjectTask.Create(x.Id, x.Title, x.Description, x.ProjectId));
-        return tasks;
+        return await _context.ProjectTasks.Where(t => t.ProjectId == projectId).ToListAsync();
     }
 
-    public async Task<ProjectTaskEntity?> Create(ProjectTaskFromRequestDto projectTaskFromRequest)
+    public async Task<ProjectTaskEntity?> Create(ProjectTaskEntity projectTaskEntity)
     {
-        var projectTaskEntity = projectTaskFromRequest.ToProjectTaskEntity();
         await _context.ProjectTasks.AddAsync(projectTaskEntity);
         await _context.SaveChangesAsync();
         return projectTaskEntity;
     }
 
-    public async Task<ProjectTaskEntity?> Update(Guid id, ProjectTaskFromRequestDto projectTaskFromRequest)
+    public async Task<ProjectTaskEntity?> Update(ProjectTaskEntity projectTaskEntity)
     {
-        var task = await GetById(id);
-        
-        if (task == null)
-        {
-            return null;
-        }
-        
-        task.Title = projectTaskFromRequest.Title;
-        task.Description = projectTaskFromRequest.Description;
-        _context.ProjectTasks.Update(task);
+        _context.Entry(projectTaskEntity).State = EntityState.Modified;
         await _context.SaveChangesAsync();
-        return task;
+        return projectTaskEntity;
     }
-    
-    public async Task<int> Delete(Guid id)
+
+    public async Task Delete(Guid id)
     {
-        int isDeleted = await _context.ProjectTasks.Where(x => x.Id == id)
-            .ExecuteDeleteAsync();
-        return isDeleted;
+        var projectTaskEntity = await _context.ProjectTasks.FindAsync(id);
+        if (projectTaskEntity == null)
+        {
+            throw new KeyNotFoundException("Project not found!");
+        }
+        _context.ProjectTasks.Remove(projectTaskEntity);
+        await _context.SaveChangesAsync();
     }
 }
