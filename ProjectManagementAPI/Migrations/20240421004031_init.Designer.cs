@@ -12,8 +12,8 @@ using ProjectManagementAPI.Data;
 namespace ProjectManagementAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240420224642_RelationsBetweenModels")]
-    partial class RelationsBetweenModels
+    [Migration("20240421004031_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace ProjectManagementAPI.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("ProjectManagementAPI.Models.Project", b =>
+            modelBuilder.Entity("ProjectManagementAPI.Entities.ProjectEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -34,19 +34,21 @@ namespace ProjectManagementAPI.Migrations
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(500)
+                        .IsUnicode(true)
                         .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(250)
+                        .IsUnicode(true)
                         .HasColumnType("nvarchar(250)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Projects");
+                    b.ToTable("Projects", (string)null);
                 });
 
-            modelBuilder.Entity("ProjectManagementAPI.Models.ProjectTask", b =>
+            modelBuilder.Entity("ProjectManagementAPI.Entities.ProjectTaskEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -55,6 +57,7 @@ namespace ProjectManagementAPI.Migrations
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(500)
+                        .IsUnicode(true)
                         .HasColumnType("nvarchar(500)");
 
                     b.Property<Guid>("ProjectId")
@@ -63,16 +66,17 @@ namespace ProjectManagementAPI.Migrations
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(250)
+                        .IsUnicode(true)
                         .HasColumnType("nvarchar(250)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("ProjectTasks");
+                    b.ToTable("ProjectTasks", (string)null);
                 });
 
-            modelBuilder.Entity("ProjectManagementAPI.Models.ProjectUser", b =>
+            modelBuilder.Entity("ProjectManagementAPI.Entities.ProjectUserEntity", b =>
                 {
                     b.Property<Guid>("ProjectId")
                         .HasColumnType("uniqueidentifier");
@@ -84,10 +88,10 @@ namespace ProjectManagementAPI.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("ProjectsUsers");
+                    b.ToTable("ProjectUsers");
                 });
 
-            modelBuilder.Entity("ProjectManagementAPI.Models.User", b =>
+            modelBuilder.Entity("ProjectManagementAPI.Entities.UserEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -95,22 +99,24 @@ namespace ProjectManagementAPI.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(100)
+                        .IsUnicode(true)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(100)
+                        .IsUnicode(true)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
-            modelBuilder.Entity("ProjectManagementAPI.Models.ProjectTask", b =>
+            modelBuilder.Entity("ProjectManagementAPI.Entities.ProjectTaskEntity", b =>
                 {
-                    b.HasOne("ProjectManagementAPI.Models.Project", "Project")
+                    b.HasOne("ProjectManagementAPI.Entities.ProjectEntity", "Project")
                         .WithMany("Tasks")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -119,15 +125,15 @@ namespace ProjectManagementAPI.Migrations
                     b.Navigation("Project");
                 });
 
-            modelBuilder.Entity("ProjectManagementAPI.Models.ProjectUser", b =>
+            modelBuilder.Entity("ProjectManagementAPI.Entities.ProjectUserEntity", b =>
                 {
-                    b.HasOne("ProjectManagementAPI.Models.Project", "Project")
+                    b.HasOne("ProjectManagementAPI.Entities.ProjectEntity", "Project")
                         .WithMany("ProjectUsers")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ProjectManagementAPI.Models.User", "User")
+                    b.HasOne("ProjectManagementAPI.Entities.UserEntity", "User")
                         .WithMany("ProjectUsers")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -138,14 +144,14 @@ namespace ProjectManagementAPI.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("ProjectManagementAPI.Models.Project", b =>
+            modelBuilder.Entity("ProjectManagementAPI.Entities.ProjectEntity", b =>
                 {
                     b.Navigation("ProjectUsers");
 
                     b.Navigation("Tasks");
                 });
 
-            modelBuilder.Entity("ProjectManagementAPI.Models.User", b =>
+            modelBuilder.Entity("ProjectManagementAPI.Entities.UserEntity", b =>
                 {
                     b.Navigation("ProjectUsers");
                 });
