@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using ProjectManagementAPI.DTOs.Project;
-using ProjectManagementAPI.Mappers;
-using ProjectManagementAPI.Repositories;
+using ProjectManagementAPI.Entities;
+using ProjectManagementAPI.Repositories.Projects;
 
 namespace ProjectManagementAPI.Controllers;
 
@@ -34,20 +33,20 @@ public class ProjectsController : ControllerBase
             return NotFound();
         }
 
-        return Ok(project.ToProjectDto()); 
+        return Ok(project); 
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] ProjectFromRequestDto projectFromRequestDto)
+    public async Task<IActionResult> Create([FromBody] ProjectEntity projectEntity)
     {
-        var project = await _projectRepository.Create(projectFromRequestDto);
+        var project = await _projectRepository.Create(projectEntity);
         return CreatedAtAction(nameof(GetById), new { id = project.Id }, project);
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] ProjectFromRequestDto projectFromRequestDto)
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] ProjectEntity projectEntity)
     {
-        var project = await _projectRepository.Update(id, projectFromRequestDto);
+        var project = await _projectRepository.Update(id, projectEntity);
         
         if (project == null)
         {
@@ -60,9 +59,9 @@ public class ProjectsController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete([FromRoute] Guid id)
     {
-        var project = await _projectRepository.Delete(id);
+        var isDeleted = await _projectRepository.Delete(id);
         
-        if (project == null)
+        if (isDeleted == 0)
         {
             return NotFound();
         }

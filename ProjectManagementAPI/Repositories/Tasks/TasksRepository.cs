@@ -1,8 +1,6 @@
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using ProjectManagementAPI.Data;
-using ProjectManagementAPI.DTOs.ProjectTask;
-using ProjectManagementAPI.Mappers;
+using ProjectManagementAPI.Entities;
 using ProjectManagementAPI.Models;
 
 namespace ProjectManagementAPI.Repositories.Tasks;
@@ -17,41 +15,43 @@ public class TasksRepository : ITasksRepository
     }
     public async Task<IEnumerable<ProjectTask>> GetAll()
     {
-        return await _context.ProjectTasks.ToListAsync();
+        var taskEntities =  await _context.ProjectTasks.AsNoTracking().ToListAsync();
+        var tasks = taskEntities.Select(x => ProjectTask.Create(x.Id, x.Title, x.Description, x.ProjectId));
+        return tasks;
     }
 
     public async Task<ProjectTask?> GetById(Guid id)
     {
-        var task = await _context.ProjectTasks.FirstOrDefaultAsync(x => x.Id == id);
-        if (task == null)
+        var taskEntity = await _context.ProjectTasks.FirstOrDefaultAsync(x => x.Id == id);
+        if (taskEntity == null)
         {
             return null;
         }
 
-        return task;
+        return ProjectTask.Create(taskEntity.Id, taskEntity.Title, taskEntity.Description, taskEntity.ProjectId);
     }
 
     public async Task<IEnumerable<ProjectTask>> GetByProjectId(Guid projectId)
     {
-        var tasks = await _context.ProjectTasks.Where(task => task.ProjectId == projectId).ToListAsync();
+        var taskEntities = await _context.ProjectTasks.Where(task => task.ProjectId == projectId).ToListAsync();
         
-        if (!tasks.Any())
+        if (!taskEntities.Any())
         {
             return null;
         }
-
+        
+        var tasks = taskEntities.Select(x => ProjectTask.Create(x.Id, x.Title, x.Description, x.ProjectId));
         return tasks;
     }
 
-    public async Task<ProjectTask?> Create(TaskFromRequestDto taskFromRequestDto)
+    public async Task<ProjectTaskEntity?> Create(ProjectTaskEntity projectTaskEntity)
     {
-        var task = taskFromRequestDto.ToTaskFromRequestDto();
-        await _context.ProjectTasks.AddAsync(task);
+        await _context.ProjectTasks.AddAsync(projectTaskEntity);
         await _context.SaveChangesAsync();
-        return task;
+        return projectTaskEntity;
     }
 
-    public async Task<ProjectTask?> Update(Guid id, TaskFromRequestDto taskFromRequestDto)
+    public async Task<ProjectTaskEntity?> Update(Guid id, ProjectTaskEntity projectTaskEntity)
     {
         var task = await GetById(id);
         
@@ -60,26 +60,17 @@ public class TasksRepository : ITasksRepository
             return null;
         }
         
-        task.Title = taskFromRequestDto.Title;
-        task.Description = taskFromRequestDto.Description;
-        _context.ProjectTasks.Update(task);
+        task.Title = projectTaskEntity.Title;
+        task.Description = projectTaskEntity.Description;
+        _context.ProjectTasks.Update(projectTaskEntity);
         await _context.SaveChangesAsync();
-        return task;
+        return projectTaskEntity;
     }
     
-    public async Task<ProjectTask?> Delete(Guid id)
+    public async Task<int> Delete(Guid id)
     {
-        var task = await GetById(id);
-        
-        if (task == null)
-        {
-            return null;
-        }
-        
-        _context.ProjectTasks.Remove(task);
-
-        await _context.SaveChangesAsync();
-
-        return task;
+        int isDeleted = await _context.ProjectTasks.Where(x => x.Id == id)
+            .ExecuteDeleteAsync();
+        return isDeleted;
     }
 }

@@ -1,7 +1,7 @@
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using ProjectManagementAPI.Data;
-using ProjectManagementAPI.DTOs.Users;
-using ProjectManagementAPI.Mappers;
+using ProjectManagementAPI.Entities;
 using ProjectManagementAPI.Models;
 
 namespace ProjectManagementAPI.Repositories.Users;
@@ -16,44 +16,30 @@ public class UsersRepository : IUsersRepository
     }
     public async Task<IEnumerable<User>> GetAll()
     {
-        return await _context.Users.ToListAsync();
+        var userEntities = await _context.Users.ToListAsync();
+        var users = userEntities.Select(x => User.Create(x.Id, x.FirstName, x.LastName));
+        return users;
     }
 
     public async Task<User?> GetById(Guid id)
     {
-        var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
-        if (user == null)
+        var userEntity = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
+        if (userEntity == null)
         {
             return null;
         }
 
-        return user;
+        return User.Create(userEntity.Id, userEntity.FirstName, userEntity.LastName);
     }
 
-    public async Task<User?> Create(UserFromRequestDto userFromRequestDto)
+    public async Task<UserEntity?> Create(UserEntity userEntity)
     {
-        var user = userFromRequestDto.ToUserFromRequestDto();
-        await _context.Users.AddAsync(user);
+        await _context.Users.AddAsync(userEntity);
         await _context.SaveChangesAsync();
-        return user;
+        return userEntity;
     }
 
-    public async Task<User?> Update(Guid id, UserFromRequestDto userFromRequestDto)
-    {
-        var user = await GetById(id);
-        
-        if (user == null)
-        {
-            return null;
-        }
-        
-        user.FirstName = userFromRequestDto.FirstName;
-        user.LastName = userFromRequestDto.LastName;
-        _context.Users.Update(user);
-        await _context.SaveChangesAsync();
-        return user;
-    }
-    public async Task<User?> Delete(Guid id)
+    public async Task<UserEntity?> Update(Guid id, UserEntity userEntity)
     {
         var user = await GetById(id);
         
@@ -62,10 +48,16 @@ public class UsersRepository : IUsersRepository
             return null;
         }
         
-        _context.Users.Remove(user);
-
+        user.FirstName = userEntity.FirstName;
+        user.LastName = userEntity.LastName;
+        _context.Users.Update(userEntity);
         await _context.SaveChangesAsync();
-
-        return user;
+        return userEntity;
+    }
+    public async Task<int> Delete(Guid id)
+    {
+        int isDeleted = await _context.Users.Where(x => x.Id == id)
+            .ExecuteDeleteAsync();
+        return isDeleted;
     }
 }

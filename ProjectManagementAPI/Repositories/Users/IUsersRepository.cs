@@ -1,11 +1,17 @@
-using ProjectManagementAPI.DTOs.Users;
+using ProjectManagementAPI.Entities;
 using ProjectManagementAPI.Models;
 
 namespace ProjectManagementAPI.Repositories.Users;
 
-public interface IUsersRepository : IGenericRepository<User>
+public interface IUsersRepository
 {
-    public Task<User?> Create(UserFromRequestDto userFromRequestDto);
+    public Task<IEnumerable<User>> GetAll();
 
-    public Task<User?> Update(Guid id, UserFromRequestDto userFromRequestDto);
+    public Task<User?> GetById(Guid id);
+    
+    public Task<UserEntity?> Create(UserEntity userEntity);
+
+    public Task<UserEntity?> Update(Guid id, UserEntity userEntity);
+
+    public Task<int> Delete(Guid id);
 }
