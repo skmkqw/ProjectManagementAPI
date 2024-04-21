@@ -1,0 +1,12 @@
+/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.Core/bin/Debug/net8.0/ProjectManagement.Core.deps.json
+/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.Core/bin/Debug/net8.0/ProjectManagement.Core.dll
+/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.Core/bin/Debug/net8.0/ProjectManagement.Core.pdb
+/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.Core/obj/Debug/net8.0/ProjectManagement.Core.GeneratedMSBuildEditorConfig.editorconfig
+/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.Core/obj/Debug/net8.0/ProjectManagement.Core.AssemblyInfoInputs.cache
+/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.Core/obj/Debug/net8.0/ProjectManagement.Core.AssemblyInfo.cs
+/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.Core/obj/Debug/net8.0/ProjectManagement.Core.csproj.CoreCompileInputs.cache
+/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.Core/obj/Debug/net8.0/ProjectManagement.Core.sourcelink.json
+/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.Core/obj/Debug/net8.0/ProjectManagement.Core.dll
+/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.Core/obj/Debug/net8.0/refint/ProjectManagement.Core.dll
+/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.Core/obj/Debug/net8.0/ProjectManagement.Core.pdb
+/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.Core/obj/Debug/net8.0/ref/ProjectManagement.Core.dll

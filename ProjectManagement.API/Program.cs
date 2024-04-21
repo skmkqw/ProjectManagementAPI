@@ -1,0 +1,38 @@
+using Microsoft.EntityFrameworkCore;
+using ProjectManagement.DataAccess.Data;
+using ProjectManagement.DataAccess.Repositories.Projects;
+using ProjectManagement.DataAccess.Repositories.Tasks;
+using ProjectManagement.DataAccess.Repositories.Users;
+
+var builder = WebApplication.CreateBuilder(args);
+
+
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("TestConnection")));
+
+builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
+builder.Services.AddScoped<IUsersRepository, UsersRepository>();
+builder.Services.AddScoped<ITasksRepository, TasksRepository>();
+
+
+builder.Services.AddRouting(options => options.LowercaseUrls = true);
+
+var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.UseHttpsRedirection();
+
+app.UseAuthorization();
+
+app.MapControllers();
+
+app.Run();
