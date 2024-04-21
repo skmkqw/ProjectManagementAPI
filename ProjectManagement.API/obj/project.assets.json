@@ -1074,6 +1074,19 @@
           }
         }
       },
+      "ProjectManagement.Application/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "ProjectManagement.DataAccess": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/ProjectManagement.Application.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ProjectManagement.Application.dll": {}
+        }
+      },
       "ProjectManagement.Core/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
@@ -3182,6 +3195,11 @@
         "useSharedDesignerContext.txt"
       ]
     },
+    "ProjectManagement.Application/1.0.0": {
+      "type": "project",
+      "path": "../ProjectManagement.Application/ProjectManagement.Application.csproj",
+      "msbuildProject": "../ProjectManagement.Application/ProjectManagement.Application.csproj"
+    },
     "ProjectManagement.Core/1.0.0": {
       "type": "project",
       "path": "../ProjectManagement.Core/ProjectManagement.Core.csproj",
@@ -3196,6 +3214,7 @@
   "projectFileDependencyGroups": {
     "net8.0": [
       "Microsoft.EntityFrameworkCore >= 8.0.4",
+      "ProjectManagement.Application >= 1.0.0",
       "ProjectManagement.Core >= 1.0.0",
       "ProjectManagement.DataAccess >= 1.0.0",
       "Swashbuckle.AspNetCore >= 6.4.0"
@@ -3226,6 +3245,9 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
+            "/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.Application/ProjectManagement.Application.csproj": {
+              "projectPath": "/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.Application/ProjectManagement.Application.csproj"
+            },
             "/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.Core/ProjectManagement.Core.csproj": {
               "projectPath": "/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.Core/ProjectManagement.Core.csproj"
             },

@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectManagement.DataAcces
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectManagement.Core", "ProjectManagement.Core\ProjectManagement.Core.csproj", "{8BDA46B0-6B92-477F-BD41-5E5104326251}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectManagement.Application", "ProjectManagement.Application\ProjectManagement.Application.csproj", "{C30EF2B1-4B4C-4412-860C-90B1F80893CB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{8BDA46B0-6B92-477F-BD41-5E5104326251}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8BDA46B0-6B92-477F-BD41-5E5104326251}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8BDA46B0-6B92-477F-BD41-5E5104326251}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C30EF2B1-4B4C-4412-860C-90B1F80893CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C30EF2B1-4B4C-4412-860C-90B1F80893CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C30EF2B1-4B4C-4412-860C-90B1F80893CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C30EF2B1-4B4C-4412-860C-90B1F80893CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

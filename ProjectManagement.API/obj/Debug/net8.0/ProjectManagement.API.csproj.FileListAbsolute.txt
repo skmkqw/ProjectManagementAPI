@@ -73,3 +73,5 @@
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.API/obj/Debug/net8.0/ProjectManagement.API.pdb
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.API/obj/Debug/net8.0/ProjectManagement.API.genruntimeconfig.cache
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.API/obj/Debug/net8.0/ref/ProjectManagement.API.dll
+/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.API/bin/Debug/net8.0/ProjectManagement.Application.dll
+/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.API/bin/Debug/net8.0/ProjectManagement.Application.pdb

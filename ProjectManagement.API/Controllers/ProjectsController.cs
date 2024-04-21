@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using ProjectManagement.Application.Services.Projects;
 using ProjectManagement.DataAccess.DTOs.Projects;
-using ProjectManagement.DataAccess.Repositories.Projects;
 
 namespace ProjectManagement.API.Controllers;
 
@@ -8,17 +8,17 @@ namespace ProjectManagement.API.Controllers;
 [Route("api/[controller]")]
 public class ProjectsController : ControllerBase
 {
-    private readonly IProjectRepository _projectRepository;
+    private readonly IProjectsService _projectsService;
 
-    public ProjectsController(IProjectRepository projectRepository)
+    public ProjectsController(IProjectsService projectsService)
     {
-        _projectRepository = projectRepository;
+        _projectsService = projectsService;
     }
     
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        var projects = await _projectRepository.GetAll();
+        var projects = await _projectsService.GetAllProjects();
 
         return Ok(projects);
     }
@@ -26,7 +26,7 @@ public class ProjectsController : ControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById([FromRoute] Guid id)
     {
-        var project = await _projectRepository.GetById(id);
+        var project = await _projectsService.GetProjectById(id);
         
         if (project == null)
         {
@@ -39,33 +39,35 @@ public class ProjectsController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] ProjectFromRequestDto projectFromRequestDto)
     {
-        var project = await _projectRepository.Create(projectFromRequestDto);
+        var project = await _projectsService.CreateProject(projectFromRequestDto);
         return CreatedAtAction(nameof(GetById), new { id = project.Id }, project);
     }
 
     [HttpPut("{id}")]
     public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] ProjectFromRequestDto projectFromRequestDto)
     {
-        var project = await _projectRepository.Update(id, projectFromRequestDto);
-        
-        if (project == null)
+        try
         {
-            return NotFound();
+            await _projectsService.UpdateProject(id, projectFromRequestDto);
+            return NoContent();
         }
-        
-        return Ok(project);
+        catch (ArgumentException ex)
+        {
+            return NotFound(ex.Message);
+        }
     }
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete([FromRoute] Guid id)
     {
-        var isDeleted = await _projectRepository.Delete(id);
-        
-        if (isDeleted == 0)
+        try
         {
-            return NotFound();
+            await _projectsService.DeleteProject(id);
+            return NoContent();
         }
-
-        return NoContent();
+        catch (KeyNotFoundException ex)
+        {
+            return NotFound(ex.Message);
+        }
     }
 }

@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using ProjectManagement.Application.Services;
+using ProjectManagement.Application.Services.Projects;
 using ProjectManagement.DataAccess.Data;
 using ProjectManagement.DataAccess.Repositories.Projects;
 using ProjectManagement.DataAccess.Repositories.Tasks;
@@ -17,6 +19,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 builder.Services.AddScoped<ITasksRepository, TasksRepository>();
+builder.Services.AddScoped<IProjectsService, ProjectsService>();
 
 
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
