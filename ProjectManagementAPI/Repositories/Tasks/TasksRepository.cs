@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using ProjectManagementAPI.Data;
+using ProjectManagementAPI.DTOs.Tasks;
 using ProjectManagementAPI.Entities;
+using ProjectManagementAPI.Mappers;
 using ProjectManagementAPI.Models;
 
 namespace ProjectManagementAPI.Repositories.Tasks;
@@ -20,7 +22,7 @@ public class TasksRepository : ITasksRepository
         return tasks;
     }
 
-    public async Task<ProjectTask?> GetById(Guid id)
+    public async Task<ProjectTaskEntity?> GetById(Guid id)
     {
         var taskEntity = await _context.ProjectTasks.FirstOrDefaultAsync(x => x.Id == id);
         if (taskEntity == null)
@@ -28,7 +30,9 @@ public class TasksRepository : ITasksRepository
             return null;
         }
 
-        return ProjectTask.Create(taskEntity.Id, taskEntity.Title, taskEntity.Description, taskEntity.ProjectId);
+        ProjectTask.Create(taskEntity.Id, taskEntity.Title, taskEntity.Description, taskEntity.ProjectId);
+        
+        return taskEntity;
     }
 
     public async Task<IEnumerable<ProjectTask>> GetByProjectId(Guid projectId)
@@ -44,14 +48,15 @@ public class TasksRepository : ITasksRepository
         return tasks;
     }
 
-    public async Task<ProjectTaskEntity?> Create(ProjectTaskEntity projectTaskEntity)
+    public async Task<ProjectTaskEntity?> Create(ProjectTaskFromRequestDto projectTaskFromRequest)
     {
+        var projectTaskEntity = projectTaskFromRequest.ToProjectTaskEntity();
         await _context.ProjectTasks.AddAsync(projectTaskEntity);
         await _context.SaveChangesAsync();
         return projectTaskEntity;
     }
 
-    public async Task<ProjectTaskEntity?> Update(Guid id, ProjectTaskEntity projectTaskEntity)
+    public async Task<ProjectTaskEntity?> Update(Guid id, ProjectTaskFromRequestDto projectTaskFromRequest)
     {
         var task = await GetById(id);
         
@@ -60,11 +65,11 @@ public class TasksRepository : ITasksRepository
             return null;
         }
         
-        task.Title = projectTaskEntity.Title;
-        task.Description = projectTaskEntity.Description;
-        _context.ProjectTasks.Update(projectTaskEntity);
+        task.Title = projectTaskFromRequest.Title;
+        task.Description = projectTaskFromRequest.Description;
+        _context.ProjectTasks.Update(task);
         await _context.SaveChangesAsync();
-        return projectTaskEntity;
+        return task;
     }
     
     public async Task<int> Delete(Guid id)

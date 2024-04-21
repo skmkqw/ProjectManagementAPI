@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using ProjectManagementAPI.DTOs.Users;
 using ProjectManagementAPI.Entities;
 using ProjectManagementAPI.Repositories.Users;
 
@@ -37,16 +38,16 @@ public class UsersController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] UserEntity userEntity)
+    public async Task<IActionResult> Create([FromBody] UserFromRequestDto userFromRequest)
     {
-        var user = await _repository.Create(userEntity);
+        var user = await _repository.Create(userFromRequest);
         return CreatedAtAction(nameof(GetById), new { id = user.Id }, user);
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UserEntity userEntity)
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UserFromRequestDto userFromRequest)
     {
-        var user = await _repository.Update(id, userEntity);
+        var user = await _repository.Update(id, userFromRequest);
         
         if (user == null)
         {

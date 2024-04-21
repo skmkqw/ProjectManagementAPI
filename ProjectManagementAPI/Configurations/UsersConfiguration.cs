@@ -23,7 +23,6 @@ public class UsersConfiguration : IEntityTypeConfiguration<UserEntity>
 
         builder.HasMany(u => u.ProjectUsers)
             .WithOne(pu => pu.User)
-            .HasForeignKey(pu => pu.UserId)
-            .IsRequired();
+            .HasForeignKey(pu => pu.UserId);
     }
 }

@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using ProjectManagementAPI.Data;
+using ProjectManagementAPI.DTOs.Users;
 using ProjectManagementAPI.Entities;
+using ProjectManagementAPI.Mappers;
 using ProjectManagementAPI.Models;
 
 namespace ProjectManagementAPI.Repositories.Users;
@@ -21,7 +23,7 @@ public class UsersRepository : IUsersRepository
         return users;
     }
 
-    public async Task<User?> GetById(Guid id)
+    public async Task<UserEntity?> GetById(Guid id)
     {
         var userEntity = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
         if (userEntity == null)
@@ -29,17 +31,20 @@ public class UsersRepository : IUsersRepository
             return null;
         }
 
-        return User.Create(userEntity.Id, userEntity.FirstName, userEntity.LastName);
+        User.Create(userEntity.Id, userEntity.FirstName, userEntity.LastName);
+
+        return userEntity;
     }
 
-    public async Task<UserEntity?> Create(UserEntity userEntity)
+    public async Task<UserEntity?> Create(UserFromRequestDto userFromRequest)
     {
+        var userEntity = userFromRequest.ToUserEntity();
         await _context.Users.AddAsync(userEntity);
         await _context.SaveChangesAsync();
         return userEntity;
     }
 
-    public async Task<UserEntity?> Update(Guid id, UserEntity userEntity)
+    public async Task<UserEntity?> Update(Guid id, UserFromRequestDto userFromRequest)
     {
         var user = await GetById(id);
         
@@ -48,11 +53,11 @@ public class UsersRepository : IUsersRepository
             return null;
         }
         
-        user.FirstName = userEntity.FirstName;
-        user.LastName = userEntity.LastName;
-        _context.Users.Update(userEntity);
+        user.FirstName = userFromRequest.FirstName;
+        user.LastName = userFromRequest.LastName;
+        _context.Users.Update(user);
         await _context.SaveChangesAsync();
-        return userEntity;
+        return user;
     }
     public async Task<int> Delete(Guid id)
     {

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using ProjectManagementAPI.DTOs.Projects;
 using ProjectManagementAPI.Entities;
 using ProjectManagementAPI.Repositories.Projects;
 
@@ -37,16 +38,16 @@ public class ProjectsController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] ProjectEntity projectEntity)
+    public async Task<IActionResult> Create([FromBody] ProjectFromRequestDto projectFromRequestDto)
     {
-        var project = await _projectRepository.Create(projectEntity);
+        var project = await _projectRepository.Create(projectFromRequestDto);
         return CreatedAtAction(nameof(GetById), new { id = project.Id }, project);
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] ProjectEntity projectEntity)
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] ProjectFromRequestDto projectFromRequestDto)
     {
-        var project = await _projectRepository.Update(id, projectEntity);
+        var project = await _projectRepository.Update(id, projectFromRequestDto);
         
         if (project == null)
         {

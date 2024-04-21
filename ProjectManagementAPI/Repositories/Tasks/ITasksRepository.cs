@@ -1,3 +1,4 @@
+using ProjectManagementAPI.DTOs.Tasks;
 using ProjectManagementAPI.Entities;
 using ProjectManagementAPI.Models;
 
@@ -7,13 +8,13 @@ public interface ITasksRepository
 {
     public Task<IEnumerable<ProjectTask>> GetAll();
 
-    public Task<ProjectTask?> GetById(Guid id);
+    public Task<ProjectTaskEntity?> GetById(Guid id);
 
     public Task<IEnumerable<ProjectTask>> GetByProjectId(Guid projectId);
     
-    public Task<ProjectTaskEntity?> Create(ProjectTaskEntity projectTaskEntityEntity);
+    public Task<ProjectTaskEntity?> Create(ProjectTaskFromRequestDto projectTaskFromRequest);
 
-    public Task<ProjectTaskEntity?> Update(Guid id, ProjectTaskEntity projectTaskEntity);
+    public Task<ProjectTaskEntity?> Update(Guid id, ProjectTaskFromRequestDto projectTaskFromRequest);
 
     public Task<int> Delete(Guid id);
 }
