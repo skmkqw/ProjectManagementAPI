@@ -1,17 +1,24 @@
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProjectManagementAPI.Models;
 
 public class User
 {
-    public Guid Id { get; set; }
+    public User(Guid id, string firstName, string lastName)
+    {
+        Id = id;
+        FirstName = firstName;
+        LastName = lastName;
+    }
     
-    [Required]
-    [MaxLength(50)]
+    public Guid Id { get; set; }
     public string FirstName { get; set; } = string.Empty;
-
-    [Required] 
-    [MaxLength(50)]
     public string LastName { get; set; } = string.Empty;
+    
+    public List<ProjectUser> ProjectUsers { get; set; } = new();
+
+    public static User Create(Guid id, string firstName, string lastName)
+    {
+        return new User(id, firstName, lastName);
+    }
 }

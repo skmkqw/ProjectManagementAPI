@@ -1,26 +1,16 @@
-using ProjectManagementAPI.DTOs.Project;
-using ProjectManagementAPI.Models;
+using ProjectManagementAPI.DTOs.Projects;
+using ProjectManagementAPI.Entities;
 
 namespace ProjectManagementAPI.Mappers;
 
 public static class ProjectMappers
 {
-    public static ProjectDto ToProjectDto(this Project project)
+    public static ProjectEntity ToProjectEntity(this ProjectFromRequestDto projectFromRequestDto)
     {
-        return new ProjectDto()
+        return new ProjectEntity()
         {
-            Id = project.Id,
-            Name = project.Name,
-            Description = project.Description
-        };
-    }
-
-    public static Project ToProjectFromRequestDto(this ProjectFromRequestDto requestDto)
-    {
-        return new Project()
-        {
-            Name = requestDto.Name,
-            Description = requestDto.Description
+            Name = projectFromRequestDto.Name,
+            Description = projectFromRequestDto.Description
         };
     }
 }

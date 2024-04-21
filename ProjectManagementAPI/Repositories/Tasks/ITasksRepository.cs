@@ -1,12 +1,20 @@
-using ProjectManagementAPI.DTOs.ProjectTask;
+using ProjectManagementAPI.DTOs.Tasks;
+using ProjectManagementAPI.Entities;
 using ProjectManagementAPI.Models;
 
 namespace ProjectManagementAPI.Repositories.Tasks;
 
-public interface ITasksRepository : IGenericRepository<ProjectTask>
+public interface ITasksRepository
 {
-    public Task<IEnumerable<ProjectTask>> GetByProjectId(Guid projectId);
-    public Task<ProjectTask?> Create(TaskFromRequestDto taskFromRequestDto);
+    public Task<IEnumerable<ProjectTask>> GetAll();
 
-    public Task<ProjectTask?> Update(Guid id, TaskFromRequestDto taskFromRequestDto);
+    public Task<ProjectTaskEntity?> GetById(Guid id);
+
+    public Task<IEnumerable<ProjectTask>> GetByProjectId(Guid projectId);
+    
+    public Task<ProjectTaskEntity?> Create(ProjectTaskFromRequestDto projectTaskFromRequest);
+
+    public Task<ProjectTaskEntity?> Update(Guid id, ProjectTaskFromRequestDto projectTaskFromRequest);
+
+    public Task<int> Delete(Guid id);
 }

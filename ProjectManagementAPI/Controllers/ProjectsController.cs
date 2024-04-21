@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using ProjectManagementAPI.DTOs.Project;
-using ProjectManagementAPI.Mappers;
-using ProjectManagementAPI.Repositories;
+using ProjectManagementAPI.DTOs.Projects;
+using ProjectManagementAPI.Entities;
+using ProjectManagementAPI.Repositories.Projects;
 
 namespace ProjectManagementAPI.Controllers;
 
@@ -34,7 +34,7 @@ public class ProjectsController : ControllerBase
             return NotFound();
         }
 
-        return Ok(project.ToProjectDto()); 
+        return Ok(project); 
     }
 
     [HttpPost]
@@ -60,9 +60,9 @@ public class ProjectsController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete([FromRoute] Guid id)
     {
-        var project = await _projectRepository.Delete(id);
+        var isDeleted = await _projectRepository.Delete(id);
         
-        if (project == null)
+        if (isDeleted == 0)
         {
             return NotFound();
         }

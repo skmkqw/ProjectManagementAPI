@@ -1,6 +1,8 @@
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using ProjectManagementAPI.Data;
 using ProjectManagementAPI.DTOs.Users;
+using ProjectManagementAPI.Entities;
 using ProjectManagementAPI.Mappers;
 using ProjectManagementAPI.Models;
 
@@ -16,29 +18,33 @@ public class UsersRepository : IUsersRepository
     }
     public async Task<IEnumerable<User>> GetAll()
     {
-        return await _context.Users.ToListAsync();
+        var userEntities = await _context.Users.ToListAsync();
+        var users = userEntities.Select(x => User.Create(x.Id, x.FirstName, x.LastName));
+        return users;
     }
 
-    public async Task<User?> GetById(Guid id)
+    public async Task<UserEntity?> GetById(Guid id)
     {
-        var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
-        if (user == null)
+        var userEntity = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
+        if (userEntity == null)
         {
             return null;
         }
 
-        return user;
+        User.Create(userEntity.Id, userEntity.FirstName, userEntity.LastName);
+
+        return userEntity;
     }
 
-    public async Task<User?> Create(UserFromRequestDto userFromRequestDto)
+    public async Task<UserEntity?> Create(UserFromRequestDto userFromRequest)
     {
-        var user = userFromRequestDto.ToUserFromRequestDto();
-        await _context.Users.AddAsync(user);
+        var userEntity = userFromRequest.ToUserEntity();
+        await _context.Users.AddAsync(userEntity);
         await _context.SaveChangesAsync();
-        return user;
+        return userEntity;
     }
 
-    public async Task<User?> Update(Guid id, UserFromRequestDto userFromRequestDto)
+    public async Task<UserEntity?> Update(Guid id, UserFromRequestDto userFromRequest)
     {
         var user = await GetById(id);
         
@@ -47,25 +53,16 @@ public class UsersRepository : IUsersRepository
             return null;
         }
         
-        user.FirstName = userFromRequestDto.FirstName;
-        user.LastName = userFromRequestDto.LastName;
+        user.FirstName = userFromRequest.FirstName;
+        user.LastName = userFromRequest.LastName;
         _context.Users.Update(user);
         await _context.SaveChangesAsync();
         return user;
     }
-    public async Task<User?> Delete(Guid id)
+    public async Task<int> Delete(Guid id)
     {
-        var user = await GetById(id);
-        
-        if (user == null)
-        {
-            return null;
-        }
-        
-        _context.Users.Remove(user);
-
-        await _context.SaveChangesAsync();
-
-        return user;
+        int isDeleted = await _context.Users.Where(x => x.Id == id)
+            .ExecuteDeleteAsync();
+        return isDeleted;
     }
 }

@@ -1,11 +1,18 @@
-using ProjectManagementAPI.DTOs.Project;
+using ProjectManagementAPI.DTOs.Projects;
+using ProjectManagementAPI.Entities;
 using ProjectManagementAPI.Models;
 
-namespace ProjectManagementAPI.Repositories;
+namespace ProjectManagementAPI.Repositories.Projects;
 
-public interface IProjectRepository : IGenericRepository<Project>
-{ 
-    public Task<Project?> Create(ProjectFromRequestDto projectFromRequestDto);
+public interface IProjectRepository
+{
+    public Task<IEnumerable<Project>> GetAll();
 
-    public Task<Project?> Update(Guid id, ProjectFromRequestDto projectFromRequestDto);
+    public Task<ProjectEntity?> GetById(Guid id);
+    
+    public Task<ProjectEntity?> Create(ProjectFromRequestDto projectFromRequestDto);
+
+    public Task<ProjectEntity?> Update(Guid id, ProjectFromRequestDto projectFromRequestDto);
+
+    public Task<int> Delete(Guid id);
 }

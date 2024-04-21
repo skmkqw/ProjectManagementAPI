@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using ProjectManagementAPI.DTOs.ProjectTask;
-using ProjectManagementAPI.Mappers;
+using ProjectManagementAPI.DTOs.Tasks;
+using ProjectManagementAPI.Entities;
 using ProjectManagementAPI.Repositories.Tasks;
 
 namespace ProjectManagementAPI.Controllers;
@@ -20,8 +20,7 @@ public class TasksController : ControllerBase
     public async Task<IActionResult> GetAll()
     {
         var tasks = await _repository.GetAll();
-        var tasksDtos = tasks.Select(x => x.ToTaskDto());
-        return Ok(tasksDtos);
+        return Ok(tasks);
     }
 
     [HttpGet("{id}")]
@@ -33,7 +32,7 @@ public class TasksController : ControllerBase
             return NotFound();
         }
 
-        return Ok(task.ToTaskDto());
+        return Ok(task);
     }
 
     [HttpGet("project_id/{projectId}")]
@@ -41,26 +40,21 @@ public class TasksController : ControllerBase
     {
         var tasks = await _repository.GetByProjectId(projectId);
 
-        if (tasks == null)
-        {
-            return NotFound();
-        }
-
         return Ok(tasks);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] TaskFromRequestDto requestDto)
+    public async Task<IActionResult> Create([FromBody] ProjectTaskFromRequestDto projectTaskFromRequest)
     {
-        var task = await _repository.Create(requestDto);
+        var task = await _repository.Create(projectTaskFromRequest);
         
         return CreatedAtAction(nameof(GetById), new { id = task.Id }, task);
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] TaskFromRequestDto requestDto)
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] ProjectTaskFromRequestDto projectTaskFromRequest)
     {
-        var task = await _repository.Update(id, requestDto);
+        var task = await _repository.Update(id, projectTaskFromRequest);
 
         if (task == null)
         {
@@ -73,9 +67,9 @@ public class TasksController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete([FromRoute] Guid id)
     {
-        var task = await _repository.Delete(id);
+        var isDeleted = await _repository.Delete(id);
 
-        if (task == null)
+        if (isDeleted == 0)
         {
             return NotFound();
         }
