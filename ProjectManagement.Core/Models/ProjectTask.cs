@@ -1,5 +1,12 @@
 namespace ProjectManagement.Core.Models;
 
+public enum TaskStatuses
+{
+    ToDo,
+    InProgress,
+    Done
+}
+
 public class ProjectTask
 {
     public ProjectTask(Guid id, string title, string description, Guid projectId)
@@ -18,6 +25,8 @@ public class ProjectTask
     public Guid ProjectId { get; set; }
     
     public Project Project { get; set; }
+
+    public TaskStatuses Status { get; set; } = TaskStatuses.ToDo;
 
     public static ProjectTask Create(Guid id, string title, string description, Guid projectId)
     {
