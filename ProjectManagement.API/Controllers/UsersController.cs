@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using ProjectManagement.Application.Services.Users;
 using ProjectManagement.DataAccess.DTOs.Users;
 using ProjectManagement.DataAccess.Repositories.Users;
 
@@ -8,17 +9,17 @@ namespace ProjectManagement.API.Controllers;
 [Route("api/[controller]")]
 public class UsersController : ControllerBase
 {
-    private readonly IUsersRepository _repository;
+    private readonly IUsersService _usersService;
 
-    public UsersController(IUsersRepository repository)
+    public UsersController(IUsersService usersService)
     {
-        _repository = repository;
+        _usersService = usersService;
     }
     
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        var users = await _repository.GetAll();
+        var users = await _usersService.GetAllUsers();
 
         return Ok(users);
     }
@@ -26,7 +27,7 @@ public class UsersController : ControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById([FromRoute] Guid id)
     {
-        var user = await _repository.GetById(id);
+        var user = await _usersService.GetUserById(id);
         
         if (user == null)
         {
@@ -39,33 +40,35 @@ public class UsersController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] UserFromRequestDto userFromRequest)
     {
-        var user = await _repository.Create(userFromRequest);
+        var user = await _usersService.CreateUser(userFromRequest);
         return CreatedAtAction(nameof(GetById), new { id = user.Id }, user);
     }
 
     [HttpPut("{id}")]
     public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UserFromRequestDto userFromRequest)
     {
-        var user = await _repository.Update(id, userFromRequest);
-        
-        if (user == null)
+        try
         {
-            return NotFound();
+            await _usersService.UpdateUser(id, userFromRequest);
+            return NoContent();
         }
-        
-        return Ok(user);
+        catch (ArgumentException ex)
+        {
+            return NotFound(ex.Message);
+        }
     }
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete([FromRoute] Guid id)
     {
-        var isDeleted = await _repository.Delete(id);
-        
-        if (isDeleted == 0)
+        try
         {
-            return NotFound();
+            await _usersService.DeleteUser(id);
+            return NoContent();
         }
-
-        return NoContent();
+        catch (KeyNotFoundException ex)
+        {
+            return NotFound(ex.Message);
+        }
     }
 }

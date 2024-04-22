@@ -4,11 +4,11 @@ using ProjectManagement.DataAccess.Entities;
 
 namespace ProjectManagement.DataAccess.Repositories.Projects;
 
-public class ProjectRepository : IProjectRepository
+public class ProjectsRepository : IProjectsRepository
 {
     private readonly ApplicationDbContext _context;
 
-    public ProjectRepository(ApplicationDbContext context)
+    public ProjectsRepository(ApplicationDbContext context)
     {
         _context = context;
     }

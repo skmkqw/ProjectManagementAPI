@@ -15,53 +15,39 @@ public class UsersRepository : IUsersRepository
     {
         _context = context;
     }
-    public async Task<IEnumerable<User>> GetAll()
+
+    public async Task<IEnumerable<UserEntity>> GetAll()
     {
-        var userEntities = await _context.Users.ToListAsync();
-        var users = userEntities.Select(x => User.Create(x.Id, x.FirstName, x.LastName));
-        return users;
+        return await _context.Users.AsNoTracking().ToListAsync();
     }
 
     public async Task<UserEntity?> GetById(Guid id)
     {
-        var userEntity = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
-        if (userEntity == null)
-        {
-            return null;
-        }
-
-        User.Create(userEntity.Id, userEntity.FirstName, userEntity.LastName);
-
-        return userEntity;
+        return await _context.Users.FindAsync(id);
     }
 
-    public async Task<UserEntity?> Create(UserFromRequestDto userFromRequest)
+    public async Task<UserEntity?> Create(UserEntity userEntity)
     {
-        var userEntity = userFromRequest.ToUserEntity();
         await _context.Users.AddAsync(userEntity);
         await _context.SaveChangesAsync();
         return userEntity;
     }
 
-    public async Task<UserEntity?> Update(Guid id, UserFromRequestDto userFromRequest)
+    public async Task<UserEntity?> Update(UserEntity userEntity)
     {
-        var user = await GetById(id);
-        
-        if (user == null)
-        {
-            return null;
-        }
-        
-        user.FirstName = userFromRequest.FirstName;
-        user.LastName = userFromRequest.LastName;
-        _context.Users.Update(user);
+        _context.Entry(userEntity).State = EntityState.Modified;
         await _context.SaveChangesAsync();
-        return user;
+        return userEntity;
     }
-    public async Task<int> Delete(Guid id)
+
+    public async Task Delete(Guid id)
     {
-        int isDeleted = await _context.Users.Where(x => x.Id == id)
-            .ExecuteDeleteAsync();
-        return isDeleted;
+        var userEntity = await _context.Users.FindAsync(id);
+        if (userEntity == null)
+        {
+            throw new KeyNotFoundException("User not found!");
+        }
+        _context.Users.Remove(userEntity);
+        await _context.SaveChangesAsync();
     }
 }

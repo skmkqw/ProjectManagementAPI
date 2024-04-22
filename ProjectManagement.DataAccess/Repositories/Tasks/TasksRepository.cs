@@ -47,7 +47,7 @@ public class TasksRepository : ITasksRepository
         var projectTaskEntity = await _context.ProjectTasks.FindAsync(id);
         if (projectTaskEntity == null)
         {
-            throw new KeyNotFoundException("Project not found!");
+            throw new KeyNotFoundException("Task not found!");
         }
         _context.ProjectTasks.Remove(projectTaskEntity);
         await _context.SaveChangesAsync();

@@ -7,16 +7,16 @@ namespace ProjectManagement.Application.Services.Projects;
 
 public class ProjectsService : IProjectsService
 {
-    private readonly IProjectRepository _repository;
+    private readonly IProjectsRepository _projectsRepository;
 
-    public ProjectsService(IProjectRepository projectRepository)
+    public ProjectsService(IProjectsRepository projectsProjectsRepository)
     {
-        _repository = projectRepository;
+        _projectsRepository = projectsProjectsRepository;
     }
 
     public async Task<IEnumerable<Project>> GetAllProjects()
     {
-        var projectEntities = await _repository.GetAll();
+        var projectEntities = await _projectsRepository.GetAll();
         
         List<Project> projects = new();
         foreach (var projectEntity in projectEntities)
@@ -29,7 +29,7 @@ public class ProjectsService : IProjectsService
 
     public async Task<Project> GetProjectById(Guid id)
     {
-        var projectEntity = await _repository.GetById(id);
+        var projectEntity = await _projectsRepository.GetById(id);
         
         if (projectEntity == null)
         {
@@ -43,14 +43,14 @@ public class ProjectsService : IProjectsService
     {
         var projectEntity = projectFromRequestDto.FromDtoToProjectEntity();
 
-        var createdEntity = await _repository.Create(projectEntity);
+        var createdEntity = await _projectsRepository.Create(projectEntity);
 
         return createdEntity.ToProjectModel();
     }
 
     public async Task<Project> UpdateProject(Guid id, ProjectFromRequestDto projectFromRequestDto)
     {
-        var projectEntity = await _repository.GetById(id);
+        var projectEntity = await _projectsRepository.GetById(id);
         
         if (projectEntity == null)
             throw new ArgumentException("Project not found");
@@ -58,7 +58,7 @@ public class ProjectsService : IProjectsService
         projectEntity.Name = projectFromRequestDto.Name;
         projectEntity.Description = projectFromRequestDto.Description;
 
-        await _repository.Update(projectEntity);
+        await _projectsRepository.Update(projectEntity);
 
         return projectEntity.ToProjectModel();
     }
@@ -67,7 +67,7 @@ public class ProjectsService : IProjectsService
     {
         try
         {
-            await _repository.Delete(id);
+            await _projectsRepository.Delete(id);
         }
         catch (KeyNotFoundException ex)
         {

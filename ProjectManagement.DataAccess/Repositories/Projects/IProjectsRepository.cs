@@ -2,7 +2,7 @@ using ProjectManagement.DataAccess.Entities;
 
 namespace ProjectManagement.DataAccess.Repositories.Projects;
 
-public interface IProjectRepository
+public interface IProjectsRepository
 {
     public Task<IEnumerable<ProjectEntity>> GetAll();
 

@@ -6,13 +6,13 @@ namespace ProjectManagement.DataAccess.Repositories.Users;
 
 public interface IUsersRepository
 {
-    public Task<IEnumerable<User>> GetAll();
+    public Task<IEnumerable<UserEntity>> GetAll();
 
     public Task<UserEntity?> GetById(Guid id);
     
-    public Task<UserEntity?> Create(UserFromRequestDto userFromRequest);
+    public Task<UserEntity?> Create(UserEntity userEntity);
 
-    public Task<UserEntity?> Update(Guid id, UserFromRequestDto userFromRequest);
+    public Task<UserEntity?> Update(UserEntity userEntity);
 
-    public Task<int> Delete(Guid id);
+    public Task Delete(Guid id);
 }
