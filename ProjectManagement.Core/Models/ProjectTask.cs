@@ -9,12 +9,17 @@ public enum TaskStatuses
 
 public class ProjectTask
 {
-    public ProjectTask(Guid id, string title, string description, Guid projectId)
+    public ProjectTask(Guid id, string title, string description, Guid projectId, TaskStatuses status = 0)
     {
         Id = id;
         Title = title;
         Description = description;
         ProjectId = projectId;
+
+        if (status != null)
+        {
+            Status = status;
+        }
     }
     public Guid Id { get; set; }
     

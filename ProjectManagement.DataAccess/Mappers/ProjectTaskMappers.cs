@@ -18,7 +18,7 @@ public static class ProjectTaskMappers
     
     public static ProjectTask ToTaskModel(this ProjectTaskEntity taskEntity)
     {
-        return new ProjectTask(taskEntity.Id, taskEntity.Title, taskEntity.Description, taskEntity.ProjectId);
+        return new ProjectTask(taskEntity.Id, taskEntity.Title, taskEntity.Description, taskEntity.ProjectId, taskEntity.Status);
     }
     
     public static ProjectTaskEntity ToTaskEntity(this ProjectTask task)

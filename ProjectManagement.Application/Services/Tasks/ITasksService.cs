@@ -14,6 +14,8 @@ public interface ITasksService
     public Task<ProjectTask> CreateTask(ProjectTaskFromRequestDto taskFromRequestDto);
     
     public Task<ProjectTask> UpdateTask(Guid id, ProjectTaskFromRequestDto taskFromRequestDto);
+
+    public Task<ProjectTask> UpdateTaskStatus(Guid id, TaskStatuses status);
     
     public Task DeleteTask(Guid id);
 }

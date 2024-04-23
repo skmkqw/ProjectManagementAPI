@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using ProjectManagement.Application.Services.Tasks;
+using ProjectManagement.Core.Models;
 using ProjectManagement.DataAccess.DTOs.Tasks;
 
 namespace ProjectManagement.API.Controllers;
@@ -56,6 +57,20 @@ public class TasksController : ControllerBase
         try
         {
             await _tasksService.UpdateTask(id, projectTaskFromRequest);
+            return NoContent();
+        }
+        catch (ArgumentException ex)
+        {
+            return NotFound(ex.Message);
+        }
+    }
+
+    [HttpPut("{id}/status")]
+    public async Task<IActionResult> UpdateStatus([FromRoute] Guid id, [FromQuery] TaskStatuses status)
+    {
+        try
+        {
+             await _tasksService.UpdateTaskStatus(id, status);
             return NoContent();
         }
         catch (ArgumentException ex)

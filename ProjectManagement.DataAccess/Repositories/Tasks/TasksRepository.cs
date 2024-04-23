@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using ProjectManagement.DataAccess.Data;
+using ProjectManagement.DataAccess.DTOs.Tasks;
 using ProjectManagement.DataAccess.Entities;
 
 namespace ProjectManagement.DataAccess.Repositories.Tasks;

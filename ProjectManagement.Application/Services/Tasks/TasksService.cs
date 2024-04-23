@@ -76,6 +76,20 @@ public class TasksService : ITasksService
         return taskEntity.ToTaskModel();
     }
 
+    public async Task<ProjectTask> UpdateTaskStatus(Guid id, TaskStatuses status)
+    {
+        var taskEntity = await _tasksRepository.GetById(id);
+        
+        if (taskEntity == null)
+            throw new ArgumentException("Task not found");
+
+        taskEntity.Status = status;
+
+        await _tasksRepository.Update(taskEntity);
+
+        return taskEntity.ToTaskModel();
+    }
+
     public async Task DeleteTask(Guid id)
     {
         try
