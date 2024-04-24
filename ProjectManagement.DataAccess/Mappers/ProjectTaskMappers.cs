@@ -12,7 +12,6 @@ public static class ProjectTaskMappers
         {
             Title = createTaskDto.Title,
             Description = createTaskDto.Description,
-            ProjectId = createTaskDto.ProjectId
         };
     }
     
