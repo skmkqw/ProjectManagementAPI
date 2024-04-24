@@ -10,8 +10,6 @@ public interface ITasksService
     public Task<ProjectTask> GetTasktById(Guid id);
     
     public Task<IEnumerable<ProjectTask>> GetTasktByProjectId(Guid projectId);
-
-    public Task<ProjectTask> CreateTask(CreateTaskDto createTaskDto);
     
     public Task<ProjectTask> UpdateTask(Guid id, UpdateTaskDto updateTaskDto);
 

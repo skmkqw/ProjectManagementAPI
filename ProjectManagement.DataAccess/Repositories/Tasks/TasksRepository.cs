@@ -29,13 +29,6 @@ public class TasksRepository : ITasksRepository
         return await _context.ProjectTasks.Where(t => t.ProjectId == projectId).ToListAsync();
     }
 
-    public async Task<ProjectTaskEntity?> Create(ProjectTaskEntity projectTaskEntity)
-    {
-        await _context.ProjectTasks.AddAsync(projectTaskEntity);
-        await _context.SaveChangesAsync();
-        return projectTaskEntity;
-    }
-
     public async Task<ProjectTaskEntity?> Update(ProjectTaskEntity projectTaskEntity)
     {
         _context.Entry(projectTaskEntity).State = EntityState.Modified;

@@ -52,15 +52,6 @@ public class TasksService : ITasksService
         return tasks;
     }
 
-    public async Task<ProjectTask> CreateTask(CreateTaskDto taskDto)
-    {
-        var taskEntity = taskDto.FromDtoToTaskEntity();
-
-        var createdEntity = await _tasksRepository.Create(taskEntity);
-
-        return createdEntity.ToTaskModel();
-    }
-
     public async Task<ProjectTask> UpdateTask(Guid id, UpdateTaskDto updateTaskDto)
     {
         var taskEntity = await _tasksRepository.GetById(id);
