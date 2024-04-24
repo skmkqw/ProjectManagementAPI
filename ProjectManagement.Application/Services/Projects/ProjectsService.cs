@@ -1,5 +1,6 @@
 using ProjectManagement.Core.Models;
 using ProjectManagement.DataAccess.DTOs.Projects;
+using ProjectManagement.DataAccess.DTOs.Tasks;
 using ProjectManagement.DataAccess.Mappers;
 using ProjectManagement.DataAccess.Repositories.Projects;
 
@@ -46,6 +47,20 @@ public class ProjectsService : IProjectsService
         var createdEntity = await _projectsRepository.Create(projectEntity);
 
         return createdEntity.ToProjectModel();
+    }
+
+    public async Task<ProjectTask> AddTask(Guid projectId, CreateTaskDto createTaskDto)
+    {
+        try
+        {
+            var taskEntity = createTaskDto.FromDtoToTaskEntity();
+            var createdEntity = await _projectsRepository.AddTask(projectId, taskEntity);
+            return createdEntity.ToTaskModel();
+        }
+        catch (KeyNotFoundException ex)
+        {
+            throw new KeyNotFoundException(ex.Message);
+        }
     }
 
     public async Task<Project> UpdateProject(Guid id, ProjectFromRequestDto projectFromRequestDto)

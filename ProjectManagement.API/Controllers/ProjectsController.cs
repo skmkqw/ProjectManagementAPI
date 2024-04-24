@@ -1,6 +1,8 @@
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using ProjectManagement.Application.Services.Projects;
 using ProjectManagement.DataAccess.DTOs.Projects;
+using ProjectManagement.DataAccess.DTOs.Tasks;
 
 namespace ProjectManagement.API.Controllers;
 
@@ -41,6 +43,20 @@ public class ProjectsController : ControllerBase
     {
         var project = await _projectsService.CreateProject(projectFromRequestDto);
         return CreatedAtAction(nameof(GetById), new { id = project.Id }, project);
+    }
+
+    [HttpPost("{projectId}/add_task")]
+    public async Task<IActionResult> AddTask([FromRoute] Guid projectId, [FromBody] CreateTaskDto createTaskDto)
+    {
+        try
+        {
+            var createdTask = await _projectsService.AddTask(projectId, createTaskDto);
+            return CreatedAtAction(nameof(GetById), new { id = createdTask.Id }, createdTask);
+        }
+        catch (KeyNotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
     }
 
     [HttpPut("{id}")]

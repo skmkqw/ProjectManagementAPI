@@ -42,14 +42,7 @@ public class TasksController : ControllerBase
 
         return Ok(tasks);
     }
-
-    [HttpPost]
-    public async Task<IActionResult> Create([FromBody] CreateTaskDto createTask)
-    {
-        var task = await _tasksService.CreateTask(createTask);
-        
-        return CreatedAtAction(nameof(GetById), new { id = task.Id }, task);
-    }
+    
 
     [HttpPut("{id}")]
     public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateTaskDto updateTaskDto)        
