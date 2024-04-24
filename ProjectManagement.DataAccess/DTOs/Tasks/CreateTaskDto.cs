@@ -1,6 +1,6 @@
 namespace ProjectManagement.DataAccess.DTOs.Tasks;
 
-public class ProjectTaskFromRequestDto
+public class CreateTaskDto
 {
     public string Title { get; set; } = string.Empty;
     

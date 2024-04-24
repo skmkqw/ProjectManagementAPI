@@ -52,24 +52,24 @@ public class TasksService : ITasksService
         return tasks;
     }
 
-    public async Task<ProjectTask> CreateTask(ProjectTaskFromRequestDto taskFromRequestDto)
+    public async Task<ProjectTask> CreateTask(CreateTaskDto taskDto)
     {
-        var taskEntity = taskFromRequestDto.FromDtoToTaskEntity();
+        var taskEntity = taskDto.FromDtoToTaskEntity();
 
         var createdEntity = await _tasksRepository.Create(taskEntity);
 
         return createdEntity.ToTaskModel();
     }
 
-    public async Task<ProjectTask> UpdateTask(Guid id, ProjectTaskFromRequestDto taskFromRequestDto)
+    public async Task<ProjectTask> UpdateTask(Guid id, UpdateTaskDto updateTaskDto)
     {
         var taskEntity = await _tasksRepository.GetById(id);
         
         if (taskEntity == null)
             throw new ArgumentException("Task not found");
 
-        taskEntity.Title = taskFromRequestDto.Title;
-        taskEntity.Description = taskFromRequestDto.Description;
+        taskEntity.Title = updateTaskDto.Title;
+        taskEntity.Description = updateTaskDto.Description;
 
         await _tasksRepository.Update(taskEntity);
 

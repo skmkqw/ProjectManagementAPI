@@ -44,19 +44,19 @@ public class TasksController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] ProjectTaskFromRequestDto projectTaskFromRequest)
+    public async Task<IActionResult> Create([FromBody] CreateTaskDto createTask)
     {
-        var task = await _tasksService.CreateTask(projectTaskFromRequest);
+        var task = await _tasksService.CreateTask(createTask);
         
         return CreatedAtAction(nameof(GetById), new { id = task.Id }, task);
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] ProjectTaskFromRequestDto projectTaskFromRequest)
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateTaskDto updateTaskDto)        
     {
         try
         {
-            await _tasksService.UpdateTask(id, projectTaskFromRequest);
+            await _tasksService.UpdateTask(id, updateTaskDto);
             return NoContent();
         }
         catch (ArgumentException ex)

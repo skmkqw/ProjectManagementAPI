@@ -6,13 +6,13 @@ namespace ProjectManagement.DataAccess.Mappers;
 
 public static class ProjectTaskMappers
 {
-    public static ProjectTaskEntity FromDtoToTaskEntity(this ProjectTaskFromRequestDto projectTaskFromRequestDto)
+    public static ProjectTaskEntity FromDtoToTaskEntity(this CreateTaskDto createTaskDto)
     {
         return new ProjectTaskEntity()
         {
-            Title = projectTaskFromRequestDto.Title,
-            Description = projectTaskFromRequestDto.Description,
-            ProjectId = projectTaskFromRequestDto.ProjectId
+            Title = createTaskDto.Title,
+            Description = createTaskDto.Description,
+            ProjectId = createTaskDto.ProjectId
         };
     }
     
