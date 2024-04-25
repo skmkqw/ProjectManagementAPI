@@ -37,6 +37,20 @@ public class UsersController : ControllerBase
 
         return Ok(user.FromUserModelToDto()); 
     }
+    
+    [HttpGet("{userId}/tasks")]
+    public async Task<IActionResult> GetTasks([FromRoute] Guid userId)
+    {
+        try
+        {
+            var tasks = await _usersService.GetTasks(userId);
+            return Ok(tasks.Select(t => t.FromTaskModelToDto()));
+        }
+        catch (KeyNotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
+    }
 
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] UserFromRequestDto userFromRequest)

@@ -14,5 +14,7 @@ public interface IUsersService
     
     public Task<User> UpdateUser(Guid id, UserFromRequestDto userFromRequest);
     
+    public Task<IEnumerable<ProjectTask>> GetTasks(Guid projectId);
+    
     public Task DeleteUser(Guid id);
 }

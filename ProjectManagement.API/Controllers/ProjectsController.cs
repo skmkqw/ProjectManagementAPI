@@ -38,14 +38,7 @@ public class ProjectsController : ControllerBase
 
         return Ok(project.FromProjectModelToDto()); 
     }
-
-    [HttpPost]
-    public async Task<IActionResult> Create([FromBody] ProjectFromRequestDto projectFromRequestDto)
-    {
-        var project = await _projectsService.CreateProject(projectFromRequestDto);
-        return CreatedAtAction(nameof(GetById), new { id = project.Id }, project.FromProjectModelToDto());
-    }
-
+    
     [HttpGet("{projectId}/tasks")]
     public async Task<IActionResult> GetTasks([FromRoute] Guid projectId)
     {
@@ -58,6 +51,13 @@ public class ProjectsController : ControllerBase
         {
             return NotFound(e.Message);
         }
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Create([FromBody] ProjectFromRequestDto projectFromRequestDto)
+    {
+        var project = await _projectsService.CreateProject(projectFromRequestDto);
+        return CreatedAtAction(nameof(GetById), new { id = project.Id }, project.FromProjectModelToDto());
     }
 
     [HttpPost("{projectId}/add_task")]

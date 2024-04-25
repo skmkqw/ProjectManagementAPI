@@ -64,6 +64,20 @@ public class UserService : IUsersService
         return userEntity.ToUserModel();
     }
 
+    public async Task<IEnumerable<ProjectTask>> GetTasks(Guid userId)
+    {
+        try
+        {
+            var taskEntities = await _usersRepository.GetTasks(userId);
+            var tasks = taskEntities.Select(t => t.ToTaskModel());
+            return tasks;
+        }
+        catch (KeyNotFoundException e)
+        {
+            throw new KeyNotFoundException(e.Message);
+        }
+    }
+
     public async Task DeleteUser(Guid id)
     {
         try

@@ -11,6 +11,8 @@ public interface IUsersRepository
     public Task<UserEntity?> GetById(Guid id);
     
     public Task<UserEntity?> Create(UserEntity userEntity);
+    
+    public Task<IEnumerable<ProjectTaskEntity>> GetTasks(Guid projectId);
 
     public Task<UserEntity?> Update(UserEntity userEntity);
 
