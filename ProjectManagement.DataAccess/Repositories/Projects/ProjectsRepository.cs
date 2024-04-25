@@ -20,7 +20,7 @@ public class ProjectsRepository : IProjectsRepository
 
     public async Task<ProjectEntity?> GetById(Guid id)
     {
-        return await _context.Projects.FindAsync(id);
+        return await _context.Projects.Include(p => p.Tasks).FirstOrDefaultAsync(i => i.Id == id);
     }
 
     public async Task<ProjectEntity?> Create(ProjectEntity projectEntity)
