@@ -15,9 +15,28 @@ public static class ProjectTaskMappers
         };
     }
     
+    public static TaskDto FromTaskModelToDto(this ProjectTask task)
+    {
+        return new TaskDto()
+        {
+            Id = task.Id,
+            Title = task.Title,
+            Description = task.Description,
+            ProjectId = task.ProjectId,
+            Status = task.Status
+        };
+    }
+    
     public static ProjectTask ToTaskModel(this ProjectTaskEntity taskEntity)
     {
-        return new ProjectTask(taskEntity.Id, taskEntity.Title, taskEntity.Description, taskEntity.ProjectId, taskEntity.Status);
+        return new ProjectTask()
+        {
+            Id = taskEntity.Id,
+            Title = taskEntity.Title,
+            Description = taskEntity.Description,
+            ProjectId = taskEntity.ProjectId,
+            Status = taskEntity.Status
+        };
     }
     
     public static ProjectTaskEntity ToTaskEntity(this ProjectTask task)

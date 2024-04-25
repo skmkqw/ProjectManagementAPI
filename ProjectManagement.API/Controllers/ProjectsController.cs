@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ProjectManagement.Application.Services.Projects;
 using ProjectManagement.DataAccess.DTOs.Projects;
 using ProjectManagement.DataAccess.DTOs.Tasks;
+using ProjectManagement.DataAccess.Mappers;
 
 namespace ProjectManagement.API.Controllers;
 
@@ -22,7 +23,7 @@ public class ProjectsController : ControllerBase
     {
         var projects = await _projectsService.GetAllProjects();
 
-        return Ok(projects);
+        return Ok(projects.Select(p => p.FromProjectModelToDto()));
     }
 
     [HttpGet("{id}")]
@@ -35,7 +36,7 @@ public class ProjectsController : ControllerBase
             return NotFound();
         }
 
-        return Ok(project); 
+        return Ok(project.FromProjectModelToDto()); 
     }
 
     [HttpPost]
@@ -51,7 +52,7 @@ public class ProjectsController : ControllerBase
         try
         {
             var createdTask = await _projectsService.AddTask(projectId, createTaskDto);
-            return CreatedAtAction(nameof(GetById), new { id = createdTask.Id }, createdTask);
+            return CreatedAtAction(nameof(GetById), new { id = createdTask.Id }, createdTask.FromTaskModelToDto());
         }
         catch (KeyNotFoundException e)
         {

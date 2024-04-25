@@ -1,13 +1,8 @@
-namespace ProjectManagement.Core.Models;
+using ProjectManagement.Core.Models;
 
-public enum TaskStatuses
-{
-    ToDo,
-    InProgress,
-    Done
-}
+namespace ProjectManagement.DataAccess.DTOs.Tasks;
 
-public class ProjectTask
+public class TaskDto
 {
     public Guid Id { get; set; }
     
@@ -16,8 +11,6 @@ public class ProjectTask
     public string Description { get; set; } = string.Empty;
     
     public Guid ProjectId { get; set; }
-
-    public Project? Project { get; set; }
-
+    
     public TaskStatuses Status { get; set; } = TaskStatuses.ToDo;
 }

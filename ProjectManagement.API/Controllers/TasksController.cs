@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using ProjectManagement.Application.Services.Tasks;
 using ProjectManagement.Core.Models;
 using ProjectManagement.DataAccess.DTOs.Tasks;
+using ProjectManagement.DataAccess.Mappers;
 
 namespace ProjectManagement.API.Controllers;
 
@@ -20,7 +21,7 @@ public class TasksController : ControllerBase
     public async Task<IActionResult> GetAll()
     {
         var tasks = await _tasksService.GetAllTasks();
-        return Ok(tasks);
+        return Ok(tasks.Select(t => t.FromTaskModelToDto()));
     }
 
     [HttpGet("{id}")]
@@ -32,7 +33,7 @@ public class TasksController : ControllerBase
             return NotFound();
         }
 
-        return Ok(task);
+        return Ok(task.FromTaskModelToDto());
     }
 
     [HttpGet("project_id/{projectId}")]
@@ -40,7 +41,7 @@ public class TasksController : ControllerBase
     {
         var tasks = await _tasksService.GetTasktByProjectId(projectId);
 
-        return Ok(tasks);
+        return Ok(tasks.Select(t => t.FromTaskModelToDto()));
     }
     
 
