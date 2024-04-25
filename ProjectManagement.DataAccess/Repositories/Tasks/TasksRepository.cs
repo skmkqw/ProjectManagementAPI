@@ -29,6 +29,27 @@ public class TasksRepository : ITasksRepository
         return await _context.ProjectTasks.Where(t => t.ProjectId == projectId).ToListAsync();
     }
 
+    public async Task<Guid> AssignUser(Guid taskId, Guid userId)
+    {
+        var taskEntity = await _context.ProjectTasks.FindAsync(taskId);
+        if (taskEntity == null)
+        {
+            throw new KeyNotFoundException("Task not found!");
+        }
+        
+        var userEntity = await _context.Users.FindAsync(userId);
+        if (userEntity == null)
+        {
+            throw new KeyNotFoundException("User not found!");
+        }
+
+        taskEntity.AssignedUserId = userId;
+
+        await _context.SaveChangesAsync();
+
+        return userId;
+    }
+
     public async Task<ProjectTaskEntity?> Update(ProjectTaskEntity projectTaskEntity)
     {
         _context.Entry(projectTaskEntity).State = EntityState.Modified;

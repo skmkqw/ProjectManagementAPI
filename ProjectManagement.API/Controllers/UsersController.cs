@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ProjectManagement.Application.Services.Users;
 using ProjectManagement.DataAccess.DTOs.Users;
+using ProjectManagement.DataAccess.Mappers;
 using ProjectManagement.DataAccess.Repositories.Users;
 
 namespace ProjectManagement.API.Controllers;
@@ -21,7 +22,7 @@ public class UsersController : ControllerBase
     {
         var users = await _usersService.GetAllUsers();
 
-        return Ok(users);
+        return Ok(users.Select(u => u.FromUserModelToDto()));
     }
 
     [HttpGet("{id}")]
@@ -34,14 +35,14 @@ public class UsersController : ControllerBase
             return NotFound();
         }
 
-        return Ok(user); 
+        return Ok(user.FromUserModelToDto()); 
     }
 
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] UserFromRequestDto userFromRequest)
     {
         var user = await _usersService.CreateUser(userFromRequest);
-        return CreatedAtAction(nameof(GetById), new { id = user.Id }, user);
+        return CreatedAtAction(nameof(GetById), new { id = user.Id }, user.FromUserModelToDto());
     }
 
     [HttpPut("{id}")]

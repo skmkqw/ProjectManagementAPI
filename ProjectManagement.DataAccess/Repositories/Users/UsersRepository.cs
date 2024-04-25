@@ -18,12 +18,12 @@ public class UsersRepository : IUsersRepository
 
     public async Task<IEnumerable<UserEntity>> GetAll()
     {
-        return await _context.Users.AsNoTracking().ToListAsync();
+        return await _context.Users.AsNoTracking().Include(t => t.Tasks).ToListAsync();
     }
 
     public async Task<UserEntity?> GetById(Guid id)
     {
-        return await _context.Users.FindAsync(id);
+        return await _context.Users.Include(t => t.Tasks).FirstOrDefaultAsync(i => i.Id == id);
     }
 
     public async Task<UserEntity?> Create(UserEntity userEntity)
@@ -45,7 +45,7 @@ public class UsersRepository : IUsersRepository
         var userEntity = await _context.Users.FindAsync(id);
         if (userEntity == null)
         {
-            throw new KeyNotFoundException("User not found!");
+            throw new KeyNotFoundException("AssignedUser not found!");
         }
         _context.Users.Remove(userEntity);
         await _context.SaveChangesAsync();

@@ -43,10 +43,10 @@ public class TasksController : ControllerBase
 
         return Ok(tasks.Select(t => t.FromTaskModelToDto()));
     }
-    
+
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateTaskDto updateTaskDto)        
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateTaskDto updateTaskDto)
     {
         try
         {
@@ -64,7 +64,7 @@ public class TasksController : ControllerBase
     {
         try
         {
-             await _tasksService.UpdateTaskStatus(id, status);
+            await _tasksService.UpdateTaskStatus(id, status);
             return NoContent();
         }
         catch (ArgumentException ex)
@@ -73,7 +73,21 @@ public class TasksController : ControllerBase
         }
     }
 
-    [HttpDelete("{id}")]
+    [HttpPut("{taskId}/assign_user")]
+    public async Task<IActionResult> AssignUser([FromRoute] Guid taskId, [FromQuery] Guid userId)
+    {
+        try
+        {
+            Guid assignedUserId = await _tasksService.AssignUserToTask(taskId, userId);
+            return Ok(assignedUserId);
+        }
+        catch (KeyNotFoundException e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
+[HttpDelete("{id}")]
     public async Task<IActionResult> Delete([FromRoute] Guid id)
     {
         try

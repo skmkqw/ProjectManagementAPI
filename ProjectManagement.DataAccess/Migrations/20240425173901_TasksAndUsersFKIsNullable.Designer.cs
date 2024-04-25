@@ -12,8 +12,8 @@ using ProjectManagement.DataAccess.Data;
 namespace ProjectManagement.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240422165818_TasksStatusesAsIntegers")]
-    partial class TasksStatusesAsIntegers
+    [Migration("20240425173901_TasksAndUsersFKIsNullable")]
+    partial class TasksAndUsersFKIsNullable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,6 +54,9 @@ namespace ProjectManagement.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("AssignedUserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(500)
@@ -73,6 +76,8 @@ namespace ProjectManagement.DataAccess.Migrations
                         .HasColumnType("nvarchar(250)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AssignedUserId");
 
                     b.HasIndex("ProjectId");
 
@@ -119,11 +124,19 @@ namespace ProjectManagement.DataAccess.Migrations
 
             modelBuilder.Entity("ProjectManagement.DataAccess.Entities.ProjectTaskEntity", b =>
                 {
+                    b.HasOne("ProjectManagement.DataAccess.Entities.UserEntity", "AssignedUser")
+                        .WithMany("Tasks")
+                        .HasForeignKey("AssignedUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("ProjectManagement.DataAccess.Entities.ProjectEntity", "Project")
                         .WithMany("Tasks")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("AssignedUser");
 
                     b.Navigation("Project");
                 });
@@ -157,6 +170,8 @@ namespace ProjectManagement.DataAccess.Migrations
             modelBuilder.Entity("ProjectManagement.DataAccess.Entities.UserEntity", b =>
                 {
                     b.Navigation("ProjectUsers");
+
+                    b.Navigation("Tasks");
                 });
 #pragma warning restore 612, 618
         }

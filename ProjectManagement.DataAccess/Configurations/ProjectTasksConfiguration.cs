@@ -25,6 +25,11 @@ public class ProjectTasksConfiguration : IEntityTypeConfiguration<ProjectTaskEnt
             .HasForeignKey(t => t.ProjectId)
             .IsRequired()
             .OnDelete(DeleteBehavior.Cascade);
+        
+        builder.HasOne(u => u.AssignedUser)
+            .WithMany(u => u.Tasks)
+            .HasForeignKey(u => u.AssignedUserId)
+            .OnDelete(DeleteBehavior.Cascade);
 
         builder.Property(t => t.Status)
             .IsRequired();

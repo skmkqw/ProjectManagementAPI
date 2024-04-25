@@ -5,7 +5,7 @@
 namespace ProjectManagement.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class RemoveRequiredForeignKeys : Migration
+    public partial class TasksAndUsersFKIsNullable : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

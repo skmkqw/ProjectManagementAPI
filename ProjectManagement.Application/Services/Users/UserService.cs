@@ -54,7 +54,7 @@ public class UserService : IUsersService
         var userEntity = await _usersRepository.GetById(id);
         
         if (userEntity == null)
-            throw new ArgumentException("User not found");
+            throw new ArgumentException("AssignedUser not found");
 
         userEntity.FirstName = userFromRequest.FirstName;
         userEntity.LastName = userFromRequest.LastName;

@@ -12,5 +12,7 @@ public class TaskDto
     
     public Guid ProjectId { get; set; }
     
+    public Guid? AssignedUserId { get; set; }
+    
     public TaskStatuses Status { get; set; } = TaskStatuses.ToDo;
 }

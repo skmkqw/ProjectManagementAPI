@@ -23,6 +23,7 @@ public static class ProjectTaskMappers
             Title = task.Title,
             Description = task.Description,
             ProjectId = task.ProjectId,
+            AssignedUserId = task.AssignedUserId,
             Status = task.Status
         };
     }
@@ -35,6 +36,7 @@ public static class ProjectTaskMappers
             Title = taskEntity.Title,
             Description = taskEntity.Description,
             ProjectId = taskEntity.ProjectId,
+            AssignedUserId = taskEntity.AssignedUserId,
             Status = taskEntity.Status
         };
     }
@@ -46,7 +48,8 @@ public static class ProjectTaskMappers
             Id = task.Id,
             Title = task.Title,
             Description = task.Description,
-            ProjectId = task.ProjectId
+            ProjectId = task.ProjectId,
+            AssignedUserId = task.AssignedUserId
         };
     }
 }

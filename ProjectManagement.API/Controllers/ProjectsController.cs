@@ -43,7 +43,7 @@ public class ProjectsController : ControllerBase
     public async Task<IActionResult> Create([FromBody] ProjectFromRequestDto projectFromRequestDto)
     {
         var project = await _projectsService.CreateProject(projectFromRequestDto);
-        return CreatedAtAction(nameof(GetById), new { id = project.Id }, project);
+        return CreatedAtAction(nameof(GetById), new { id = project.Id }, project.FromProjectModelToDto());
     }
 
     [HttpPost("{projectId}/add_task")]

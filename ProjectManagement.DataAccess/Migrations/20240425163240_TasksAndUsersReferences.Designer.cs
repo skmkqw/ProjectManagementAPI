@@ -12,8 +12,8 @@ using ProjectManagement.DataAccess.Data;
 namespace ProjectManagement.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240421004031_init")]
-    partial class init
+    [Migration("20240425163240_TasksAndUsersReferences")]
+    partial class TasksAndUsersReferences
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace ProjectManagement.DataAccess.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("ProjectManagement.API.Entities.ProjectEntity", b =>
+            modelBuilder.Entity("ProjectManagement.DataAccess.Entities.ProjectEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -48,10 +48,13 @@ namespace ProjectManagement.DataAccess.Migrations
                     b.ToTable("Projects", (string)null);
                 });
 
-            modelBuilder.Entity("ProjectManagement.API.Entities.ProjectTaskEntity", b =>
+            modelBuilder.Entity("ProjectManagement.DataAccess.Entities.ProjectTaskEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AssignedUserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
@@ -63,6 +66,9 @@ namespace ProjectManagement.DataAccess.Migrations
                     b.Property<Guid>("ProjectId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(250)
@@ -71,12 +77,14 @@ namespace ProjectManagement.DataAccess.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AssignedUserId");
+
                     b.HasIndex("ProjectId");
 
                     b.ToTable("ProjectTasks", (string)null);
                 });
 
-            modelBuilder.Entity("ProjectManagement.API.Entities.ProjectUserEntity", b =>
+            modelBuilder.Entity("ProjectManagement.DataAccess.Entities.ProjectUserEntity", b =>
                 {
                     b.Property<Guid>("ProjectId")
                         .HasColumnType("uniqueidentifier");
@@ -91,7 +99,7 @@ namespace ProjectManagement.DataAccess.Migrations
                     b.ToTable("ProjectUsers");
                 });
 
-            modelBuilder.Entity("ProjectManagement.API.Entities.UserEntity", b =>
+            modelBuilder.Entity("ProjectManagement.DataAccess.Entities.UserEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -114,26 +122,34 @@ namespace ProjectManagement.DataAccess.Migrations
                     b.ToTable("Users", (string)null);
                 });
 
-            modelBuilder.Entity("ProjectManagement.API.Entities.ProjectTaskEntity", b =>
+            modelBuilder.Entity("ProjectManagement.DataAccess.Entities.ProjectTaskEntity", b =>
                 {
-                    b.HasOne("ProjectManagement.API.Entities.ProjectEntity", "Project")
+                    b.HasOne("ProjectManagement.DataAccess.Entities.UserEntity", "AssignedUser")
+                        .WithMany("Tasks")
+                        .HasForeignKey("AssignedUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProjectManagement.DataAccess.Entities.ProjectEntity", "Project")
                         .WithMany("Tasks")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("AssignedUser");
+
                     b.Navigation("Project");
                 });
 
-            modelBuilder.Entity("ProjectManagement.API.Entities.ProjectUserEntity", b =>
+            modelBuilder.Entity("ProjectManagement.DataAccess.Entities.ProjectUserEntity", b =>
                 {
-                    b.HasOne("ProjectManagement.API.Entities.ProjectEntity", "Project")
+                    b.HasOne("ProjectManagement.DataAccess.Entities.ProjectEntity", "Project")
                         .WithMany("ProjectUsers")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ProjectManagement.API.Entities.UserEntity", "User")
+                    b.HasOne("ProjectManagement.DataAccess.Entities.UserEntity", "User")
                         .WithMany("ProjectUsers")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -144,16 +160,18 @@ namespace ProjectManagement.DataAccess.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("ProjectManagement.API.Entities.ProjectEntity", b =>
+            modelBuilder.Entity("ProjectManagement.DataAccess.Entities.ProjectEntity", b =>
                 {
                     b.Navigation("ProjectUsers");
 
                     b.Navigation("Tasks");
                 });
 
-            modelBuilder.Entity("ProjectManagement.API.Entities.UserEntity", b =>
+            modelBuilder.Entity("ProjectManagement.DataAccess.Entities.UserEntity", b =>
                 {
                     b.Navigation("ProjectUsers");
+
+                    b.Navigation("Tasks");
                 });
 #pragma warning restore 612, 618
         }

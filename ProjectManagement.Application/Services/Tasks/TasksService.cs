@@ -52,6 +52,18 @@ public class TasksService : ITasksService
         return tasks;
     }
 
+    public async Task<Guid> AssignUserToTask(Guid taskId, Guid userId)
+    {
+        try
+        {
+            return await _tasksRepository.AssignUser(taskId, userId);
+        }
+        catch (KeyNotFoundException e)
+        {
+            throw new KeyNotFoundException(e.Message);
+        }
+    }
+
     public async Task<ProjectTask> UpdateTask(Guid id, UpdateTaskDto updateTaskDto)
     {
         var taskEntity = await _tasksRepository.GetById(id);

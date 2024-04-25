@@ -11,6 +11,7 @@ public interface ITasksService
     
     public Task<IEnumerable<ProjectTask>> GetTasktByProjectId(Guid projectId);
     
+    public Task<Guid> AssignUserToTask(Guid taskId, Guid userId);
     public Task<ProjectTask> UpdateTask(Guid id, UpdateTaskDto updateTaskDto);
 
     public Task<ProjectTask> UpdateTaskStatus(Guid id, TaskStatuses status);
