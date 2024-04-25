@@ -1,6 +1,9 @@
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using ProjectManagement.Application.Services.Projects;
 using ProjectManagement.DataAccess.DTOs.Projects;
+using ProjectManagement.DataAccess.DTOs.Tasks;
+using ProjectManagement.DataAccess.Mappers;
 
 namespace ProjectManagement.API.Controllers;
 
@@ -20,7 +23,7 @@ public class ProjectsController : ControllerBase
     {
         var projects = await _projectsService.GetAllProjects();
 
-        return Ok(projects);
+        return Ok(projects.Select(p => p.FromProjectModelToDto()));
     }
 
     [HttpGet("{id}")]
@@ -33,14 +36,42 @@ public class ProjectsController : ControllerBase
             return NotFound();
         }
 
-        return Ok(project); 
+        return Ok(project.FromProjectModelToDto()); 
+    }
+    
+    [HttpGet("{projectId}/tasks")]
+    public async Task<IActionResult> GetTasks([FromRoute] Guid projectId)
+    {
+        try
+        {
+            var tasks = await _projectsService.GetTasks(projectId);
+            return Ok(tasks.Select(t => t.FromTaskModelToDto()));
+        }
+        catch (KeyNotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
     }
 
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] ProjectFromRequestDto projectFromRequestDto)
     {
         var project = await _projectsService.CreateProject(projectFromRequestDto);
-        return CreatedAtAction(nameof(GetById), new { id = project.Id }, project);
+        return CreatedAtAction(nameof(GetById), new { id = project.Id }, project.FromProjectModelToDto());
+    }
+
+    [HttpPost("{projectId}/add_task")]
+    public async Task<IActionResult> AddTask([FromRoute] Guid projectId, [FromBody] CreateTaskDto createTaskDto)
+    {
+        try
+        {
+            var createdTask = await _projectsService.AddTask(projectId, createTaskDto);
+            return CreatedAtAction(nameof(GetById), new { id = createdTask.Id }, createdTask.FromTaskModelToDto());
+        }
+        catch (KeyNotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
     }
 
     [HttpPut("{id}")]

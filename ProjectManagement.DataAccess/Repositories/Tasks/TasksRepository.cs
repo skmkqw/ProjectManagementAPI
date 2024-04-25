@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using ProjectManagement.DataAccess.Data;
+using ProjectManagement.DataAccess.DTOs.Tasks;
 using ProjectManagement.DataAccess.Entities;
 
 namespace ProjectManagement.DataAccess.Repositories.Tasks;
@@ -23,16 +24,25 @@ public class TasksRepository : ITasksRepository
         return await _context.ProjectTasks.FindAsync(id);
     }
 
-    public async Task<IEnumerable<ProjectTaskEntity>> GetByProjectId(Guid projectId)
+    public async Task<Guid> AssignUser(Guid taskId, Guid userId)
     {
-        return await _context.ProjectTasks.Where(t => t.ProjectId == projectId).ToListAsync();
-    }
+        var taskEntity = await _context.ProjectTasks.FindAsync(taskId);
+        if (taskEntity == null)
+        {
+            throw new KeyNotFoundException("Task not found!");
+        }
+        
+        var userEntity = await _context.Users.FindAsync(userId);
+        if (userEntity == null)
+        {
+            throw new KeyNotFoundException("User not found!");
+        }
 
-    public async Task<ProjectTaskEntity?> Create(ProjectTaskEntity projectTaskEntity)
-    {
-        await _context.ProjectTasks.AddAsync(projectTaskEntity);
+        taskEntity.AssignedUserId = userId;
+
         await _context.SaveChangesAsync();
-        return projectTaskEntity;
+
+        return userId;
     }
 
     public async Task<ProjectTaskEntity?> Update(ProjectTaskEntity projectTaskEntity)

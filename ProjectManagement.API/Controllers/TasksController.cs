@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using ProjectManagement.Application.Services.Tasks;
+using ProjectManagement.Core.Models;
 using ProjectManagement.DataAccess.DTOs.Tasks;
+using ProjectManagement.DataAccess.Mappers;
 
 namespace ProjectManagement.API.Controllers;
 
@@ -19,43 +21,28 @@ public class TasksController : ControllerBase
     public async Task<IActionResult> GetAll()
     {
         var tasks = await _tasksService.GetAllTasks();
-        return Ok(tasks);
+        return Ok(tasks.Select(t => t.FromTaskModelToDto()));
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById([FromRoute] Guid id)
     {
-        var task = await _tasksService.GetTasktById(id);
+        var task = await _tasksService.GetTaskById(id);
         if (task == null)
         {
             return NotFound();
         }
 
-        return Ok(task);
+        return Ok(task.FromTaskModelToDto());
     }
 
-    [HttpGet("project_id/{projectId}")]
-    public async Task<IActionResult> GetByProjectId([FromRoute] Guid projectId)
-    {
-        var tasks = await _tasksService.GetTasktByProjectId(projectId);
-
-        return Ok(tasks);
-    }
-
-    [HttpPost]
-    public async Task<IActionResult> Create([FromBody] ProjectTaskFromRequestDto projectTaskFromRequest)
-    {
-        var task = await _tasksService.CreateTask(projectTaskFromRequest);
-        
-        return CreatedAtAction(nameof(GetById), new { id = task.Id }, task);
-    }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] ProjectTaskFromRequestDto projectTaskFromRequest)
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateTaskDto updateTaskDto)
     {
         try
         {
-            await _tasksService.UpdateTask(id, projectTaskFromRequest);
+            await _tasksService.UpdateTask(id, updateTaskDto);
             return NoContent();
         }
         catch (ArgumentException ex)
@@ -64,7 +51,35 @@ public class TasksController : ControllerBase
         }
     }
 
-    [HttpDelete("{id}")]
+    [HttpPut("{id}/status")]
+    public async Task<IActionResult> UpdateStatus([FromRoute] Guid id, [FromQuery] TaskStatuses status)
+    {
+        try
+        {
+            await _tasksService.UpdateTaskStatus(id, status);
+            return NoContent();
+        }
+        catch (ArgumentException ex)
+        {
+            return NotFound(ex.Message);
+        }
+    }
+
+    [HttpPut("{taskId}/assign_user")]
+    public async Task<IActionResult> AssignUser([FromRoute] Guid taskId, [FromQuery] Guid userId)
+    {
+        try
+        {
+            Guid assignedUserId = await _tasksService.AssignUserToTask(taskId, userId);
+            return Ok(assignedUserId);
+        }
+        catch (KeyNotFoundException e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
+[HttpDelete("{id}")]
     public async Task<IActionResult> Delete([FromRoute] Guid id)
     {
         try

@@ -15,9 +15,43 @@ public static class UserMappers
         };
     }
     
+    public static UserDto FromUserModelToDto(this User user)
+    {
+        if (user.Tasks != null)
+            return new UserDto()
+            {
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Tasks = user.Tasks.Select(t => t.FromTaskModelToDto()).ToList(),
+            };
+        return new UserDto()
+        {
+            Id = user.Id,
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+        };
+    }
+    
     public static User ToUserModel(this UserEntity userEntity)
     {
-        return new User(userEntity.Id, userEntity.FirstName, userEntity.LastName);
+        if (userEntity.Tasks != null)
+        {
+            return new User()
+            {
+                Id = userEntity.Id,
+                FirstName = userEntity.FirstName,
+                LastName = userEntity.LastName,
+                Tasks = userEntity.Tasks.Select(t => t.ToTaskModel()).ToList()
+            };
+        }
+
+        return new User()
+        {
+            Id = userEntity.Id,
+            FirstName = userEntity.FirstName,
+            LastName = userEntity.LastName,
+        };
     }
     
     public static UserEntity ToUserEntity(this User user)

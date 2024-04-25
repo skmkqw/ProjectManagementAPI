@@ -27,7 +27,7 @@ public class TasksService : ITasksService
         return tasks;
     }
 
-    public async Task<ProjectTask> GetTasktById(Guid id)
+    public async Task<ProjectTask> GetTaskById(Guid id)
     {
         var taskEntity = await _tasksRepository.GetById(id);
         
@@ -39,37 +39,41 @@ public class TasksService : ITasksService
         return taskEntity.ToTaskModel();
     }
 
-    public async Task<IEnumerable<ProjectTask>> GetTasktByProjectId(Guid projectId)
+    public async Task<Guid> AssignUserToTask(Guid taskId, Guid userId)
     {
-        var taskEntities = await _tasksRepository.GetByProjectId(projectId);
-        
-        List<ProjectTask> tasks = new();
-        foreach (var taskEntity in taskEntities)
+        try
         {
-            tasks.Add(taskEntity.ToTaskModel());
+            return await _tasksRepository.AssignUser(taskId, userId);
         }
-
-        return tasks;
+        catch (KeyNotFoundException e)
+        {
+            throw new KeyNotFoundException(e.Message);
+        }
     }
 
-    public async Task<ProjectTask> CreateTask(ProjectTaskFromRequestDto taskFromRequestDto)
-    {
-        var taskEntity = taskFromRequestDto.FromDtoToTaskEntity();
-
-        var createdEntity = await _tasksRepository.Create(taskEntity);
-
-        return createdEntity.ToTaskModel();
-    }
-
-    public async Task<ProjectTask> UpdateTask(Guid id, ProjectTaskFromRequestDto taskFromRequestDto)
+    public async Task<ProjectTask> UpdateTask(Guid id, UpdateTaskDto updateTaskDto)
     {
         var taskEntity = await _tasksRepository.GetById(id);
         
         if (taskEntity == null)
             throw new ArgumentException("Task not found");
 
-        taskEntity.Title = taskFromRequestDto.Title;
-        taskEntity.Description = taskFromRequestDto.Description;
+        taskEntity.Title = updateTaskDto.Title;
+        taskEntity.Description = updateTaskDto.Description;
+
+        await _tasksRepository.Update(taskEntity);
+
+        return taskEntity.ToTaskModel();
+    }
+
+    public async Task<ProjectTask> UpdateTaskStatus(Guid id, TaskStatuses status)
+    {
+        var taskEntity = await _tasksRepository.GetById(id);
+        
+        if (taskEntity == null)
+            throw new ArgumentException("Task not found");
+
+        taskEntity.Status = status;
 
         await _tasksRepository.Update(taskEntity);
 

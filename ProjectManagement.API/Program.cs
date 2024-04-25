@@ -29,7 +29,7 @@ builder.Services.AddScoped<IProjectsService, ProjectsService>();
 builder.Services.AddScoped<ITasksService, TasksService>();
 builder.Services.AddScoped<IUsersService, UserService>();
 
-//User lowercase urls
+//AssignedUser lowercase urls
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
 var app = builder.Build();

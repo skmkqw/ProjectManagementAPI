@@ -1,3 +1,5 @@
+using ProjectManagement.Core.Models;
+
 namespace ProjectManagement.DataAccess.Entities;
 
 public class UserEntity
@@ -7,6 +9,7 @@ public class UserEntity
     public string FirstName { get; set; } = string.Empty;
     
     public string LastName { get; set; } = string.Empty;
-    
-    public List<ProjectUserEntity> ProjectUsers { get; set; } = new();
+
+    public List<ProjectTaskEntity>? Tasks { get; set; }
+    public List<ProjectUserEntity>? ProjectUsers { get; set; }
 }

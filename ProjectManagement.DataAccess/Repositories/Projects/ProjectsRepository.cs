@@ -15,12 +15,12 @@ public class ProjectsRepository : IProjectsRepository
     
     public async Task<IEnumerable<ProjectEntity>> GetAll()
     {
-        return await _context.Projects.AsNoTracking().ToListAsync();
+        return await _context.Projects.AsNoTracking().Include(p => p.Tasks).ToListAsync();
     }
 
     public async Task<ProjectEntity?> GetById(Guid id)
     {
-        return await _context.Projects.FindAsync(id);
+        return await _context.Projects.Include(p => p.Tasks).FirstOrDefaultAsync(i => i.Id == id);
     }
 
     public async Task<ProjectEntity?> Create(ProjectEntity projectEntity)
@@ -28,6 +28,34 @@ public class ProjectsRepository : IProjectsRepository
         await _context.Projects.AddAsync(projectEntity);
         await _context.SaveChangesAsync();
         return projectEntity;
+    }
+
+    public async Task<IEnumerable<ProjectTaskEntity>> GetTasks(Guid projectId)
+    {
+        var projectEntity = await _context.Projects.FindAsync(projectId);
+
+        if (projectEntity == null)
+        {
+            throw new KeyNotFoundException("Project doesn't exist");
+        }
+
+        return await _context.ProjectTasks.Where(t => t.ProjectId == projectId).ToListAsync();
+    }
+
+    public async Task<ProjectTaskEntity> AddTask(Guid projectId, ProjectTaskEntity taskEntity)
+    {
+        var projectEntity = await _context.Projects.FindAsync(projectId);
+        if (projectEntity == null)
+        {
+            throw new KeyNotFoundException("Project not found!");
+        }
+
+        taskEntity.ProjectId = projectId;
+
+        _context.ProjectTasks.Add(taskEntity);
+        await _context.SaveChangesAsync();
+
+        return taskEntity;
     }
 
     public async Task<ProjectEntity?> Update(ProjectEntity projectEntity)

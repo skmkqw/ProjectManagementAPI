@@ -54,7 +54,7 @@ public class UserService : IUsersService
         var userEntity = await _usersRepository.GetById(id);
         
         if (userEntity == null)
-            throw new ArgumentException("User not found");
+            throw new ArgumentException("AssignedUser not found");
 
         userEntity.FirstName = userFromRequest.FirstName;
         userEntity.LastName = userFromRequest.LastName;
@@ -62,6 +62,20 @@ public class UserService : IUsersService
         await _usersRepository.Update(userEntity);
 
         return userEntity.ToUserModel();
+    }
+
+    public async Task<IEnumerable<ProjectTask>> GetTasks(Guid userId)
+    {
+        try
+        {
+            var taskEntities = await _usersRepository.GetTasks(userId);
+            var tasks = taskEntities.Select(t => t.ToTaskModel());
+            return tasks;
+        }
+        catch (KeyNotFoundException e)
+        {
+            throw new KeyNotFoundException(e.Message);
+        }
     }
 
     public async Task DeleteUser(Guid id)
