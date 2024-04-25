@@ -24,11 +24,6 @@ public class TasksRepository : ITasksRepository
         return await _context.ProjectTasks.FindAsync(id);
     }
 
-    public async Task<IEnumerable<ProjectTaskEntity>> GetByProjectId(Guid projectId)
-    {
-        return await _context.ProjectTasks.Where(t => t.ProjectId == projectId).ToListAsync();
-    }
-
     public async Task<Guid> AssignUser(Guid taskId, Guid userId)
     {
         var taskEntity = await _context.ProjectTasks.FindAsync(taskId);

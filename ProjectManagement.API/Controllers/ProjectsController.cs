@@ -46,6 +46,20 @@ public class ProjectsController : ControllerBase
         return CreatedAtAction(nameof(GetById), new { id = project.Id }, project.FromProjectModelToDto());
     }
 
+    [HttpGet("{projectId}/tasks")]
+    public async Task<IActionResult> GetTasks([FromRoute] Guid projectId)
+    {
+        try
+        {
+            var tasks = await _projectsService.GetTasks(projectId);
+            return Ok(tasks.Select(t => t.FromTaskModelToDto()));
+        }
+        catch (KeyNotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
+    }
+
     [HttpPost("{projectId}/add_task")]
     public async Task<IActionResult> AddTask([FromRoute] Guid projectId, [FromBody] CreateTaskDto createTaskDto)
     {

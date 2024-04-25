@@ -30,6 +30,18 @@ public class ProjectsRepository : IProjectsRepository
         return projectEntity;
     }
 
+    public async Task<IEnumerable<ProjectTaskEntity>> GetTasks(Guid projectId)
+    {
+        var projectEntity = await _context.Projects.FindAsync(projectId);
+
+        if (projectEntity == null)
+        {
+            throw new KeyNotFoundException("Project doesn't exist");
+        }
+
+        return await _context.ProjectTasks.Where(t => t.ProjectId == projectId).ToListAsync();
+    }
+
     public async Task<ProjectTaskEntity> AddTask(Guid projectId, ProjectTaskEntity taskEntity)
     {
         var projectEntity = await _context.Projects.FindAsync(projectId);

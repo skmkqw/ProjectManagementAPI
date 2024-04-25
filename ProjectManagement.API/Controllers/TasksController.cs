@@ -27,21 +27,13 @@ public class TasksController : ControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById([FromRoute] Guid id)
     {
-        var task = await _tasksService.GetTasktById(id);
+        var task = await _tasksService.GetTaskById(id);
         if (task == null)
         {
             return NotFound();
         }
 
         return Ok(task.FromTaskModelToDto());
-    }
-
-    [HttpGet("project_id/{projectId}")]
-    public async Task<IActionResult> GetByProjectId([FromRoute] Guid projectId)
-    {
-        var tasks = await _tasksService.GetTasktByProjectId(projectId);
-
-        return Ok(tasks.Select(t => t.FromTaskModelToDto()));
     }
 
 

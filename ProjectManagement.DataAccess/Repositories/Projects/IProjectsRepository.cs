@@ -11,6 +11,8 @@ public interface IProjectsRepository
     
     public Task<ProjectEntity?> Create(ProjectEntity projectEntity);
 
+    public Task<IEnumerable<ProjectTaskEntity>> GetTasks(Guid projectId);
+
     public Task<ProjectTaskEntity> AddTask(Guid projectId, ProjectTaskEntity taskEntity);
 
     public Task<ProjectEntity?> Update(ProjectEntity projectEntity);

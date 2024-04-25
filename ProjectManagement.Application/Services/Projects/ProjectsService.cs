@@ -49,6 +49,20 @@ public class ProjectsService : IProjectsService
         return createdEntity.ToProjectModel();
     }
 
+    public async Task<IEnumerable<ProjectTask>> GetTasks(Guid projectId)
+    {
+        try
+        {
+            var taskEntities = await _projectsRepository.GetTasks(projectId);
+            var tasks = taskEntities.Select(t => t.ToTaskModel());
+            return tasks;
+        }
+        catch (KeyNotFoundException e)
+        {
+            throw new KeyNotFoundException(e.Message);
+        }
+    }
+
     public async Task<ProjectTask> AddTask(Guid projectId, CreateTaskDto createTaskDto)
     {
         try

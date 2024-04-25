@@ -27,7 +27,7 @@ public class TasksService : ITasksService
         return tasks;
     }
 
-    public async Task<ProjectTask> GetTasktById(Guid id)
+    public async Task<ProjectTask> GetTaskById(Guid id)
     {
         var taskEntity = await _tasksRepository.GetById(id);
         
@@ -37,19 +37,6 @@ public class TasksService : ITasksService
         }
 
         return taskEntity.ToTaskModel();
-    }
-
-    public async Task<IEnumerable<ProjectTask>> GetTasktByProjectId(Guid projectId)
-    {
-        var taskEntities = await _tasksRepository.GetByProjectId(projectId);
-        
-        List<ProjectTask> tasks = new();
-        foreach (var taskEntity in taskEntities)
-        {
-            tasks.Add(taskEntity.ToTaskModel());
-        }
-
-        return tasks;
     }
 
     public async Task<Guid> AssignUserToTask(Guid taskId, Guid userId)

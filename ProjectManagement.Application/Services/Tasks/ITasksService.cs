@@ -7,9 +7,7 @@ public interface ITasksService
 {
     public Task<IEnumerable<ProjectTask>> GetAllTasks();
 
-    public Task<ProjectTask> GetTasktById(Guid id);
-    
-    public Task<IEnumerable<ProjectTask>> GetTasktByProjectId(Guid projectId);
+    public Task<ProjectTask> GetTaskById(Guid id);
     
     public Task<Guid> AssignUserToTask(Guid taskId, Guid userId);
     public Task<ProjectTask> UpdateTask(Guid id, UpdateTaskDto updateTaskDto);

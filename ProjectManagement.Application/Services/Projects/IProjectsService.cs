@@ -11,6 +11,8 @@ public interface IProjectsService
     public Task<Project> GetProjectById(Guid id);
 
     public Task<Project> CreateProject(ProjectFromRequestDto projectFromRequestDto);
+    
+    public Task<IEnumerable<ProjectTask>> GetTasks(Guid projectId);
 
     public Task<ProjectTask> AddTask(Guid projectId, CreateTaskDto createTaskDto);
     
