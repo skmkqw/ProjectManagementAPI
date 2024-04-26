@@ -16,6 +16,8 @@ public class ProjectsService : IProjectsService
         _projectsRepository = projectsProjectsRepository;
     }
 
+    #region GET METHODS
+
     public async Task<IEnumerable<Project>> GetAllProjects()
     {
         var projectEntities = await _projectsRepository.GetAll();
@@ -40,16 +42,7 @@ public class ProjectsService : IProjectsService
 
         return projectEntity.ToProjectModel();
     }
-
-    public async Task<Project> CreateProject(ProjectFromRequestDto projectFromRequestDto)
-    {
-        var projectEntity = projectFromRequestDto.FromDtoToProjectEntity();
-
-        var createdEntity = await _projectsRepository.Create(projectEntity);
-
-        return createdEntity.ToProjectModel();
-    }
-
+    
     public async Task<IEnumerable<ProjectTask>> GetTasks(Guid projectId)
     {
         try
@@ -62,6 +55,34 @@ public class ProjectsService : IProjectsService
         {
             throw new KeyNotFoundException(e.Message);
         }
+    }
+    
+    public async Task<IEnumerable<User>> GetUsers(Guid projectId)
+    {
+        try
+        {
+            var userEntities = await _projectsRepository.GetUsers(projectId);
+            var users = userEntities.Select(t => t.ToUserModel());
+            return users;
+        }
+        catch (KeyNotFoundException e)
+        {
+            throw new KeyNotFoundException(e.Message);
+        }
+    }
+
+    #endregion GET METHODS
+
+
+    #region POST METHODS
+
+    public async Task<Project> CreateProject(ProjectFromRequestDto projectFromRequestDto)
+    {
+        var projectEntity = projectFromRequestDto.FromDtoToProjectEntity();
+
+        var createdEntity = await _projectsRepository.Create(projectEntity);
+
+        return createdEntity.ToProjectModel();
     }
 
     public async Task<ProjectTask> AddTask(Guid projectId, CreateTaskDto createTaskDto)
@@ -76,6 +97,26 @@ public class ProjectsService : IProjectsService
         {
             throw new KeyNotFoundException(ex.Message);
         }
+    }
+
+    #endregion POST METHODS
+
+
+    #region PUT METHODS
+    
+    public async Task<Project> UpdateProject(Guid id, ProjectFromRequestDto projectFromRequestDto)
+    {
+        var projectEntity = await _projectsRepository.GetById(id);
+        
+        if (projectEntity == null)
+            throw new ArgumentException("Project not found");
+
+        projectEntity.Name = projectFromRequestDto.Name;
+        projectEntity.Description = projectFromRequestDto.Description;
+
+        await _projectsRepository.Update(projectEntity);
+
+        return projectEntity.ToProjectModel();
     }
 
     public async Task<ProjectUserEntity> AddUser(Guid projectId, Guid userId)
@@ -95,20 +136,10 @@ public class ProjectsService : IProjectsService
         }
     }
 
-    public async Task<Project> UpdateProject(Guid id, ProjectFromRequestDto projectFromRequestDto)
-    {
-        var projectEntity = await _projectsRepository.GetById(id);
-        
-        if (projectEntity == null)
-            throw new ArgumentException("Project not found");
+    #endregion PUT METHODS
 
-        projectEntity.Name = projectFromRequestDto.Name;
-        projectEntity.Description = projectFromRequestDto.Description;
 
-        await _projectsRepository.Update(projectEntity);
-
-        return projectEntity.ToProjectModel();
-    }
+    #region DELETE METHODS
 
     public async Task DeleteProject(Guid id)
     {
@@ -121,4 +152,6 @@ public class ProjectsService : IProjectsService
             throw new KeyNotFoundException(ex.Message);
         }
     }
+
+    #endregion DELETE METHODS
 }

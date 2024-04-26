@@ -17,7 +17,9 @@ public class ProjectsController : ControllerBase
     {
         _projectsService = projectsService;
     }
-    
+
+    #region GET ENDPOINTS
+
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
@@ -53,6 +55,25 @@ public class ProjectsController : ControllerBase
         }
     }
 
+    [HttpGet("{projectId}/users")]
+    public async Task<IActionResult> GetUsers([FromRoute] Guid projectId)
+    {
+        try
+        {
+            var users = await _projectsService.GetUsers(projectId);
+            return Ok(users.Select(u => u.FromUserModelToDto()));
+        }
+        catch (KeyNotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
+    }
+    
+    #endregion GET EDPOINTS
+    
+
+    #region POST ENDPOINTS
+
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] ProjectFromRequestDto projectFromRequestDto)
     {
@@ -73,7 +94,12 @@ public class ProjectsController : ControllerBase
             return NotFound(e.Message);
         }
     }
+
+    #endregion POST ENDPOINTS
+
     
+    #region PUT ENDPOINTS
+
     [HttpPut("{projectId}/add_user")]
     public async Task<IActionResult> AddUser([FromRoute] Guid projectId, [FromQuery] Guid userId)
     {
@@ -106,6 +132,11 @@ public class ProjectsController : ControllerBase
         }
     }
 
+    #endregion PUT ENDPOINTS
+
+
+    #region DELETE ENDPOINTS
+
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete([FromRoute] Guid id)
     {
@@ -119,4 +150,6 @@ public class ProjectsController : ControllerBase
             return NotFound(ex.Message);
         }
     }
+
+    #endregion DELETE ENDPOINTS
 }
