@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using ProjectManagement.Core.Entities;
 using ProjectManagement.DataAccess.Data;
-using ProjectManagement.DataAccess.Entities;
 
 namespace ProjectManagement.DataAccess.Repositories.Projects;
 
@@ -56,6 +56,36 @@ public class ProjectsRepository : IProjectsRepository
         await _context.SaveChangesAsync();
 
         return taskEntity;
+    }
+
+    public async Task<ProjectUserEntity> AddUser(Guid projectId, Guid userId)
+    {
+        var projectEntity = await _context.Projects.FindAsync(projectId);
+        if (projectEntity == null)
+        {
+            throw new KeyNotFoundException("Project not found!");
+        }
+        
+        var userEntity = await _context.Users.FindAsync(userId);
+        if (userEntity == null)
+        {
+            throw new KeyNotFoundException("User not found!");
+        }
+
+        var projectUserEntity = new ProjectUserEntity()
+        {
+            ProjectId = projectId,
+            Project = projectEntity,
+            UserId = userId,
+            User = userEntity
+        };
+
+        await _context.ProjectUsers.AddAsync(projectUserEntity);
+        
+        projectEntity.ProjectUsers.Add(projectUserEntity);
+        userEntity.ProjectUsers.Add(projectUserEntity);
+        
+        return projectUserEntity;
     }
 
     public async Task<ProjectEntity?> Update(ProjectEntity projectEntity)

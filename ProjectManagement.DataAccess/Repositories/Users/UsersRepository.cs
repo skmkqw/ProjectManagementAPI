@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
+using ProjectManagement.Core.Entities;
 using ProjectManagement.Core.Models;
 using ProjectManagement.DataAccess.Data;
 using ProjectManagement.DataAccess.DTOs.Users;
-using ProjectManagement.DataAccess.Entities;
 using ProjectManagement.DataAccess.Mappers;
 
 namespace ProjectManagement.DataAccess.Repositories.Users;

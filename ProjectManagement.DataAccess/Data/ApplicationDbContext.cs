@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using ProjectManagement.Core.Entities;
 using ProjectManagement.DataAccess.Configurations;
-using ProjectManagement.DataAccess.Entities;
 
 namespace ProjectManagement.DataAccess.Data;
 

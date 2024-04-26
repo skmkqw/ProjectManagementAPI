@@ -1,6 +1,6 @@
+using ProjectManagement.Core.Entities;
 using ProjectManagement.Core.Models;
 using ProjectManagement.DataAccess.DTOs.Users;
-using ProjectManagement.DataAccess.Entities;
 using ProjectManagement.DataAccess.Mappers;
 using ProjectManagement.DataAccess.Repositories.Users;
 

@@ -1,6 +1,6 @@
+using ProjectManagement.Core.Entities;
 using ProjectManagement.Core.Models;
 using ProjectManagement.DataAccess.DTOs.Projects;
-using ProjectManagement.DataAccess.Entities;
 
 namespace ProjectManagement.DataAccess.Mappers;
 
@@ -34,7 +34,7 @@ public static class ProjectMappers
             Name = projectEntity.Name, 
             Description = projectEntity.Description,
             Tasks = projectEntity.Tasks.Select(p => p.ToTaskModel()).ToList(),
-            ProjectUsers = projectEntity.ProjectUsers.Select(u => u.ToProjectUserModel()).ToList()
+            ProjectUsers = projectEntity.ProjectUsers
         };
     }
     

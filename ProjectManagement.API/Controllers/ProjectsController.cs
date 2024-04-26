@@ -73,6 +73,20 @@ public class ProjectsController : ControllerBase
             return NotFound(e.Message);
         }
     }
+    
+    [HttpPut("{projectId}/add_user")]
+    public async Task<IActionResult> AddUser([FromRoute] Guid projectId, [FromQuery] Guid userId)
+    {
+        try
+        {
+            var createdEntity = await _projectsService.AddUser(projectId, userId);
+            return CreatedAtAction(nameof(GetById), new { id = createdEntity.UserId }, createdEntity.ToDto());
+        }
+        catch (KeyNotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
+    }
 
     [HttpPut("{id}")]
     public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] ProjectFromRequestDto projectFromRequestDto)

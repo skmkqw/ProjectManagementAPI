@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using ProjectManagement.DataAccess.Entities;
+using ProjectManagement.Core.Entities;
 
 namespace ProjectManagement.DataAccess.Configurations;
 

@@ -1,4 +1,4 @@
-namespace ProjectManagement.DataAccess.Entities;
+namespace ProjectManagement.Core.Entities;
 
 public class ProjectEntity
 {

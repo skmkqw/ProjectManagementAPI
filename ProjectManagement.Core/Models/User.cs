@@ -1,3 +1,5 @@
+using ProjectManagement.Core.Entities;
+
 namespace ProjectManagement.Core.Models;
 
 public class User
@@ -8,5 +10,5 @@ public class User
     
     public List<ProjectTask>? Tasks { get; set; }
 
-    public List<ProjectUser> ProjectUsers { get; set; } = new();
+    public List<ProjectUserEntity> ProjectUsers { get; set; } = new();
 }

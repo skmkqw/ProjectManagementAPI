@@ -1,3 +1,4 @@
+using ProjectManagement.Core.Entities;
 using ProjectManagement.Core.Models;
 using ProjectManagement.DataAccess.DTOs.Projects;
 using ProjectManagement.DataAccess.DTOs.Tasks;
@@ -74,6 +75,19 @@ public class ProjectsService : IProjectsService
         catch (KeyNotFoundException ex)
         {
             throw new KeyNotFoundException(ex.Message);
+        }
+    }
+
+    public async Task<ProjectUserEntity> AddUser(Guid projectId, Guid userId)
+    {
+        try
+        {
+            var projectUserEntity = await _projectsRepository.AddUser(projectId, userId);
+            return projectUserEntity;
+        }
+        catch (KeyNotFoundException e)
+        {
+            throw new KeyNotFoundException(e.Message);
         }
     }
 

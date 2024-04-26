@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 using ProjectManagement.Application.Services;
 using ProjectManagement.Application.Services.Projects;
@@ -12,6 +13,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddControllers();
+    // .AddJsonOptions(options =>
+    // {
+    //     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+    // });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
