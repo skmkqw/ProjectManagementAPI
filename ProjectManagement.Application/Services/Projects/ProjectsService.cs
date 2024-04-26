@@ -103,7 +103,6 @@ public class ProjectsService : IProjectsService
 
 
     #region PUT METHODS
-    
     public async Task<Project> UpdateProject(Guid id, ProjectFromRequestDto projectFromRequestDto)
     {
         var projectEntity = await _projectsRepository.GetById(id);
@@ -125,6 +124,22 @@ public class ProjectsService : IProjectsService
         {
             var projectUserEntity = await _projectsRepository.AddUser(projectId, userId);
             return projectUserEntity;
+        }
+        catch (KeyNotFoundException e)
+        {
+            throw new KeyNotFoundException(e.Message);
+        }
+        catch (ArgumentException e)
+        {
+            throw new ArgumentException(e.Message);
+        }
+    }
+    
+    public async Task RemoveUser(Guid projectId, Guid userId)
+    {
+        try
+        {
+            await _projectsRepository.RemoveUser(projectId, userId);
         }
         catch (KeyNotFoundException e)
         {

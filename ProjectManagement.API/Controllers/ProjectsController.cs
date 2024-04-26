@@ -99,6 +99,20 @@ public class ProjectsController : ControllerBase
 
     
     #region PUT ENDPOINTS
+    
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] ProjectFromRequestDto projectFromRequestDto)
+    {
+        try
+        {
+            await _projectsService.UpdateProject(id, projectFromRequestDto);
+            return NoContent();
+        }
+        catch (ArgumentException ex)
+        {
+            return NotFound(ex.Message);
+        }
+    }
 
     [HttpPut("{projectId}/add_user")]
     public async Task<IActionResult> AddUser([FromRoute] Guid projectId, [FromQuery] Guid userId)
@@ -118,20 +132,24 @@ public class ProjectsController : ControllerBase
         }
     }
 
-    [HttpPut("{id}")]
-    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] ProjectFromRequestDto projectFromRequestDto)
+    [HttpPut("{projectId}/remove_user")]
+    public async Task<IActionResult> RemoveUser([FromRoute] Guid projectId, [FromQuery] Guid userId)
     {
         try
         {
-            await _projectsService.UpdateProject(id, projectFromRequestDto);
+            await _projectsService.RemoveUser(projectId, userId);
             return NoContent();
         }
-        catch (ArgumentException ex)
+        catch (KeyNotFoundException e)
         {
-            return NotFound(ex.Message);
+            return NotFound(e.Message);
+        }
+        catch (ArgumentException e)
+        {
+            return NotFound(e.Message);
         }
     }
-
+    
     #endregion PUT ENDPOINTS
 
 

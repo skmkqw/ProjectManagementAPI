@@ -95,7 +95,7 @@ public class ProjectsRepository : IProjectsRepository
 
 
     #region PUT METHODS
-    
+
     public async Task<ProjectEntity?> Update(ProjectEntity projectEntity)
     {
         _context.Entry(projectEntity).State = EntityState.Modified;
@@ -140,6 +140,32 @@ public class ProjectsRepository : IProjectsRepository
         userEntity.ProjectUsers.Add(projectUserEntity);
         
         return projectUserEntity;
+    }
+    
+    public async Task RemoveUser(Guid projectId, Guid userId)
+    {
+        var projectEntity = await _context.Projects.FindAsync(projectId);
+        if (projectEntity == null)
+        {
+            throw new KeyNotFoundException("Project not found!");
+        }
+        
+        var userEntity = await _context.Users.FindAsync(userId);
+        if (userEntity == null)
+        {
+            throw new KeyNotFoundException("User not found!");
+        }
+        
+        var existingProjectUser = await _context.ProjectUsers
+            .FirstOrDefaultAsync(pu => pu.ProjectId == projectId && pu.UserId == userId);
+        
+        if (existingProjectUser == null)
+        {
+            throw new ArgumentException("There is no such user in the project!");
+        }
+
+        _context.ProjectUsers.Remove(existingProjectUser);
+        await _context.SaveChangesAsync();
     }
 
     #endregion PUT METHODS

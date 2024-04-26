@@ -19,6 +19,8 @@ public interface IProjectsRepository
     
     public Task<ProjectUserEntity> AddUser(Guid projectId, Guid userId);
 
+    public Task RemoveUser(Guid projectId, Guid userId);
+
     public Task<ProjectEntity?> Update(ProjectEntity projectEntity);
 
     public Task Delete(Guid id);
