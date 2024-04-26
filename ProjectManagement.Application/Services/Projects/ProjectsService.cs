@@ -1,3 +1,4 @@
+using ProjectManagement.Core.Entities;
 using ProjectManagement.Core.Models;
 using ProjectManagement.DataAccess.DTOs.Projects;
 using ProjectManagement.DataAccess.DTOs.Tasks;
@@ -14,6 +15,8 @@ public class ProjectsService : IProjectsService
     {
         _projectsRepository = projectsProjectsRepository;
     }
+
+    #region GET METHODS
 
     public async Task<IEnumerable<Project>> GetAllProjects()
     {
@@ -39,16 +42,7 @@ public class ProjectsService : IProjectsService
 
         return projectEntity.ToProjectModel();
     }
-
-    public async Task<Project> CreateProject(ProjectFromRequestDto projectFromRequestDto)
-    {
-        var projectEntity = projectFromRequestDto.FromDtoToProjectEntity();
-
-        var createdEntity = await _projectsRepository.Create(projectEntity);
-
-        return createdEntity.ToProjectModel();
-    }
-
+    
     public async Task<IEnumerable<ProjectTask>> GetTasks(Guid projectId)
     {
         try
@@ -61,6 +55,34 @@ public class ProjectsService : IProjectsService
         {
             throw new KeyNotFoundException(e.Message);
         }
+    }
+    
+    public async Task<IEnumerable<User>> GetUsers(Guid projectId)
+    {
+        try
+        {
+            var userEntities = await _projectsRepository.GetUsers(projectId);
+            var users = userEntities.Select(t => t.ToUserModel());
+            return users;
+        }
+        catch (KeyNotFoundException e)
+        {
+            throw new KeyNotFoundException(e.Message);
+        }
+    }
+
+    #endregion GET METHODS
+
+
+    #region POST METHODS
+
+    public async Task<Project> CreateProject(ProjectFromRequestDto projectFromRequestDto)
+    {
+        var projectEntity = projectFromRequestDto.FromDtoToProjectEntity();
+
+        var createdEntity = await _projectsRepository.Create(projectEntity);
+
+        return createdEntity.ToProjectModel();
     }
 
     public async Task<ProjectTask> AddTask(Guid projectId, CreateTaskDto createTaskDto)
@@ -77,6 +99,10 @@ public class ProjectsService : IProjectsService
         }
     }
 
+    #endregion POST METHODS
+
+
+    #region PUT METHODS
     public async Task<Project> UpdateProject(Guid id, ProjectFromRequestDto projectFromRequestDto)
     {
         var projectEntity = await _projectsRepository.GetById(id);
@@ -92,6 +118,44 @@ public class ProjectsService : IProjectsService
         return projectEntity.ToProjectModel();
     }
 
+    public async Task<ProjectUserEntity> AddUser(Guid projectId, Guid userId)
+    {
+        try
+        {
+            var projectUserEntity = await _projectsRepository.AddUser(projectId, userId);
+            return projectUserEntity;
+        }
+        catch (KeyNotFoundException e)
+        {
+            throw new KeyNotFoundException(e.Message);
+        }
+        catch (ArgumentException e)
+        {
+            throw new ArgumentException(e.Message);
+        }
+    }
+    
+    public async Task RemoveUser(Guid projectId, Guid userId)
+    {
+        try
+        {
+            await _projectsRepository.RemoveUser(projectId, userId);
+        }
+        catch (KeyNotFoundException e)
+        {
+            throw new KeyNotFoundException(e.Message);
+        }
+        catch (ArgumentException e)
+        {
+            throw new ArgumentException(e.Message);
+        }
+    }
+
+    #endregion PUT METHODS
+
+
+    #region DELETE METHODS
+
     public async Task DeleteProject(Guid id)
     {
         try
@@ -103,4 +167,6 @@ public class ProjectsService : IProjectsService
             throw new KeyNotFoundException(ex.Message);
         }
     }
+
+    #endregion DELETE METHODS
 }

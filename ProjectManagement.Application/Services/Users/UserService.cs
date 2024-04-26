@@ -1,6 +1,6 @@
+using ProjectManagement.Core.Entities;
 using ProjectManagement.Core.Models;
 using ProjectManagement.DataAccess.DTOs.Users;
-using ProjectManagement.DataAccess.Entities;
 using ProjectManagement.DataAccess.Mappers;
 using ProjectManagement.DataAccess.Repositories.Users;
 
@@ -14,6 +14,8 @@ public class UserService : IUsersService
     {
         _usersRepository = usersRepository;
     }
+    
+    #region GET METHODS
 
     public async Task<IEnumerable<User>> GetAllUsers()
     {
@@ -39,6 +41,39 @@ public class UserService : IUsersService
 
         return userEntity.ToUserModel();
     }
+    
+    public async Task<IEnumerable<ProjectTask>> GetTasks(Guid userId)
+    {
+        try
+        {
+            var taskEntities = await _usersRepository.GetTasks(userId);
+            var tasks = taskEntities.Select(t => t.ToTaskModel());
+            return tasks;
+        }
+        catch (KeyNotFoundException e)
+        {
+            throw new KeyNotFoundException(e.Message);
+        }
+    }
+
+    public async Task<IEnumerable<Project>> GetProjects(Guid userId)
+    {
+        try
+        {
+            var projectEntities = await _usersRepository.GetProjects(userId);
+            var projects = projectEntities.Select(p => p.ToProjectModel());
+            return projects;
+        }
+        catch (KeyNotFoundException e)
+        {
+            throw new KeyNotFoundException(e.Message);
+        }
+    }
+
+    #endregion GET METHODS
+
+
+    #region POST METHODS
 
     public async Task<User> CreateUser(UserFromRequestDto userFromRequest)
     {
@@ -48,6 +83,11 @@ public class UserService : IUsersService
 
         return createdEntity.ToUserModel();
     }
+
+    #endregion POST METHODS
+
+
+    #region PUT METHODS
 
     public async Task<User> UpdateUser(Guid id, UserFromRequestDto userFromRequest)
     {
@@ -64,19 +104,10 @@ public class UserService : IUsersService
         return userEntity.ToUserModel();
     }
 
-    public async Task<IEnumerable<ProjectTask>> GetTasks(Guid userId)
-    {
-        try
-        {
-            var taskEntities = await _usersRepository.GetTasks(userId);
-            var tasks = taskEntities.Select(t => t.ToTaskModel());
-            return tasks;
-        }
-        catch (KeyNotFoundException e)
-        {
-            throw new KeyNotFoundException(e.Message);
-        }
-    }
+    #endregion PUT METHODS
+
+
+    #region DELETE METHODS
 
     public async Task DeleteUser(Guid id)
     {
@@ -89,4 +120,6 @@ public class UserService : IUsersService
             throw new KeyNotFoundException(ex.Message);
         }
     }
+
+    #endregion DELETE METHODS
 }

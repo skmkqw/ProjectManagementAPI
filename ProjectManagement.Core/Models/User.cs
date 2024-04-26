@@ -8,5 +8,5 @@ public class User
     
     public List<ProjectTask>? Tasks { get; set; }
 
-    public List<ProjectUser> ProjectUsers { get; set; } = new();
+    public List<Project> Projects { get; set; } = new();
 }

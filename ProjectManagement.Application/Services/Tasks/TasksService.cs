@@ -14,6 +14,8 @@ public class TasksService : ITasksService
         _tasksRepository = tasksRepository;
     }
     
+    #region GET METHODS
+
     public async Task<IEnumerable<ProjectTask>> GetAllTasks()
     {
         var taskEntities = await _tasksRepository.GetAll();
@@ -39,17 +41,10 @@ public class TasksService : ITasksService
         return taskEntity.ToTaskModel();
     }
 
-    public async Task<Guid> AssignUserToTask(Guid taskId, Guid userId)
-    {
-        try
-        {
-            return await _tasksRepository.AssignUser(taskId, userId);
-        }
-        catch (KeyNotFoundException e)
-        {
-            throw new KeyNotFoundException(e.Message);
-        }
-    }
+    #endregion GET METHODS
+    
+    
+    #region PUT METHODS
 
     public async Task<ProjectTask> UpdateTask(Guid id, UpdateTaskDto updateTaskDto)
     {
@@ -79,6 +74,23 @@ public class TasksService : ITasksService
 
         return taskEntity.ToTaskModel();
     }
+    
+    public async Task<Guid> AssignUserToTask(Guid taskId, Guid userId)
+    {
+        try
+        {
+            return await _tasksRepository.AssignUser(taskId, userId);
+        }
+        catch (KeyNotFoundException e)
+        {
+            throw new KeyNotFoundException(e.Message);
+        }
+    }
+
+    #endregion PUT METHODS
+    
+    
+    #region DELETE METHODS
 
     public async Task DeleteTask(Guid id)
     {
@@ -91,4 +103,6 @@ public class TasksService : ITasksService
             throw new KeyNotFoundException(ex.Message);
         }
     }
+
+    #endregion DELETE METHODS
 }

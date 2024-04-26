@@ -1,6 +1,6 @@
+using ProjectManagement.Core.Entities;
 using ProjectManagement.Core.Models;
 using ProjectManagement.DataAccess.DTOs.Tasks;
-using ProjectManagement.DataAccess.Entities;
 
 namespace ProjectManagement.DataAccess.Mappers;
 

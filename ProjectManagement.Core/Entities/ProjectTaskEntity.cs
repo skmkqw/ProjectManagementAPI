@@ -1,6 +1,6 @@
 using ProjectManagement.Core.Models;
 
-namespace ProjectManagement.DataAccess.Entities;
+namespace ProjectManagement.Core.Entities;
 
 public class ProjectTaskEntity
 {
