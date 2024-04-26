@@ -15,12 +15,22 @@ public class ProjectsRepository : IProjectsRepository
     
     public async Task<IEnumerable<ProjectEntity>> GetAll()
     {
-        return await _context.Projects.AsNoTracking().Include(p => p.Tasks).ToListAsync();
+        return await _context.Projects.AsNoTracking()
+            .Include(p => p.Tasks)
+            .Include(u => u.ProjectUsers)
+            .ThenInclude(u => u.User)
+            .ThenInclude(t => t.Tasks)
+            .ToListAsync();
     }
 
     public async Task<ProjectEntity?> GetById(Guid id)
     {
-        return await _context.Projects.Include(p => p.Tasks).FirstOrDefaultAsync(i => i.Id == id);
+        return await _context.Projects
+            .Include(p => p.Tasks)
+            .Include(u => u.ProjectUsers)
+            .ThenInclude(u => u.User)
+            .ThenInclude(t => t.Tasks)
+            .FirstOrDefaultAsync(i => i.Id == id);
     }
 
     public async Task<ProjectEntity?> Create(ProjectEntity projectEntity)
@@ -79,8 +89,17 @@ public class ProjectsRepository : IProjectsRepository
             UserId = userId,
             User = userEntity
         };
+        
+        var existingProjectUser = await _context.ProjectUsers
+            .FirstOrDefaultAsync(pu => pu.ProjectId == projectId && pu.UserId == userId);
+
+        if (existingProjectUser != null)
+        {
+            throw new ArgumentException("User already exists in the project!");
+        }
 
         await _context.ProjectUsers.AddAsync(projectUserEntity);
+        await _context.SaveChangesAsync();
         
         projectEntity.ProjectUsers.Add(projectUserEntity);
         userEntity.ProjectUsers.Add(projectUserEntity);

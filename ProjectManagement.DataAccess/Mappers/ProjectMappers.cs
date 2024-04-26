@@ -22,7 +22,8 @@ public static class ProjectMappers
             Id = project.Id,
             Name = project.Name,
             Description = project.Description,
-            Tasks = project.Tasks.Select(t => t.FromTaskModelToDto()).ToList()
+            Tasks = project.Tasks.Select(t => t.FromTaskModelToDto()).ToList(),
+            AddedUsers = project.AddedUsers.Select(u => u.FromUserModelToDto()).ToList()
         };
     }
 
@@ -34,7 +35,7 @@ public static class ProjectMappers
             Name = projectEntity.Name, 
             Description = projectEntity.Description,
             Tasks = projectEntity.Tasks.Select(p => p.ToTaskModel()).ToList(),
-            ProjectUsers = projectEntity.ProjectUsers
+            AddedUsers = projectEntity.ProjectUsers.Select(u => u.User.ToUserModel()).ToList()
         };
     }
     

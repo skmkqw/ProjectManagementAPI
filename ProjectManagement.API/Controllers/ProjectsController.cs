@@ -86,6 +86,10 @@ public class ProjectsController : ControllerBase
         {
             return NotFound(e.Message);
         }
+        catch (ArgumentException e)
+        {
+            return NotFound(e.Message);
+        }
     }
 
     [HttpPut("{id}")]

@@ -89,6 +89,10 @@ public class ProjectsService : IProjectsService
         {
             throw new KeyNotFoundException(e.Message);
         }
+        catch (ArgumentException e)
+        {
+            throw new ArgumentException(e.Message);
+        }
     }
 
     public async Task<Project> UpdateProject(Guid id, ProjectFromRequestDto projectFromRequestDto)

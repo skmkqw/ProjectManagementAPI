@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ProjectManagement.DataAccess")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5aadc9c9abb950b5b0ec32c7a973e97ebb7b6d5f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+91f8af06d700feb63265f984d9e37c93fcb6d7fa")]
 [assembly: System.Reflection.AssemblyProductAttribute("ProjectManagement.DataAccess")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ProjectManagement.DataAccess")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
