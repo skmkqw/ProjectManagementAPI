@@ -14,6 +14,8 @@ public class TasksRepository : ITasksRepository
         _context = context;
     }
 
+    #region GET METHODS
+
     public async Task<IEnumerable<ProjectTaskEntity>> GetAll()
     {
         return await _context.ProjectTasks.AsNoTracking().ToListAsync();
@@ -24,6 +26,18 @@ public class TasksRepository : ITasksRepository
         return await _context.ProjectTasks.FindAsync(id);
     }
 
+    #endregion GET METHODS
+    
+    
+    #region PUT METHODS
+
+    public async Task<ProjectTaskEntity?> Update(ProjectTaskEntity projectTaskEntity)
+    {
+        _context.Entry(projectTaskEntity).State = EntityState.Modified;
+        await _context.SaveChangesAsync();
+        return projectTaskEntity;
+    }
+    
     public async Task<Guid> AssignUser(Guid taskId, Guid userId)
     {
         var taskEntity = await _context.ProjectTasks.FindAsync(taskId);
@@ -45,12 +59,10 @@ public class TasksRepository : ITasksRepository
         return userId;
     }
 
-    public async Task<ProjectTaskEntity?> Update(ProjectTaskEntity projectTaskEntity)
-    {
-        _context.Entry(projectTaskEntity).State = EntityState.Modified;
-        await _context.SaveChangesAsync();
-        return projectTaskEntity;
-    }
+    #endregion PUT METHODS
+    
+    
+    #region DELETE METHODS
 
     public async Task Delete(Guid id)
     {
@@ -62,4 +74,6 @@ public class TasksRepository : ITasksRepository
         _context.ProjectTasks.Remove(projectTaskEntity);
         await _context.SaveChangesAsync();
     }
+
+    #endregion DELETE METHODS
 }

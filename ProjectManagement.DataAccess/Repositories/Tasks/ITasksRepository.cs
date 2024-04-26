@@ -1,5 +1,4 @@
 using ProjectManagement.Core.Entities;
-using ProjectManagement.DataAccess.DTOs.Tasks;
 
 namespace ProjectManagement.DataAccess.Repositories.Tasks;
 

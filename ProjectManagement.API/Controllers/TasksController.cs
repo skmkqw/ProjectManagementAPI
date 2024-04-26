@@ -17,6 +17,8 @@ public class TasksController : ControllerBase
         _tasksService = tasksService;
     }
 
+    #region GET ENDPOINTS
+
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
@@ -36,6 +38,10 @@ public class TasksController : ControllerBase
         return Ok(task.FromTaskModelToDto());
     }
 
+    #endregion GET ENDPOINTS
+    
+    
+    #region PUT ENDPOINTS
 
     [HttpPut("{id}")]
     public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateTaskDto updateTaskDto)
@@ -79,7 +85,12 @@ public class TasksController : ControllerBase
         }
     }
 
-[HttpDelete("{id}")]
+    #endregion PUT ENDPOINTS
+    
+    
+    #region DELETE ENDPOINTS
+
+    [HttpDelete("{id}")]
     public async Task<IActionResult> Delete([FromRoute] Guid id)
     {
         try
@@ -92,4 +103,6 @@ public class TasksController : ControllerBase
             return NotFound(ex.Message);
         }
     }
+
+    #endregion DELETE ENDPOINTS
 }
