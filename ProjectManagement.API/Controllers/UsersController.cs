@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using ProjectManagement.Application.Services.Users;
 using ProjectManagement.DataAccess.DTOs.Users;
 using ProjectManagement.DataAccess.Mappers;
-using ProjectManagement.DataAccess.Repositories.Users;
 
 namespace ProjectManagement.API.Controllers;
 
@@ -33,7 +32,7 @@ public class UsersController : ControllerBase
         try
         {
             var user = await _usersService.GetUserById(id);
-            return NotFound();
+            return Ok(user.FromUserModelToDto());
         }
         catch (KeyNotFoundException e)
         {

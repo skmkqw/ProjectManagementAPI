@@ -18,12 +18,12 @@ public class UsersRepository : IUsersRepository
 
     public async Task<IEnumerable<UserEntity>> GetAll()
     {
-        return await _context.Users.AsNoTracking().Include(t => t.Tasks).ToListAsync();
+        return await _context.Users.AsNoTracking().ToListAsync();
     }
 
     public async Task<UserEntity?> GetById(Guid id)
     {
-        return await _context.Users.Include(t => t.Tasks).FirstOrDefaultAsync(i => i.Id == id);
+        return await _context.Users.FirstOrDefaultAsync(i => i.Id == id);
     }
     
     public async Task<IEnumerable<ProjectTaskEntity>> GetTasks(Guid userId)
