@@ -6,12 +6,12 @@ namespace ProjectManagement.DataAccess.Mappers;
 
 public static class ProjectMappers
 {
-    public static ProjectEntity FromDtoToProjectEntity(this ProjectFromRequestDto projectFromRequestDto)
+    public static ProjectEntity FromCreateDtoToProjectEntity(this CreateProjectDto createProjectDto)
     {
         return new ProjectEntity()
         {
-            Name = projectFromRequestDto.Name,
-            Description = projectFromRequestDto.Description
+            Name = createProjectDto.Name,
+            Description = createProjectDto.Description
         };
     }
 
@@ -36,16 +36,6 @@ public static class ProjectMappers
             Description = projectEntity.Description,
             Tasks = projectEntity.Tasks.Select(p => p.ToTaskModel()).ToList(),
             AddedUsers = projectEntity.ProjectUsers.Select(u => u.User.ToUserModel()).ToList()
-        };
-    }
-    
-    public static ProjectEntity ToProjectEntity(this Project project)
-    {
-        return new ProjectEntity()
-        {
-            Id = project.Id,
-            Name = project.Name,
-            Description = project.Description
         };
     }
 }
