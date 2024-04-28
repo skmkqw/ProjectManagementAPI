@@ -10,8 +10,4 @@ public class ProjectDto
     public string Name { get; set; } = string.Empty;
     
     public string Description { get; set; } = string.Empty;
-
-    public List<TaskDto> Tasks { get; set; } = new();
-
-    public List<UserDto> AddedUsers { get; set; } = new();
 }

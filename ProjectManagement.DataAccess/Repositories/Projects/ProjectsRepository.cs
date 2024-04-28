@@ -18,22 +18,12 @@ public class ProjectsRepository : IProjectsRepository
 
     public async Task<IEnumerable<ProjectEntity>> GetAll()
     {
-        return await _context.Projects.AsNoTracking()
-            .Include(p => p.Tasks)
-            .Include(u => u.ProjectUsers)
-            .ThenInclude(u => u.User)
-            .ThenInclude(t => t.Tasks)
-            .ToListAsync();
+        return await _context.Projects.AsNoTracking().ToListAsync();
     }
 
     public async Task<ProjectEntity?> GetById(Guid id)
     {
-        return await _context.Projects
-            .Include(p => p.Tasks)
-            .Include(u => u.ProjectUsers)
-            .ThenInclude(u => u.User)
-            .ThenInclude(t => t.Tasks)
-            .FirstOrDefaultAsync(i => i.Id == id);
+        return await _context.Projects.FindAsync(id);
     }
     
     public async Task<IEnumerable<ProjectTaskEntity>> GetTasks(Guid projectId)

@@ -124,8 +124,8 @@ public class ProjectsController : ControllerBase
     {
         try
         {
-            var updatedProjectEntity = await _projectsService.UpdateProject(id, updateProjectDto);
-            return Ok(updatedProjectEntity);
+            var updatedProject = await _projectsService.UpdateProject(id, updateProjectDto);
+            return Ok(updatedProject.ToProjectDto());
         }
         catch (ArgumentException ex)
         {
