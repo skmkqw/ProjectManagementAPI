@@ -70,11 +70,12 @@ public class TasksService : ITasksService
         return taskEntity.ToTaskModel();
     }
     
-    public async Task<Guid> AssignUserToTask(Guid taskId, Guid userId)
+    public async Task<ProjectTask> AssignUserToTask(Guid taskId, Guid userId)
     {
         try
         {
-            return await _tasksRepository.AssignUser(taskId, userId);
+            var taskEntity = await _tasksRepository.AssignUser(taskId, userId);
+            return taskEntity.ToTaskModel();
         }
         catch (KeyNotFoundException e)
         {

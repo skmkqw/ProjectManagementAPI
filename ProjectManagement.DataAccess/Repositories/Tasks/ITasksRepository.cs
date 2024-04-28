@@ -9,7 +9,7 @@ public interface ITasksRepository
 
     public Task<ProjectTaskEntity?> GetById(Guid id);
     
-    public Task<Guid> AssignUser(Guid taskId, Guid userId);
+    public Task<ProjectTaskEntity> AssignUser(Guid taskId, Guid userId);
 
     public Task RemoveUser(Guid taskId);
     

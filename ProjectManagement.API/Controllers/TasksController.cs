@@ -79,8 +79,8 @@ public class TasksController : ControllerBase
     {
         try
         {
-            Guid assignedUserId = await _tasksService.AssignUserToTask(taskId, userId);
-            return Ok(assignedUserId);
+            var task = await _tasksService.AssignUserToTask(taskId, userId);
+            return Ok(task.ToTaskDto());
         }
         catch (KeyNotFoundException e)
         {

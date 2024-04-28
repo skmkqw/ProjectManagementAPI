@@ -45,7 +45,7 @@ public class TasksRepository : ITasksRepository
         return projectTaskEntity;
     }
 
-    public async Task<Guid> AssignUser(Guid taskId, Guid userId)
+    public async Task<ProjectTaskEntity> AssignUser(Guid taskId, Guid userId)
     {
         var taskEntity = await _context.ProjectTasks.FindAsync(taskId);
         if (taskEntity == null)
@@ -63,7 +63,7 @@ public class TasksRepository : ITasksRepository
 
         await _context.SaveChangesAsync();
 
-        return userId;
+        return taskEntity;
     }
 
     #endregion PUT METHODS
