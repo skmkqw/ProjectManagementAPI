@@ -94,6 +94,24 @@ public class ProjectsController : ControllerBase
             return NotFound(e.Message);
         }
     }
+    
+    [HttpPost("{projectId}/add_user")]
+    public async Task<IActionResult> AddUser([FromRoute] Guid projectId, [FromQuery] Guid userId)
+    {
+        try
+        {
+            var createdEntity = await _projectsService.AddUser(projectId, userId);
+            return CreatedAtAction(nameof(GetById), new { id = createdEntity.UserId }, createdEntity.ToDto());
+        }
+        catch (KeyNotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
+        catch (ArgumentException e)
+        {
+            return NotFound(e.Message);
+        }
+    }
 
     #endregion POST ENDPOINTS
 
@@ -113,42 +131,6 @@ public class ProjectsController : ControllerBase
             return NotFound(ex.Message);
         }
     }
-
-    [HttpPut("{projectId}/add_user")]
-    public async Task<IActionResult> AddUser([FromRoute] Guid projectId, [FromQuery] Guid userId)
-    {
-        try
-        {
-            var createdEntity = await _projectsService.AddUser(projectId, userId);
-            return CreatedAtAction(nameof(GetById), new { id = createdEntity.UserId }, createdEntity.ToDto());
-        }
-        catch (KeyNotFoundException e)
-        {
-            return NotFound(e.Message);
-        }
-        catch (ArgumentException e)
-        {
-            return NotFound(e.Message);
-        }
-    }
-
-    [HttpPut("{projectId}/remove_user")]
-    public async Task<IActionResult> RemoveUser([FromRoute] Guid projectId, [FromQuery] Guid userId)
-    {
-        try
-        {
-            await _projectsService.RemoveUser(projectId, userId);
-            return NoContent();
-        }
-        catch (KeyNotFoundException e)
-        {
-            return NotFound(e.Message);
-        }
-        catch (ArgumentException e)
-        {
-            return NotFound(e.Message);
-        }
-    }
     
     #endregion PUT ENDPOINTS
 
@@ -166,6 +148,24 @@ public class ProjectsController : ControllerBase
         catch (KeyNotFoundException ex)
         {
             return NotFound(ex.Message);
+        }
+    }
+    
+    [HttpDelete("{projectId}/remove_user")]
+    public async Task<IActionResult> RemoveUser([FromRoute] Guid projectId, [FromQuery] Guid userId)
+    {
+        try
+        {
+            await _projectsService.RemoveUser(projectId, userId);
+            return NoContent();
+        }
+        catch (KeyNotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
+        catch (ArgumentException e)
+        {
+            return NotFound(e.Message);
         }
     }
 

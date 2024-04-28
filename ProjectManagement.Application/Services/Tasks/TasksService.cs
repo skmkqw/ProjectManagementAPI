@@ -104,5 +104,17 @@ public class TasksService : ITasksService
         }
     }
 
+    public async Task RemoveUserFromTask(Guid taskId)
+    {
+        try
+        {
+            await _tasksRepository.RemoveUser(taskId);
+        }
+        catch (KeyNotFoundException e)
+        {
+            throw new KeyNotFoundException(e.Message);
+        }
+    }
+
     #endregion DELETE METHODS
 }

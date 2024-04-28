@@ -74,6 +74,20 @@ public class TasksRepository : ITasksRepository
         _context.ProjectTasks.Remove(projectTaskEntity);
         await _context.SaveChangesAsync();
     }
+    
+    public async Task RemoveUser(Guid taskId)
+    {
+        var projectTaskEntity = await _context.ProjectTasks.FindAsync(taskId);
+        if (projectTaskEntity == null)
+        {
+            throw new KeyNotFoundException("Task not found!");
+        }
+
+        projectTaskEntity.AssignedUser = null;
+        projectTaskEntity.AssignedUserId = null;
+        
+        await _context.SaveChangesAsync();
+    }
 
     #endregion DELETE METHODS
 }

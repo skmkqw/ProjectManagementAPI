@@ -104,5 +104,19 @@ public class TasksController : ControllerBase
         }
     }
 
+    [HttpDelete("{taskId}/remove_user")]
+    public async Task<IActionResult> RemoveUser([FromRoute] Guid taskId)
+    {
+        try
+        {
+            await _tasksService.RemoveUserFromTask(taskId);
+            return NoContent();
+        }
+        catch (KeyNotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
+    }
+
     #endregion DELETE ENDPOINTS
 }

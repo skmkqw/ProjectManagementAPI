@@ -10,6 +10,8 @@ public interface ITasksService
     public Task<ProjectTask> GetTaskById(Guid id);
     
     public Task<Guid> AssignUserToTask(Guid taskId, Guid userId);
+
+    public Task RemoveUserFromTask(Guid taskId);
     
     public Task<ProjectTask> UpdateTask(Guid id, UpdateTaskDto updateTaskDto);
 
