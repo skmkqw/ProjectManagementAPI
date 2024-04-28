@@ -46,7 +46,7 @@ public class UsersController : ControllerBase
         try
         {
             var tasks = await _usersService.GetTasks(userId);
-            return Ok(tasks.Select(t => t.FromTaskModelToDto()));
+            return Ok(tasks.Select(t => t.ToTaskDto()));
         }
         catch (KeyNotFoundException e)
         {
@@ -60,7 +60,7 @@ public class UsersController : ControllerBase
         try
         {
             var projects = await _usersService.GetProjects(userId);
-            return Ok(projects.Select(p => p.FromProjectModelToDto()));
+            return Ok(projects.Select(p => p.ToProjectDto()));
         }
         catch (KeyNotFoundException e)
         {

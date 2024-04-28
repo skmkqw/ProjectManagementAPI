@@ -31,13 +31,20 @@ public class TasksRepository : ITasksRepository
     
     #region PUT METHODS
 
-    public async Task<ProjectTaskEntity?> Update(ProjectTaskEntity projectTaskEntity)
+    public async Task<ProjectTaskEntity> Update(ProjectTaskEntity projectTaskEntity, UpdateTaskDto updateTaskDto)
+    {
+        _context.Entry(projectTaskEntity).CurrentValues.SetValues(updateTaskDto);
+        await _context.SaveChangesAsync();
+        return projectTaskEntity;
+    }
+
+    public async Task<ProjectTaskEntity> UpdateStatus(ProjectTaskEntity projectTaskEntity)
     {
         _context.Entry(projectTaskEntity).State = EntityState.Modified;
         await _context.SaveChangesAsync();
         return projectTaskEntity;
     }
-    
+
     public async Task<Guid> AssignUser(Guid taskId, Guid userId)
     {
         var taskEntity = await _context.ProjectTasks.FindAsync(taskId);

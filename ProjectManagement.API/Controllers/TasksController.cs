@@ -23,19 +23,22 @@ public class TasksController : ControllerBase
     public async Task<IActionResult> GetAll()
     {
         var tasks = await _tasksService.GetAllTasks();
-        return Ok(tasks.Select(t => t.FromTaskModelToDto()));
+        return Ok(tasks.Select(t => t.ToTaskDto()));
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById([FromRoute] Guid id)
     {
-        var task = await _tasksService.GetTaskById(id);
-        if (task == null)
+        try
         {
-            return NotFound();
-        }
+            var task = await _tasksService.GetTaskById(id);
+            return Ok(task.ToTaskDto());
 
-        return Ok(task.FromTaskModelToDto());
+        }
+        catch (KeyNotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
     }
 
     #endregion GET ENDPOINTS
@@ -48,8 +51,8 @@ public class TasksController : ControllerBase
     {
         try
         {
-            await _tasksService.UpdateTask(id, updateTaskDto);
-            return NoContent();
+            var updatedTask = await _tasksService.UpdateTask(id, updateTaskDto);
+            return Ok(updatedTask.ToTaskDto());
         }
         catch (ArgumentException ex)
         {
@@ -62,8 +65,8 @@ public class TasksController : ControllerBase
     {
         try
         {
-            await _tasksService.UpdateTaskStatus(id, status);
-            return NoContent();
+            var updatedTask = await _tasksService.UpdateTaskStatus(id, status);
+            return Ok(updatedTask.ToTaskDto());
         }
         catch (ArgumentException ex)
         {

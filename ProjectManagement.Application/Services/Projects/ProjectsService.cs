@@ -81,7 +81,7 @@ public class ProjectsService : IProjectsService
     {
         try
         {
-            var taskEntity = createTaskDto.FromDtoToTaskEntity();
+            var taskEntity = createTaskDto.FromCreateDtoToTaskEntity();
             var createdEntity = await _projectsRepository.AddTask(projectId, taskEntity);
             return createdEntity.ToTaskModel();
         }

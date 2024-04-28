@@ -23,7 +23,7 @@ public static class UserMappers
                 Id = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                Tasks = user.Tasks.Select(t => t.FromTaskModelToDto()).ToList(),
+                Tasks = user.Tasks.Select(t => t.ToTaskDto()).ToList(),
             };
         return new UserDto()
         {

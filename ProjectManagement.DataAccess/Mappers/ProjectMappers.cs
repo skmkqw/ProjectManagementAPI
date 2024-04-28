@@ -15,14 +15,14 @@ public static class ProjectMappers
         };
     }
 
-    public static ProjectDto FromProjectModelToDto(this Project project)
+    public static ProjectDto ToProjectDto(this Project project)
     {
         return new ProjectDto()
         {
             Id = project.Id,
             Name = project.Name,
             Description = project.Description,
-            Tasks = project.Tasks.Select(t => t.FromTaskModelToDto()).ToList(),
+            Tasks = project.Tasks.Select(t => t.ToTaskDto()).ToList(),
             AddedUsers = project.AddedUsers.Select(u => u.FromUserModelToDto()).ToList()
         };
     }

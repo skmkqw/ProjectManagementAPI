@@ -6,7 +6,7 @@ namespace ProjectManagement.DataAccess.Mappers;
 
 public static class ProjectTaskMappers
 {
-    public static ProjectTaskEntity FromDtoToTaskEntity(this CreateTaskDto createTaskDto)
+    public static ProjectTaskEntity FromCreateDtoToTaskEntity(this CreateTaskDto createTaskDto)
     {
         return new ProjectTaskEntity()
         {
@@ -15,7 +15,7 @@ public static class ProjectTaskMappers
         };
     }
     
-    public static TaskDto FromTaskModelToDto(this ProjectTask task)
+    public static TaskDto ToTaskDto(this ProjectTask task)
     {
         return new TaskDto()
         {
@@ -38,18 +38,6 @@ public static class ProjectTaskMappers
             ProjectId = taskEntity.ProjectId,
             AssignedUserId = taskEntity.AssignedUserId,
             Status = taskEntity.Status
-        };
-    }
-    
-    public static ProjectTaskEntity ToTaskEntity(this ProjectTask task)
-    {
-        return new ProjectTaskEntity()
-        {
-            Id = task.Id,
-            Title = task.Title,
-            Description = task.Description,
-            ProjectId = task.ProjectId,
-            AssignedUserId = task.AssignedUserId
         };
     }
 }

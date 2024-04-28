@@ -25,7 +25,7 @@ public class ProjectsController : ControllerBase
     {
         var projects = await _projectsService.GetAllProjects();
 
-        return Ok(projects.Select(p => p.FromProjectModelToDto()));
+        return Ok(projects.Select(p => p.ToProjectDto()));
     }
 
     [HttpGet("{id}")]
@@ -34,7 +34,7 @@ public class ProjectsController : ControllerBase
         try
         {
             var project = await _projectsService.GetProjectById(id);
-            return Ok(project.FromProjectModelToDto()); 
+            return Ok(project.ToProjectDto()); 
         }
         catch (KeyNotFoundException e)
         {
@@ -48,7 +48,7 @@ public class ProjectsController : ControllerBase
         try
         {
             var tasks = await _projectsService.GetProjectTasks(projectId);
-            return Ok(tasks.Select(t => t.FromTaskModelToDto()));
+            return Ok(tasks.Select(t => t.ToTaskDto()));
         }
         catch (KeyNotFoundException e)
         {
@@ -79,7 +79,7 @@ public class ProjectsController : ControllerBase
     public async Task<IActionResult> Create([FromBody] CreateProjectDto createProjectDto)
     {
         var project = await _projectsService.CreateProject(createProjectDto);
-        return CreatedAtAction(nameof(GetById), new { id = project.Id }, project.FromProjectModelToDto());
+        return CreatedAtAction(nameof(GetById), new { id = project.Id }, project.ToProjectDto());
     }
 
     [HttpPost("{projectId}/add_task")]
@@ -88,7 +88,7 @@ public class ProjectsController : ControllerBase
         try
         {
             var createdTask = await _projectsService.AddTask(projectId, createTaskDto);
-            return CreatedAtAction(nameof(GetById), new { id = createdTask.Id }, createdTask.FromTaskModelToDto());
+            return CreatedAtAction(nameof(GetById), new { id = createdTask.Id }, createdTask.ToTaskDto());
         }
         catch (KeyNotFoundException e)
         {

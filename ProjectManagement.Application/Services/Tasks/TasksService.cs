@@ -19,14 +19,7 @@ public class TasksService : ITasksService
     public async Task<IEnumerable<ProjectTask>> GetAllTasks()
     {
         var taskEntities = await _tasksRepository.GetAll();
-        
-        List<ProjectTask> tasks = new();
-        foreach (var taskEntity in taskEntities)
-        {
-            tasks.Add(taskEntity.ToTaskModel());
-        }
-
-        return tasks;
+        return taskEntities.Select(t => t.ToTaskModel());
     }
 
     public async Task<ProjectTask> GetTaskById(Guid id)
@@ -35,7 +28,7 @@ public class TasksService : ITasksService
         
         if (taskEntity == null)
         {
-            return null;
+            throw new KeyNotFoundException("Task not found!");
         }
 
         return taskEntity.ToTaskModel();
@@ -49,14 +42,13 @@ public class TasksService : ITasksService
     public async Task<ProjectTask> UpdateTask(Guid id, UpdateTaskDto updateTaskDto)
     {
         var taskEntity = await _tasksRepository.GetById(id);
-        
+
         if (taskEntity == null)
-            throw new ArgumentException("Task not found");
+        {
+            throw new KeyNotFoundException("Task not found");
+        }
 
-        taskEntity.Title = updateTaskDto.Title;
-        taskEntity.Description = updateTaskDto.Description;
-
-        await _tasksRepository.Update(taskEntity);
+        await _tasksRepository.Update(taskEntity, updateTaskDto);
 
         return taskEntity.ToTaskModel();
     }
@@ -64,13 +56,16 @@ public class TasksService : ITasksService
     public async Task<ProjectTask> UpdateTaskStatus(Guid id, TaskStatuses status)
     {
         var taskEntity = await _tasksRepository.GetById(id);
-        
+
         if (taskEntity == null)
-            throw new ArgumentException("Task not found");
+        {
+            throw new KeyNotFoundException("Task not found");
+
+        }
 
         taskEntity.Status = status;
 
-        await _tasksRepository.Update(taskEntity);
+        await _tasksRepository.UpdateStatus(taskEntity);
 
         return taskEntity.ToTaskModel();
     }
