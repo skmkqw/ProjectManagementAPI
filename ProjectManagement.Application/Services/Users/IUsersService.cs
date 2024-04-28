@@ -10,13 +10,13 @@ public interface IUsersService
 
     public Task<User> GetUserById(Guid id);
 
-    public Task<IEnumerable<ProjectTask>> GetTasks(Guid userId);
+    public Task<IEnumerable<ProjectTask>> GetUserTasks(Guid userId);
 
-    public Task<IEnumerable<Project>> GetProjects(Guid userId);
+    public Task<IEnumerable<Project>> GetUserProjects(Guid userId);
     
-    public Task<User> CreateUser(UserFromRequestDto userFromRequest);
+    public Task<User> CreateUser(CreateUserDto createUser);
     
-    public Task<User> UpdateUser(Guid id, UserFromRequestDto userFromRequest);
+    public Task<User> UpdateUser(Guid id, UpdateUserDto updateUserDto);
     
     public Task DeleteUser(Guid id);
 }

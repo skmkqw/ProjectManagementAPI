@@ -6,12 +6,12 @@ namespace ProjectManagement.DataAccess.Mappers;
 
 public static class UserMappers
 {
-    public static UserEntity FromDtoToUserEntity(this UserFromRequestDto userFromRequest)
+    public static UserEntity FromCreateDtoToUserEntity(this CreateUserDto createUser)
     {
         return new UserEntity()
         {
-            FirstName = userFromRequest.FirstName,
-            LastName = userFromRequest.LastName
+            FirstName = createUser.FirstName,
+            LastName = createUser.LastName
         };
     }
     
@@ -51,16 +51,6 @@ public static class UserMappers
             Id = userEntity.Id,
             FirstName = userEntity.FirstName,
             LastName = userEntity.LastName,
-        };
-    }
-    
-    public static UserEntity ToUserEntity(this User user)
-    {
-        return new UserEntity()
-        {
-            Id = user.Id,
-            FirstName = user.FirstName,
-            LastName = user.LastName
         };
     }
 }

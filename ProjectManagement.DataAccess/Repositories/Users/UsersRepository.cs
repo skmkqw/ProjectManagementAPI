@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using ProjectManagement.Core.Entities;
 using ProjectManagement.DataAccess.Data;
+using ProjectManagement.DataAccess.DTOs.Users;
 
 namespace ProjectManagement.DataAccess.Repositories.Users;
 
@@ -60,7 +61,7 @@ public class UsersRepository : IUsersRepository
 
     #region POST METHODS
 
-    public async Task<UserEntity?> Create(UserEntity userEntity)
+    public async Task<UserEntity> Create(UserEntity userEntity)
     {
         await _context.Users.AddAsync(userEntity);
         await _context.SaveChangesAsync();
@@ -72,9 +73,9 @@ public class UsersRepository : IUsersRepository
 
     #region PUT METHODS
 
-    public async Task<UserEntity?> Update(UserEntity userEntity)
+    public async Task<UserEntity> Update(UserEntity userEntity, UpdateUserDto updateUserDto)
     {
-        _context.Entry(userEntity).State = EntityState.Modified;
+        _context.Entry(userEntity).CurrentValues.SetValues(updateUserDto);
         await _context.SaveChangesAsync();
         return userEntity;
     }
