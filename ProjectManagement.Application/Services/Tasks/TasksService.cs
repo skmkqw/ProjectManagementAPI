@@ -60,7 +60,10 @@ public class TasksService : ITasksService
         if (taskEntity == null)
         {
             throw new KeyNotFoundException("Task not found");
-
+        }
+        if (taskEntity.AssignedUserId == null)
+        {
+            throw new ArgumentException("Can't change task status before assigning user!");
         }
 
         taskEntity.Status = status;
@@ -80,6 +83,10 @@ public class TasksService : ITasksService
         catch (KeyNotFoundException e)
         {
             throw new KeyNotFoundException(e.Message);
+        }
+        catch (ArgumentException e)
+        {
+            throw new ArgumentException(e.Message);
         }
     }
 
@@ -109,6 +116,10 @@ public class TasksService : ITasksService
         catch (KeyNotFoundException e)
         {
             throw new KeyNotFoundException(e.Message);
+        }
+        catch (ArgumentException e)
+        {
+            throw new ArgumentException(e.Message);
         }
     }
 

@@ -68,9 +68,13 @@ public class TasksController : ControllerBase
             var updatedTask = await _tasksService.UpdateTaskStatus(id, status);
             return Ok(updatedTask.ToTaskDto());
         }
-        catch (ArgumentException ex)
+        catch (KeyNotFoundException e)
         {
-            return NotFound(ex.Message);
+            return NotFound(e.Message);
+        }
+        catch (ArgumentException e)
+        {
+            return BadRequest(e.Message);
         }
     }
 
@@ -83,6 +87,10 @@ public class TasksController : ControllerBase
             return Ok(task.ToTaskDto());
         }
         catch (KeyNotFoundException e)
+        {
+            return BadRequest(e.Message);
+        }
+        catch (ArgumentException e)
         {
             return BadRequest(e.Message);
         }
@@ -118,6 +126,10 @@ public class TasksController : ControllerBase
         catch (KeyNotFoundException e)
         {
             return NotFound(e.Message);
+        }
+        catch (ArgumentException e)
+        {
+            return BadRequest(e.Message);
         }
     }
 

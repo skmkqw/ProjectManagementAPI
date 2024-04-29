@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using ProjectManagement.Core.Entities;
+using ProjectManagement.Core.Models;
 using ProjectManagement.DataAccess.Data;
 using ProjectManagement.DataAccess.DTOs.Tasks;
 
@@ -38,11 +39,11 @@ public class TasksRepository : ITasksRepository
         return projectTaskEntity;
     }
 
-    public async Task<ProjectTaskEntity> UpdateStatus(ProjectTaskEntity projectTaskEntity)
+    public async Task<ProjectTaskEntity> UpdateStatus(ProjectTaskEntity taskEntity)
     {
-        _context.Entry(projectTaskEntity).State = EntityState.Modified;
+        _context.Entry(taskEntity).State = EntityState.Modified;
         await _context.SaveChangesAsync();
-        return projectTaskEntity;
+        return taskEntity;
     }
 
     public async Task<ProjectTaskEntity> AssignUser(Guid taskId, Guid userId)
@@ -51,6 +52,11 @@ public class TasksRepository : ITasksRepository
         if (taskEntity == null)
         {
             throw new KeyNotFoundException("Task not found!");
+        }
+        
+        if (taskEntity.Status == TaskStatuses.Done)
+        {
+            throw new ArgumentException("Can't reassign user for completed task!");
         }
         
         var userEntity = await _context.Users.FindAsync(userId);
@@ -73,12 +79,12 @@ public class TasksRepository : ITasksRepository
 
     public async Task Delete(Guid id)
     {
-        var projectTaskEntity = await _context.ProjectTasks.FindAsync(id);
-        if (projectTaskEntity == null)
+        var taskEntity = await _context.ProjectTasks.FindAsync(id);
+        if (taskEntity == null)
         {
             throw new KeyNotFoundException("Task not found!");
         }
-        _context.ProjectTasks.Remove(projectTaskEntity);
+        _context.ProjectTasks.Remove(taskEntity);
         await _context.SaveChangesAsync();
     }
     
@@ -88,6 +94,11 @@ public class TasksRepository : ITasksRepository
         if (projectTaskEntity == null)
         {
             throw new KeyNotFoundException("Task not found!");
+        }
+
+        if (projectTaskEntity.Status == TaskStatuses.Done)
+        {
+            throw new ArgumentException("Can't remove assigned user from completed task!");
         }
 
         projectTaskEntity.AssignedUser = null;
