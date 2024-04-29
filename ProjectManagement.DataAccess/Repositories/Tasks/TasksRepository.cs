@@ -31,14 +31,21 @@ public class TasksRepository : ITasksRepository
     
     #region PUT METHODS
 
-    public async Task<ProjectTaskEntity?> Update(ProjectTaskEntity projectTaskEntity)
+    public async Task<ProjectTaskEntity> Update(ProjectTaskEntity projectTaskEntity, UpdateTaskDto updateTaskDto)
+    {
+        _context.Entry(projectTaskEntity).CurrentValues.SetValues(updateTaskDto);
+        await _context.SaveChangesAsync();
+        return projectTaskEntity;
+    }
+
+    public async Task<ProjectTaskEntity> UpdateStatus(ProjectTaskEntity projectTaskEntity)
     {
         _context.Entry(projectTaskEntity).State = EntityState.Modified;
         await _context.SaveChangesAsync();
         return projectTaskEntity;
     }
-    
-    public async Task<Guid> AssignUser(Guid taskId, Guid userId)
+
+    public async Task<ProjectTaskEntity> AssignUser(Guid taskId, Guid userId)
     {
         var taskEntity = await _context.ProjectTasks.FindAsync(taskId);
         if (taskEntity == null)
@@ -56,7 +63,7 @@ public class TasksRepository : ITasksRepository
 
         await _context.SaveChangesAsync();
 
-        return userId;
+        return taskEntity;
     }
 
     #endregion PUT METHODS
@@ -72,6 +79,20 @@ public class TasksRepository : ITasksRepository
             throw new KeyNotFoundException("Task not found!");
         }
         _context.ProjectTasks.Remove(projectTaskEntity);
+        await _context.SaveChangesAsync();
+    }
+    
+    public async Task RemoveUser(Guid taskId)
+    {
+        var projectTaskEntity = await _context.ProjectTasks.FindAsync(taskId);
+        if (projectTaskEntity == null)
+        {
+            throw new KeyNotFoundException("Task not found!");
+        }
+
+        projectTaskEntity.AssignedUser = null;
+        projectTaskEntity.AssignedUserId = null;
+        
         await _context.SaveChangesAsync();
     }
 

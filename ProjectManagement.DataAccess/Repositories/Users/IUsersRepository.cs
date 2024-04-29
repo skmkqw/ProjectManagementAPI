@@ -1,5 +1,4 @@
 using ProjectManagement.Core.Entities;
-using ProjectManagement.Core.Models;
 using ProjectManagement.DataAccess.DTOs.Users;
 
 namespace ProjectManagement.DataAccess.Repositories.Users;
@@ -14,9 +13,9 @@ public interface IUsersRepository
 
     public Task<IEnumerable<ProjectEntity>> GetProjects(Guid userId);
     
-    public Task<UserEntity?> Create(UserEntity userEntity);
+    public Task<UserEntity> Create(UserEntity userEntity);
     
-    public Task<UserEntity?> Update(UserEntity userEntity);
+    public Task<UserEntity> Update(UserEntity userEntity, UpdateUserDto updateUserDto);
 
     public Task Delete(Guid id);
 }

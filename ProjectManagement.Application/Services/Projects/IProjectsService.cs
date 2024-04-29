@@ -11,19 +11,19 @@ public interface IProjectsService
     
     public Task<Project> GetProjectById(Guid id);
     
-    public Task<IEnumerable<ProjectTask>> GetTasks(Guid projectId);
+    public Task<IEnumerable<ProjectTask>> GetProjectTasks(Guid projectId);
     
-    public Task<IEnumerable<User>> GetUsers(Guid projectId);
+    public Task<IEnumerable<User>> GetProjectUsers(Guid projectId);
 
-    public Task<Project> CreateProject(ProjectFromRequestDto projectFromRequestDto);
+    public Task<Project> CreateProject(CreateProjectDto createProjectDto);
     
     public Task<ProjectTask> AddTask(Guid projectId, CreateTaskDto createTaskDto);
     
-    public Task<ProjectUserEntity> AddUser(Guid projectId, Guid userId);
+    public Task<ProjectUserEntity> AddUserToProject(Guid projectId, Guid userId);
     
-    public Task RemoveUser(Guid projectId, Guid userId);
+    public Task RemoveUserFromProject(Guid projectId, Guid userId);
     
-    public Task<Project> UpdateProject(Guid id, ProjectFromRequestDto projectFromRequestDto);
+    public Task<Project> UpdateProject(Guid id, UpdateProjectDto updateProjectDto);
     
     public Task DeleteProject(Guid id);
 }

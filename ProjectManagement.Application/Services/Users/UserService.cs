@@ -20,14 +20,7 @@ public class UserService : IUsersService
     public async Task<IEnumerable<User>> GetAllUsers()
     {
         var userEntities = await _usersRepository.GetAll();
-        
-        List<User> users = new();
-        foreach (UserEntity userEntity in userEntities)
-        {
-            users.Add(userEntity.ToUserModel());
-        }
-
-        return users;
+        return userEntities.Select(u => u.ToUserModel());
     }
 
     public async Task<User> GetUserById(Guid id)
@@ -36,19 +29,18 @@ public class UserService : IUsersService
         
         if (userEntity == null)
         {
-            return null;
+            throw new KeyNotFoundException("User not found!");
         }
 
         return userEntity.ToUserModel();
     }
     
-    public async Task<IEnumerable<ProjectTask>> GetTasks(Guid userId)
+    public async Task<IEnumerable<ProjectTask>> GetUserTasks(Guid userId)
     {
         try
         {
             var taskEntities = await _usersRepository.GetTasks(userId);
-            var tasks = taskEntities.Select(t => t.ToTaskModel());
-            return tasks;
+            return taskEntities.Select(t => t.ToTaskModel());
         }
         catch (KeyNotFoundException e)
         {
@@ -56,13 +48,12 @@ public class UserService : IUsersService
         }
     }
 
-    public async Task<IEnumerable<Project>> GetProjects(Guid userId)
+    public async Task<IEnumerable<Project>> GetUserProjects(Guid userId)
     {
         try
         {
             var projectEntities = await _usersRepository.GetProjects(userId);
-            var projects = projectEntities.Select(p => p.ToProjectModel());
-            return projects;
+            return projectEntities.Select(p => p.ToProjectModel());
         }
         catch (KeyNotFoundException e)
         {
@@ -75,9 +66,9 @@ public class UserService : IUsersService
 
     #region POST METHODS
 
-    public async Task<User> CreateUser(UserFromRequestDto userFromRequest)
+    public async Task<User> CreateUser(CreateUserDto createUser)
     {
-        var userEntity = userFromRequest.FromDtoToUserEntity();
+        var userEntity = createUser.FromCreateDtoToUserEntity();
 
         var createdEntity = await _usersRepository.Create(userEntity);
 
@@ -89,17 +80,16 @@ public class UserService : IUsersService
 
     #region PUT METHODS
 
-    public async Task<User> UpdateUser(Guid id, UserFromRequestDto userFromRequest)
+    public async Task<User> UpdateUser(Guid id, UpdateUserDto updateUserDto)
     {
         var userEntity = await _usersRepository.GetById(id);
-        
+
         if (userEntity == null)
-            throw new ArgumentException("AssignedUser not found");
+        {
+            throw new KeyNotFoundException("User not found");
+        }
 
-        userEntity.FirstName = userFromRequest.FirstName;
-        userEntity.LastName = userFromRequest.LastName;
-
-        await _usersRepository.Update(userEntity);
+        await _usersRepository.Update(userEntity, updateUserDto);
 
         return userEntity.ToUserModel();
     }

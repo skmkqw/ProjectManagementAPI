@@ -1,5 +1,6 @@
 using ProjectManagement.Core.Entities;
 using ProjectManagement.Core.Models;
+using ProjectManagement.DataAccess.DTOs.Projects;
 
 namespace ProjectManagement.DataAccess.Repositories.Projects;
 
@@ -13,7 +14,7 @@ public interface IProjectsRepository
     
     public Task<IEnumerable<UserEntity>> GetUsers(Guid projectId);
 
-    public Task<ProjectEntity?> Create(ProjectEntity projectEntity);
+    public Task<ProjectEntity> Create(ProjectEntity projectEntity);
 
     public Task<ProjectTaskEntity> AddTask(Guid projectId, ProjectTaskEntity taskEntity);
     
@@ -21,7 +22,7 @@ public interface IProjectsRepository
 
     public Task RemoveUser(Guid projectId, Guid userId);
 
-    public Task<ProjectEntity?> Update(ProjectEntity projectEntity);
+    public Task<ProjectEntity> Update(ProjectEntity projectEntity, UpdateProjectDto updateProjectDto);
 
     public Task Delete(Guid id);
 }

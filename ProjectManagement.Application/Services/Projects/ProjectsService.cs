@@ -21,14 +21,8 @@ public class ProjectsService : IProjectsService
     public async Task<IEnumerable<Project>> GetAllProjects()
     {
         var projectEntities = await _projectsRepository.GetAll();
-        
-        List<Project> projects = new();
-        foreach (var projectEntity in projectEntities)
-        {
-            projects.Add(projectEntity.ToProjectModel());
-        }
 
-        return projects;
+        return projectEntities.Select(p => p.ToProjectModel());
     }
 
     public async Task<Project> GetProjectById(Guid id)
@@ -37,19 +31,18 @@ public class ProjectsService : IProjectsService
         
         if (projectEntity == null)
         {
-            return null;
+            throw new KeyNotFoundException("Project not found!");
         }
 
         return projectEntity.ToProjectModel();
     }
     
-    public async Task<IEnumerable<ProjectTask>> GetTasks(Guid projectId)
+    public async Task<IEnumerable<ProjectTask>> GetProjectTasks(Guid projectId)
     {
         try
         {
             var taskEntities = await _projectsRepository.GetTasks(projectId);
-            var tasks = taskEntities.Select(t => t.ToTaskModel());
-            return tasks;
+            return taskEntities.Select(t => t.ToTaskModel());
         }
         catch (KeyNotFoundException e)
         {
@@ -57,13 +50,12 @@ public class ProjectsService : IProjectsService
         }
     }
     
-    public async Task<IEnumerable<User>> GetUsers(Guid projectId)
+    public async Task<IEnumerable<User>> GetProjectUsers(Guid projectId)
     {
         try
         {
             var userEntities = await _projectsRepository.GetUsers(projectId);
-            var users = userEntities.Select(t => t.ToUserModel());
-            return users;
+            return userEntities.Select(t => t.ToUserModel());
         }
         catch (KeyNotFoundException e)
         {
@@ -76,9 +68,9 @@ public class ProjectsService : IProjectsService
 
     #region POST METHODS
 
-    public async Task<Project> CreateProject(ProjectFromRequestDto projectFromRequestDto)
+    public async Task<Project> CreateProject(CreateProjectDto createProjectDto)
     {
-        var projectEntity = projectFromRequestDto.FromDtoToProjectEntity();
+        var projectEntity = createProjectDto.FromCreateDtoToProjectEntity();
 
         var createdEntity = await _projectsRepository.Create(projectEntity);
 
@@ -89,7 +81,7 @@ public class ProjectsService : IProjectsService
     {
         try
         {
-            var taskEntity = createTaskDto.FromDtoToTaskEntity();
+            var taskEntity = createTaskDto.FromCreateDtoToTaskEntity();
             var createdEntity = await _projectsRepository.AddTask(projectId, taskEntity);
             return createdEntity.ToTaskModel();
         }
@@ -103,22 +95,21 @@ public class ProjectsService : IProjectsService
 
 
     #region PUT METHODS
-    public async Task<Project> UpdateProject(Guid id, ProjectFromRequestDto projectFromRequestDto)
+    public async Task<Project> UpdateProject(Guid id, UpdateProjectDto updateProjectDto)
     {
         var projectEntity = await _projectsRepository.GetById(id);
-        
+
         if (projectEntity == null)
-            throw new ArgumentException("Project not found");
+        {
+            throw new KeyNotFoundException("Project not found!");
+        }
 
-        projectEntity.Name = projectFromRequestDto.Name;
-        projectEntity.Description = projectFromRequestDto.Description;
-
-        await _projectsRepository.Update(projectEntity);
+        await _projectsRepository.Update(projectEntity, updateProjectDto);
 
         return projectEntity.ToProjectModel();
     }
 
-    public async Task<ProjectUserEntity> AddUser(Guid projectId, Guid userId)
+    public async Task<ProjectUserEntity> AddUserToProject(Guid projectId, Guid userId)
     {
         try
         {
@@ -135,7 +126,7 @@ public class ProjectsService : IProjectsService
         }
     }
     
-    public async Task RemoveUser(Guid projectId, Guid userId)
+    public async Task RemoveUserFromProject(Guid projectId, Guid userId)
     {
         try
         {

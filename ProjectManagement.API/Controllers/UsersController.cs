@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using ProjectManagement.Application.Services.Users;
 using ProjectManagement.DataAccess.DTOs.Users;
 using ProjectManagement.DataAccess.Mappers;
-using ProjectManagement.DataAccess.Repositories.Users;
 
 namespace ProjectManagement.API.Controllers;
 
@@ -30,14 +29,15 @@ public class UsersController : ControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById([FromRoute] Guid id)
     {
-        var user = await _usersService.GetUserById(id);
-        
-        if (user == null)
+        try
         {
-            return NotFound();
+            var user = await _usersService.GetUserById(id);
+            return Ok(user.FromUserModelToDto());
         }
-
-        return Ok(user.FromUserModelToDto()); 
+        catch (KeyNotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
     }
     
     [HttpGet("{userId}/tasks")]
@@ -45,8 +45,8 @@ public class UsersController : ControllerBase
     {
         try
         {
-            var tasks = await _usersService.GetTasks(userId);
-            return Ok(tasks.Select(t => t.FromTaskModelToDto()));
+            var tasks = await _usersService.GetUserTasks(userId);
+            return Ok(tasks.Select(t => t.ToTaskDto()));
         }
         catch (KeyNotFoundException e)
         {
@@ -59,8 +59,8 @@ public class UsersController : ControllerBase
     {
         try
         {
-            var projects = await _usersService.GetProjects(userId);
-            return Ok(projects.Select(p => p.FromProjectModelToDto()));
+            var projects = await _usersService.GetUserProjects(userId);
+            return Ok(projects.Select(p => p.ToProjectDto()));
         }
         catch (KeyNotFoundException e)
         {
@@ -74,9 +74,9 @@ public class UsersController : ControllerBase
     #region POST ENDPOINTS
 
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] UserFromRequestDto userFromRequest)
+    public async Task<IActionResult> Create([FromBody] CreateUserDto createUser)
     {
-        var user = await _usersService.CreateUser(userFromRequest);
+        var user = await _usersService.CreateUser(createUser);
         return CreatedAtAction(nameof(GetById), new { id = user.Id }, user.FromUserModelToDto());
     }
 
@@ -86,12 +86,12 @@ public class UsersController : ControllerBase
     #region PUT ENDPOINTS
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UserFromRequestDto userFromRequest)
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateUserDto updateUserDto)
     {
         try
         {
-            await _usersService.UpdateUser(id, userFromRequest);
-            return NoContent();
+            var updatedUser = await _usersService.UpdateUser(id, updateUserDto);
+            return Ok(updatedUser.FromUserModelToDto());
         }
         catch (ArgumentException ex)
         {

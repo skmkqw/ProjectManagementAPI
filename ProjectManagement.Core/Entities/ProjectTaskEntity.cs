@@ -11,6 +11,7 @@ public class ProjectTaskEntity
     public string Description { get; set; } = string.Empty;
 
     public Guid ProjectId { get; set; }
+    
     public ProjectEntity? Project { get; set; }
     
     public Guid? AssignedUserId { get; set; }
