@@ -9,5 +9,6 @@ public class UserEntity
     public string LastName { get; set; } = string.Empty;
 
     public List<ProjectTaskEntity> Tasks { get; set; } = new ();
+    
     public List<ProjectUserEntity> ProjectUsers { get; set; } = new();
 }
