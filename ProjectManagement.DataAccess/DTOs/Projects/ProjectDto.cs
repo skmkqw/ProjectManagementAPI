@@ -10,4 +10,9 @@ public class ProjectDto
     public string Name { get; set; } = string.Empty;
     
     public string Description { get; set; } = string.Empty;
+
+    public DateTime CreeationDate { get; set; }
+    
+    public DateTime LastUpdateTime { get; set; }
+
 }

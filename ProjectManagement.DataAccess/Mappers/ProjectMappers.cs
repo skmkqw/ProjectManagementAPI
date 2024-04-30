@@ -11,7 +11,7 @@ public static class ProjectMappers
         return new ProjectEntity()
         {
             Name = createProjectDto.Name,
-            Description = createProjectDto.Description
+            Description = createProjectDto.Description,
         };
     }
 
@@ -22,6 +22,8 @@ public static class ProjectMappers
             Id = project.Id,
             Name = project.Name,
             Description = project.Description,
+            CreeationDate = project.CreationDate,
+            LastUpdateTime = project.LastUpdateTime
         };
     }
 
@@ -33,7 +35,9 @@ public static class ProjectMappers
             Name = projectEntity.Name, 
             Description = projectEntity.Description,
             Tasks = projectEntity.Tasks.Select(p => p.ToTaskModel()).ToList(),
-            AddedUsers = projectEntity.ProjectUsers.Select(u => u.User.ToUserModel()).ToList()
+            AddedUsers = projectEntity.ProjectUsers.Select(u => u.User.ToUserModel()).ToList(),
+            CreationDate = projectEntity.CreationDate,
+            LastUpdateTime = projectEntity.LastUpdateTime
         };
     }
 }

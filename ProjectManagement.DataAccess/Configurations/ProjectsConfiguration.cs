@@ -20,6 +20,13 @@ public class ProjectsConfiguration : IEntityTypeConfiguration<ProjectEntity>
             .IsUnicode()
             .HasMaxLength(500);
 
+        builder.Property(p => p.CreationDate)
+            .HasDefaultValueSql("GETDATE()")
+            .ValueGeneratedOnAdd();
+
+        builder.Property(p => p.LastUpdateTime)
+            .HasDefaultValueSql("GETDATE()");
+
         builder.HasMany(p => p.Tasks)
             .WithOne(t => t.Project)
             .HasForeignKey(t => t.ProjectId)

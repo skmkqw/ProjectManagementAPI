@@ -11,4 +11,10 @@ public class UserEntity
     public List<ProjectTaskEntity> Tasks { get; set; } = new ();
     
     public List<ProjectUserEntity> ProjectUsers { get; set; } = new();
+    
+    public string Email { get; set; } = string.Empty;
+    
+    public string Login { get; set; } = string.Empty;
+
+    public string Password { get; set; } = string.Empty;
 }

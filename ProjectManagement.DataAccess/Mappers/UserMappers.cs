@@ -11,7 +11,10 @@ public static class UserMappers
         return new UserEntity()
         {
             FirstName = createUser.FirstName,
-            LastName = createUser.LastName
+            LastName = createUser.LastName,
+            Email = createUser.Email,
+            Login = createUser.Login,
+            Password = createUser.Password
         };
     }
     
@@ -23,6 +26,9 @@ public static class UserMappers
             Id = user.Id,
             FirstName = user.FirstName,
             LastName = user.LastName,
+            Email = user.Email,
+            Login = user.Login,
+            Password = user.Password
         };
     }
     
@@ -33,6 +39,9 @@ public static class UserMappers
             Id = userEntity.Id,
             FirstName = userEntity.FirstName,
             LastName = userEntity.LastName,
+            Email = userEntity.Email,
+            Login = userEntity.Login,
+            Password = userEntity.Password
         };
     }
 }

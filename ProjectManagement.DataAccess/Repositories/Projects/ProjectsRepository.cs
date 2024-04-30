@@ -75,6 +75,7 @@ public class ProjectsRepository : IProjectsRepository
         }
 
         taskEntity.ProjectId = projectId;
+        projectEntity.LastUpdateTime = DateTime.Now;
 
         _context.ProjectTasks.Add(taskEntity);
         await _context.SaveChangesAsync();
@@ -113,6 +114,7 @@ public class ProjectsRepository : IProjectsRepository
 
         await _context.ProjectUsers.AddAsync(projectUserEntity);
         projectEntity.ProjectUsers.Add(projectUserEntity);
+        projectEntity.LastUpdateTime = DateTime.Now;
         userEntity.ProjectUsers.Add(projectUserEntity);
         
         await _context.SaveChangesAsync();

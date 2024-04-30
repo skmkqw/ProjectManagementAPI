@@ -24,4 +24,10 @@ public class ProjectTask
     public User? AssignedUser { get; set; }
     
     public TaskStatuses Status { get; set; } = TaskStatuses.ToDo;
+    
+    public DateTime CreationDate { get; set; } = DateTime.Now;
+
+    public DateTime LastUpdateTime { get; set; } = DateTime.Now;
+
+    public DateTime? Deadline { get; set; }
 }

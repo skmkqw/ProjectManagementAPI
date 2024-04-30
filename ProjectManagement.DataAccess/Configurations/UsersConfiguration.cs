@@ -20,6 +20,18 @@ public class UsersConfiguration : IEntityTypeConfiguration<UserEntity>
             .IsRequired()
             .IsUnicode()
             .HasMaxLength(100);
+        
+        builder.Property(u => u.Email)
+            .IsRequired()
+            .HasMaxLength(100);
+        
+        builder.Property(u => u.Login)
+            .IsRequired()
+            .HasMaxLength(25);
+        
+        builder.Property(u => u.Password)
+            .IsRequired()
+            .HasMaxLength(20);
 
         builder.HasMany(u => u.ProjectUsers)
             .WithOne(pu => pu.User)

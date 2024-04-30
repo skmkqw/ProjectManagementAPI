@@ -11,4 +11,8 @@ public class ProjectEntity
     public List<ProjectTaskEntity> Tasks { get; set; } = new();
 
     public List<ProjectUserEntity> ProjectUsers { get; set; } = new();
+    
+    public DateTime CreationDate { get; set; } = DateTime.Now;
+
+    public DateTime LastUpdateTime { get; set; } = DateTime.Now;
 }
