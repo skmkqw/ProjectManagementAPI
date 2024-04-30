@@ -28,7 +28,9 @@ public static class UserMappers
             LastName = user.LastName,
             Email = user.Email,
             Login = user.Login,
-            Password = user.Password
+            Password = user.Password,
+            EntryDate = user.EntryDate,
+            LastUpdateTime = user.LastUpdateTime
         };
     }
     
@@ -41,7 +43,9 @@ public static class UserMappers
             LastName = userEntity.LastName,
             Email = userEntity.Email,
             Login = userEntity.Login,
-            Password = userEntity.Password
+            Password = userEntity.Password,
+            EntryDate = userEntity.EntryDate,
+            LastUpdateTime = userEntity.LastUpdateTime
         };
     }
 }

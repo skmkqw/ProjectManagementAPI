@@ -32,6 +32,13 @@ public class UsersConfiguration : IEntityTypeConfiguration<UserEntity>
         builder.Property(u => u.Password)
             .IsRequired()
             .HasMaxLength(20);
+        
+        builder.Property(p => p.EntryDate)
+            .HasDefaultValueSql("GETDATE()")
+            .ValueGeneratedOnAdd();
+
+        builder.Property(p => p.LastUpdateTime)
+            .HasDefaultValueSql("GETDATE()");
 
         builder.HasMany(u => u.ProjectUsers)
             .WithOne(pu => pu.User)

@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace ProjectManagement.DataAccess.DTOs.Users;
 
 public class UpdateUserDto
@@ -11,4 +13,7 @@ public class UpdateUserDto
     public string Login { get; set; } = string.Empty;
 
     public string Password { get; set; } = string.Empty;
+    
+    [JsonIgnore]
+    public DateTime LastUpdateTime { get; set; } = DateTime.Now;
 }
