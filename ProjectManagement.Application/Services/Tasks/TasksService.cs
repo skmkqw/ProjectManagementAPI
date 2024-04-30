@@ -67,6 +67,7 @@ public class TasksService : ITasksService
         }
 
         taskEntity.Status = status;
+        taskEntity.LastUpdateTime = DateTime.Now;
 
         await _tasksRepository.UpdateStatus(taskEntity);
 

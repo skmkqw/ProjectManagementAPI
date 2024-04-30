@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjectManagement.DataAccess.Data;
 
@@ -11,9 +12,11 @@ using ProjectManagement.DataAccess.Data;
 namespace ProjectManagement.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240430110749_RemovedGenreatedValueForProjectUpdateTime")]
+    partial class RemovedGenreatedValueForProjectUpdateTime
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -79,7 +82,7 @@ namespace ProjectManagement.DataAccess.Migrations
                         .HasColumnType("nvarchar(500)");
 
                     b.Property<DateTime>("LastUpdateTime")
-                        .ValueGeneratedOnAdd()
+                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
 

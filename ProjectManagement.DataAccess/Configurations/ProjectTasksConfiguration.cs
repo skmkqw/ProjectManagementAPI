@@ -37,9 +37,8 @@ public class ProjectTasksConfiguration : IEntityTypeConfiguration<ProjectTaskEnt
         builder.Property(p => p.CreationDate)
             .HasDefaultValueSql("GETDATE()")
             .ValueGeneratedOnAdd();
-        
+
         builder.Property(p => p.LastUpdateTime)
-            .HasDefaultValueSql("GETDATE()")
-            .ValueGeneratedOnAddOrUpdate();
+            .HasDefaultValueSql("GETDATE()");
     }
 }

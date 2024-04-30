@@ -66,6 +66,7 @@ public class TasksRepository : ITasksRepository
         }
 
         taskEntity.AssignedUserId = userId;
+        taskEntity.LastUpdateTime = DateTime.Now;
 
         await _context.SaveChangesAsync();
 
@@ -103,6 +104,8 @@ public class TasksRepository : ITasksRepository
 
         projectTaskEntity.AssignedUser = null;
         projectTaskEntity.AssignedUserId = null;
+        projectTaskEntity.LastUpdateTime = DateTime.Now;
+
         
         await _context.SaveChangesAsync();
     }
