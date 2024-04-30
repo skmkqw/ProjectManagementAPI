@@ -60,7 +60,7 @@ public class TasksController : ControllerBase
         }
     }
 
-    [HttpPut("{id}/status")]
+    [HttpPatch("{id}/status")]
     public async Task<IActionResult> UpdateStatus([FromRoute] Guid id, [FromQuery] TaskStatuses status)
     {
         try
