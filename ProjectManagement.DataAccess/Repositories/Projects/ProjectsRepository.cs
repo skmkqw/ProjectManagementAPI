@@ -139,15 +139,16 @@ public class ProjectsRepository : IProjectsRepository
 
     #region DELETE METHODS
 
-    public async Task Delete(Guid id)
+    public async Task<bool> Delete(Guid id)
     {
         var projectEntity = await _context.Projects.FindAsync(id);
         if (projectEntity == null)
         {
-            throw new KeyNotFoundException("Project not found!");
+            return false;
         }
         _context.Projects.Remove(projectEntity);
         await _context.SaveChangesAsync();
+        return true;
     }
     
     public async Task RemoveUser(Guid projectId, Guid userId)

@@ -78,15 +78,16 @@ public class TasksRepository : ITasksRepository
     
     #region DELETE METHODS
 
-    public async Task Delete(Guid id)
+    public async Task<bool> Delete(Guid id)
     {
         var taskEntity = await _context.ProjectTasks.FindAsync(id);
         if (taskEntity == null)
         {
-            throw new KeyNotFoundException("Task not found!");
+            return false;
         }
         _context.ProjectTasks.Remove(taskEntity);
         await _context.SaveChangesAsync();
+        return true;
     }
     
     public async Task RemoveUser(Guid taskId)

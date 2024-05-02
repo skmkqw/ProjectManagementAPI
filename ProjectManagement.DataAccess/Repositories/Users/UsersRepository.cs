@@ -85,15 +85,16 @@ public class UsersRepository : IUsersRepository
 
     #region DELETE METHODS
 
-    public async Task Delete(Guid id)
+    public async Task<bool> Delete(Guid id)
     {
         var userEntity = await _context.Users.FindAsync(id);
         if (userEntity == null)
         {
-            throw new KeyNotFoundException("AssignedUser not found!");
+            return false;
         }
         _context.Users.Remove(userEntity);
         await _context.SaveChangesAsync();
+        return true;
     }
 
     #endregion DELETE METHODS

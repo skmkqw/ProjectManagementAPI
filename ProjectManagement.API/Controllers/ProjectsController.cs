@@ -141,15 +141,13 @@ public class ProjectsController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete([FromRoute] Guid id)
     {
-        try
+        bool isDeleted = await _projectsService.DeleteProject(id);
+        if (isDeleted)
         {
-            await _projectsService.DeleteProject(id);
             return NoContent();
         }
-        catch (KeyNotFoundException ex)
-        {
-            return NotFound(ex.Message);
-        }
+
+        return NotFound("Project not found");
     }
     
     [HttpDelete("{projectId}/remove_user")]

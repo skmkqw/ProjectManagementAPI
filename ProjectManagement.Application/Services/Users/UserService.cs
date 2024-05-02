@@ -99,16 +99,10 @@ public class UserService : IUsersService
 
     #region DELETE METHODS
 
-    public async Task DeleteUser(Guid id)
+    public async Task<bool> DeleteUser(Guid id)
     {
-        try
-        {
-            await _usersRepository.Delete(id);
-        }
-        catch (KeyNotFoundException ex)
-        {
-            throw new KeyNotFoundException(ex.Message);
-        }
+        bool isDeleted = await _usersRepository.Delete(id);
+        return isDeleted;
     }
 
     #endregion DELETE METHODS

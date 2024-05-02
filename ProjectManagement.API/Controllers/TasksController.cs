@@ -104,15 +104,13 @@ public class TasksController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete([FromRoute] Guid id)
     {
-        try
+        bool isDeleted = await _tasksService.DeleteTask(id);
+        if (isDeleted)
         {
-            await _tasksService.DeleteTask(id);
             return NoContent();
         }
-        catch (KeyNotFoundException ex)
-        {
-            return NotFound(ex.Message);
-        }
+
+        return NotFound("Task not found");
     }
 
     [HttpDelete("{taskId}/remove_user")]

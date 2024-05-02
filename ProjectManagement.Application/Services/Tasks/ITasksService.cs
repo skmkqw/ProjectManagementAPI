@@ -17,5 +17,5 @@ public interface ITasksService
 
     public Task<ProjectTask> UpdateTaskStatus(Guid id, TaskStatuses status);
     
-    public Task DeleteTask(Guid id);
+    public Task<bool> DeleteTask(Guid id);
 }

@@ -17,5 +17,5 @@ public interface IUsersRepository
     
     public Task<UserEntity> Update(UserEntity userEntity, UpdateUserDto updateUserDto);
 
-    public Task Delete(Guid id);
+    public Task<bool> Delete(Guid id);
 }

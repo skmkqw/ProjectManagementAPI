@@ -18,5 +18,5 @@ public interface IUsersService
     
     public Task<User> UpdateUser(Guid id, UpdateUserDto updateUserDto);
     
-    public Task DeleteUser(Guid id);
+    public Task<bool> DeleteUser(Guid id);
 }

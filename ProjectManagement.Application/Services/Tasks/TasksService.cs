@@ -96,16 +96,10 @@ public class TasksService : ITasksService
     
     #region DELETE METHODS
 
-    public async Task DeleteTask(Guid id)
+    public async Task<bool> DeleteTask(Guid id)
     {
-        try
-        {
-            await _tasksRepository.Delete(id);
-        }
-        catch (KeyNotFoundException ex)
-        {
-            throw new KeyNotFoundException(ex.Message);
-        }
+        bool isDeleted = await _tasksRepository.Delete(id);
+        return isDeleted;
     }
 
     public async Task RemoveUserFromTask(Guid taskId)

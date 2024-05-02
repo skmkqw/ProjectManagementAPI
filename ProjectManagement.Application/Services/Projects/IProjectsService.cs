@@ -25,5 +25,5 @@ public interface IProjectsService
     
     public Task<Project> UpdateProject(Guid id, UpdateProjectDto updateProjectDto);
     
-    public Task DeleteProject(Guid id);
+    public Task<bool> DeleteProject(Guid id);
 }

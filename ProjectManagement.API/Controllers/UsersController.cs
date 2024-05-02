@@ -107,15 +107,13 @@ public class UsersController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete([FromRoute] Guid id)
     {
-        try
+        bool isDeleted = await _usersService.DeleteUser(id);
+        if (isDeleted)
         {
-            await _usersService.DeleteUser(id);
             return NoContent();
         }
-        catch (KeyNotFoundException ex)
-        {
-            return NotFound(ex.Message);
-        }
+
+        return NotFound("User not found");
     }
 
     #endregion DELETE ENDPOINTS

@@ -24,5 +24,5 @@ public interface IProjectsRepository
 
     public Task<ProjectEntity> Update(ProjectEntity projectEntity, UpdateProjectDto updateProjectDto);
 
-    public Task Delete(Guid id);
+    public Task<bool> Delete(Guid id);
 }

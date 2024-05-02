@@ -147,16 +147,10 @@ public class ProjectsService : IProjectsService
 
     #region DELETE METHODS
 
-    public async Task DeleteProject(Guid id)
+    public async Task<bool> DeleteProject(Guid id)
     {
-        try
-        {
-            await _projectsRepository.Delete(id);
-        }
-        catch (KeyNotFoundException ex)
-        {
-            throw new KeyNotFoundException(ex.Message);
-        }
+        bool isDeleted = await _projectsRepository.Delete(id);
+        return isDeleted;
     }
 
     #endregion DELETE METHODS
