@@ -23,7 +23,7 @@ public class UsersController : ControllerBase
     {
         var users = await _usersService.GetAllUsers();
 
-        return Ok(users.Select(u => u.FromUserModelToDto()));
+        return Ok(users.Select(u => u.ToUserDto()));
     }
 
     [HttpGet("{id}")]
@@ -32,7 +32,7 @@ public class UsersController : ControllerBase
         try
         {
             var user = await _usersService.GetUserById(id);
-            return Ok(user.FromUserModelToDto());
+            return Ok(user.ToUserDto());
         }
         catch (KeyNotFoundException e)
         {
@@ -77,7 +77,7 @@ public class UsersController : ControllerBase
     public async Task<IActionResult> Create([FromBody] CreateUserDto createUser)
     {
         var user = await _usersService.CreateUser(createUser);
-        return CreatedAtAction(nameof(GetById), new { id = user.Id }, user.FromUserModelToDto());
+        return CreatedAtAction(nameof(GetById), new { id = user.Id }, user.ToUserDto());
     }
 
     #endregion POST ENDPOINTS
@@ -91,7 +91,7 @@ public class UsersController : ControllerBase
         try
         {
             var updatedUser = await _usersService.UpdateUser(id, updateUserDto);
-            return Ok(updatedUser.FromUserModelToDto());
+            return Ok(updatedUser.ToUserDto());
         }
         catch (ArgumentException ex)
         {

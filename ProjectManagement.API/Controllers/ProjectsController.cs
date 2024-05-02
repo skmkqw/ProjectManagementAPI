@@ -31,43 +31,37 @@ public class ProjectsController : ControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById([FromRoute] Guid id)
     {
-        try
+        var project = await _projectsService.GetProjectById(id);
+        if (project != null)
         {
-            var project = await _projectsService.GetProjectById(id);
-            return Ok(project.ToProjectDto()); 
+            return Ok(project.ToProjectDto());
         }
-        catch (KeyNotFoundException e)
-        {
-            return NotFound(e.Message);
-        }
+
+        return NotFound("Project not found");
     }
     
     [HttpGet("{projectId}/tasks")]
     public async Task<IActionResult> GetTasks([FromRoute] Guid projectId)
     {
-        try
+        var tasks = await _projectsService.GetProjectTasks(projectId);
+        if (tasks != null)
         {
-            var tasks = await _projectsService.GetProjectTasks(projectId);
             return Ok(tasks.Select(t => t.ToTaskDto()));
         }
-        catch (KeyNotFoundException e)
-        {
-            return NotFound(e.Message);
-        }
+
+        return BadRequest("Project not found");
     }
 
     [HttpGet("{projectId}/users")]
     public async Task<IActionResult> GetUsers([FromRoute] Guid projectId)
     {
-        try
+        var users = await _projectsService.GetProjectUsers(projectId);
+        if (users != null)
         {
-            var users = await _projectsService.GetProjectUsers(projectId);
-            return Ok(users.Select(u => u.FromUserModelToDto()));
+            return Ok(users.Select(t => t.ToUserDto()));
         }
-        catch (KeyNotFoundException e)
-        {
-            return NotFound(e.Message);
-        }
+
+        return BadRequest("Project not found");
     }
     
     #endregion GET EDPOINTS
@@ -85,33 +79,24 @@ public class ProjectsController : ControllerBase
     [HttpPost("{projectId}/add_task")]
     public async Task<IActionResult> AddTask([FromRoute] Guid projectId, [FromBody] CreateTaskDto createTaskDto)
     {
-        try
-        {
-            var createdTask = await _projectsService.AddTask(projectId, createTaskDto);
+        var createdTask = await _projectsService.AddTask(projectId, createTaskDto);
+        
+        if (createdTask != null)
             return CreatedAtAction(nameof(GetById), new { id = createdTask.Id }, createdTask.ToTaskDto());
-        }
-        catch (KeyNotFoundException e)
-        {
-            return NotFound(e.Message);
-        }
+        
+        return BadRequest("Project not found");
     }
     
     [HttpPost("{projectId}/add_user")]
     public async Task<IActionResult> AddUser([FromRoute] Guid projectId, [FromQuery] Guid userId)
     {
-        try
+        var (createdEntity, error) = await _projectsService.AddUserToProject(projectId, userId);
+        if (createdEntity != null)
         {
-            var createdEntity = await _projectsService.AddUserToProject(projectId, userId);
             return CreatedAtAction(nameof(GetById), new { id = createdEntity.UserId }, createdEntity.ToDto());
         }
-        catch (KeyNotFoundException e)
-        {
-            return NotFound(e.Message);
-        }
-        catch (ArgumentException e)
-        {
-            return NotFound(e.Message);
-        }
+
+        return BadRequest(error);
     }
 
     #endregion POST ENDPOINTS
@@ -122,15 +107,12 @@ public class ProjectsController : ControllerBase
     [HttpPut("{id}")]
     public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateProjectDto updateProjectDto)
     {
-        try
+        var updatedProject = await _projectsService.UpdateProject(id, updateProjectDto);
+        if (updatedProject != null)
         {
-            var updatedProject = await _projectsService.UpdateProject(id, updateProjectDto);
             return Ok(updatedProject.ToProjectDto());
         }
-        catch (ArgumentException ex)
-        {
-            return NotFound(ex.Message);
-        }
+        return NotFound("Project not found");
     }
     
     #endregion PUT ENDPOINTS
@@ -153,19 +135,13 @@ public class ProjectsController : ControllerBase
     [HttpDelete("{projectId}/remove_user")]
     public async Task<IActionResult> RemoveUser([FromRoute] Guid projectId, [FromQuery] Guid userId)
     {
-        try
+        (Guid? removedUserId, string? error) = await _projectsService.RemoveUserFromProject(projectId, userId);
+        if (removedUserId != null)
         {
-            await _projectsService.RemoveUserFromProject(projectId, userId);
-            return NoContent();
+            return Ok(removedUserId);
         }
-        catch (KeyNotFoundException e)
-        {
-            return NotFound(e.Message);
-        }
-        catch (ArgumentException e)
-        {
-            return NotFound(e.Message);
-        }
+
+        return BadRequest(error);
     }
 
     #endregion DELETE ENDPOINTS
