@@ -16,8 +16,8 @@ public class User
 
     public string Password { get; set; } = string.Empty;
 
-    public DateTime EntryDate { get; set; } = DateTime.Now;
+    public DateTime EntryDate { get; set; } = DateTime.UtcNow;
     
-    public DateTime LastUpdateTime { get; set; } = DateTime.Now;
+    public DateTime LastUpdateTime { get; set; } = DateTime.UtcNow;
 
 }

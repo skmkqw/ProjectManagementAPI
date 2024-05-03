@@ -9,7 +9,7 @@ public class UpdateTaskDto
     public string Description { get; set; } = string.Empty;
 
     [JsonIgnore]
-    public DateTime LastUpdateTime { get; set; } = DateTime.Now;
+    public DateTime LastUpdateTime { get; set; } = DateTime.UtcNow;
     
     public DateTime? Deadline { get; set; }
 }

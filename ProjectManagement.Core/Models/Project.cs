@@ -12,7 +12,7 @@ public class Project
     
     public List<User> AddedUsers { get; set; } = new();
 
-    public DateTime CreationDate { get; set; } = DateTime.Now;
+    public DateTime CreationDate { get; set; } = DateTime.UtcNow;
 
-    public DateTime LastUpdateTime { get; set; } = DateTime.Now;
+    public DateTime LastUpdateTime { get; set; } = DateTime.UtcNow;
 }

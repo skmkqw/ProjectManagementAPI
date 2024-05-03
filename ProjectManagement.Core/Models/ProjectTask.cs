@@ -25,9 +25,9 @@ public class ProjectTask
     
     public TaskStatuses Status { get; set; } = TaskStatuses.ToDo;
     
-    public DateTime CreationDate { get; set; } = DateTime.Now;
+    public DateTime CreationDate { get; set; } = DateTime.UtcNow;
 
-    public DateTime LastUpdateTime { get; set; } = DateTime.Now;
+    public DateTime LastUpdateTime { get; set; } = DateTime.UtcNow;
 
     public DateTime? Deadline { get; set; }
 }
