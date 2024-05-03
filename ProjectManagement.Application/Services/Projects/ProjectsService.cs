@@ -25,42 +25,23 @@ public class ProjectsService : IProjectsService
         return projectEntities.Select(p => p.ToProjectModel());
     }
 
-    public async Task<Project> GetProjectById(Guid id)
+    public async Task<Project?> GetProjectById(Guid id)
     {
         var projectEntity = await _projectsRepository.GetById(id);
-        
-        if (projectEntity == null)
-        {
-            throw new KeyNotFoundException("Project not found!");
-        }
 
-        return projectEntity.ToProjectModel();
+        return projectEntity?.ToProjectModel();
     }
     
-    public async Task<IEnumerable<ProjectTask>> GetProjectTasks(Guid projectId)
+    public async Task<IEnumerable<ProjectTask>?> GetProjectTasks(Guid projectId)
     {
-        try
-        {
-            var taskEntities = await _projectsRepository.GetTasks(projectId);
-            return taskEntities.Select(t => t.ToTaskModel());
-        }
-        catch (KeyNotFoundException e)
-        {
-            throw new KeyNotFoundException(e.Message);
-        }
+        var taskEntities = await _projectsRepository.GetTasks(projectId);
+        return taskEntities?.Select(t => t.ToTaskModel());
     }
     
-    public async Task<IEnumerable<User>> GetProjectUsers(Guid projectId)
+    public async Task<IEnumerable<User>?> GetProjectUsers(Guid projectId)
     {
-        try
-        {
-            var userEntities = await _projectsRepository.GetUsers(projectId);
-            return userEntities.Select(t => t.ToUserModel());
-        }
-        catch (KeyNotFoundException e)
-        {
-            throw new KeyNotFoundException(e.Message);
-        }
+        var userEntities = await _projectsRepository.GetUsers(projectId);
+        return userEntities?.Select(t => t.ToUserModel());
     }
 
     #endregion GET METHODS
@@ -77,69 +58,36 @@ public class ProjectsService : IProjectsService
         return createdEntity.ToProjectModel();
     }
 
-    public async Task<ProjectTask> AddTask(Guid projectId, CreateTaskDto createTaskDto)
+    public async Task<ProjectTask?> AddTask(Guid projectId, CreateTaskDto createTaskDto)
     {
-        try
-        {
-            var taskEntity = createTaskDto.FromCreateDtoToTaskEntity();
-            var createdEntity = await _projectsRepository.AddTask(projectId, taskEntity);
-            return createdEntity.ToTaskModel();
-        }
-        catch (KeyNotFoundException ex)
-        {
-            throw new KeyNotFoundException(ex.Message);
-        }
+        var taskEntity = createTaskDto.FromCreateDtoToTaskEntity();
+        var createdEntity = await _projectsRepository.AddTask(projectId, taskEntity);
+        return createdEntity?.ToTaskModel();
     }
 
     #endregion POST METHODS
 
 
     #region PUT METHODS
-    public async Task<Project> UpdateProject(Guid id, UpdateProjectDto updateProjectDto)
+    public async Task<Project?> UpdateProject(Guid id, UpdateProjectDto updateProjectDto)
     {
         var projectEntity = await _projectsRepository.GetById(id);
 
-        if (projectEntity == null)
-        {
-            throw new KeyNotFoundException("Project not found!");
-        }
+        if (projectEntity == null) return null;
 
         await _projectsRepository.Update(projectEntity, updateProjectDto);
 
         return projectEntity.ToProjectModel();
     }
 
-    public async Task<ProjectUserEntity> AddUserToProject(Guid projectId, Guid userId)
+    public async Task<(ProjectUserEntity? projectUserEntity, string? error)> AddUserToProject(Guid projectId, Guid userId)
     {
-        try
-        {
-            var projectUserEntity = await _projectsRepository.AddUser(projectId, userId);
-            return projectUserEntity;
-        }
-        catch (KeyNotFoundException e)
-        {
-            throw new KeyNotFoundException(e.Message);
-        }
-        catch (ArgumentException e)
-        {
-            throw new ArgumentException(e.Message);
-        }
+        return await _projectsRepository.AddUser(projectId, userId);
     }
     
-    public async Task RemoveUserFromProject(Guid projectId, Guid userId)
+    public async Task<(Guid? userId, string? error)> RemoveUserFromProject(Guid projectId, Guid userId)
     {
-        try
-        {
-            await _projectsRepository.RemoveUser(projectId, userId);
-        }
-        catch (KeyNotFoundException e)
-        {
-            throw new KeyNotFoundException(e.Message);
-        }
-        catch (ArgumentException e)
-        {
-            throw new ArgumentException(e.Message);
-        }
+        return await _projectsRepository.RemoveUser(projectId, userId);
     }
 
     #endregion PUT METHODS
@@ -147,16 +95,10 @@ public class ProjectsService : IProjectsService
 
     #region DELETE METHODS
 
-    public async Task DeleteProject(Guid id)
+    public async Task<bool> DeleteProject(Guid id)
     {
-        try
-        {
-            await _projectsRepository.Delete(id);
-        }
-        catch (KeyNotFoundException ex)
-        {
-            throw new KeyNotFoundException(ex.Message);
-        }
+        bool isDeleted = await _projectsRepository.Delete(id);
+        return isDeleted;
     }
 
     #endregion DELETE METHODS

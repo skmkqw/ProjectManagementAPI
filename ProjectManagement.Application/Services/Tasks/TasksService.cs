@@ -22,14 +22,11 @@ public class TasksService : ITasksService
         return taskEntities.Select(t => t.ToTaskModel());
     }
 
-    public async Task<ProjectTask> GetTaskById(Guid id)
+    public async Task<ProjectTask?> GetTaskById(Guid id)
     {
         var taskEntity = await _tasksRepository.GetById(id);
-        
-        if (taskEntity == null)
-        {
-            throw new KeyNotFoundException("Task not found!");
-        }
+
+        if (taskEntity == null) return null;
 
         return taskEntity.ToTaskModel();
     }
@@ -39,56 +36,47 @@ public class TasksService : ITasksService
     
     #region PUT METHODS
 
-    public async Task<ProjectTask> UpdateTask(Guid id, UpdateTaskDto updateTaskDto)
+    public async Task<ProjectTask?> UpdateTask(Guid id, UpdateTaskDto updateTaskDto)
     {
         var taskEntity = await _tasksRepository.GetById(id);
 
-        if (taskEntity == null)
-        {
-            throw new KeyNotFoundException("Task not found");
-        }
+        if (taskEntity == null) return null;
 
         await _tasksRepository.Update(taskEntity, updateTaskDto);
 
         return taskEntity.ToTaskModel();
     }
 
-    public async Task<ProjectTask> UpdateTaskStatus(Guid id, TaskStatuses status)
+    public async Task<(ProjectTask? task, string? error)> UpdateTaskStatus(Guid id, TaskStatuses status)
     {
         var taskEntity = await _tasksRepository.GetById(id);
 
         if (taskEntity == null)
         {
-            throw new KeyNotFoundException("Task not found");
+            return (null, "Task not found");
         }
         if (taskEntity.AssignedUserId == null)
         {
-            throw new ArgumentException("Can't change task status before assigning user!");
+            return (null, "Can't change task status before assigning user!");
         }
 
         taskEntity.Status = status;
-        taskEntity.LastUpdateTime = DateTime.Now;
+        taskEntity.LastUpdateTime = DateTime.UtcNow;
 
         await _tasksRepository.UpdateStatus(taskEntity);
 
-        return taskEntity.ToTaskModel();
+        return (taskEntity.ToTaskModel(), null);
     }
     
-    public async Task<ProjectTask> AssignUserToTask(Guid taskId, Guid userId)
+    public async Task<(ProjectTask? task, string? error)> AssignUserToTask(Guid taskId, Guid userId)
     {
-        try
+        (var task, string? error) = await _tasksRepository.AssignUser(taskId, userId);
+        if (task != null)
         {
-            var taskEntity = await _tasksRepository.AssignUser(taskId, userId);
-            return taskEntity.ToTaskModel();
+            return (task.ToTaskModel(), null);
         }
-        catch (KeyNotFoundException e)
-        {
-            throw new KeyNotFoundException(e.Message);
-        }
-        catch (ArgumentException e)
-        {
-            throw new ArgumentException(e.Message);
-        }
+
+        return (null, error);
     }
 
     #endregion PUT METHODS
@@ -96,32 +84,15 @@ public class TasksService : ITasksService
     
     #region DELETE METHODS
 
-    public async Task DeleteTask(Guid id)
+    public async Task<bool> DeleteTask(Guid id)
     {
-        try
-        {
-            await _tasksRepository.Delete(id);
-        }
-        catch (KeyNotFoundException ex)
-        {
-            throw new KeyNotFoundException(ex.Message);
-        }
+        bool isDeleted = await _tasksRepository.Delete(id);
+        return isDeleted;
     }
 
-    public async Task RemoveUserFromTask(Guid taskId)
+    public async Task<string?> RemoveUserFromTask(Guid taskId)
     {
-        try
-        {
-            await _tasksRepository.RemoveUser(taskId);
-        }
-        catch (KeyNotFoundException e)
-        {
-            throw new KeyNotFoundException(e.Message);
-        }
-        catch (ArgumentException e)
-        {
-            throw new ArgumentException(e.Message);
-        }
+        return await _tasksRepository.RemoveUser(taskId);
     }
 
     #endregion DELETE METHODS

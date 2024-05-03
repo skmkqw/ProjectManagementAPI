@@ -46,31 +46,37 @@ public class TasksRepository : ITasksRepository
         return taskEntity;
     }
 
-    public async Task<ProjectTaskEntity> AssignUser(Guid taskId, Guid userId)
+    public async Task<(ProjectTaskEntity? taskEntity, string? error)> AssignUser(Guid taskId, Guid userId)
     {
         var taskEntity = await _context.ProjectTasks.FindAsync(taskId);
         if (taskEntity == null)
         {
-            throw new KeyNotFoundException("Task not found!");
+            return (null, "Task not found");
         }
         
         if (taskEntity.Status == TaskStatuses.Done)
         {
-            throw new ArgumentException("Can't reassign user for completed task!");
+            return (null, "Can't reassign user for completed task!");
         }
         
         var userEntity = await _context.Users.FindAsync(userId);
         if (userEntity == null)
         {
-            throw new KeyNotFoundException("User not found!");
+            return (null, "User not found");
+        }
+
+        bool userExistsInProject = await UserExistsInProject(userId, taskEntity);
+        if (userExistsInProject == false)
+        {
+            return (null, "Can't assign task to user until user is added to project");
         }
 
         taskEntity.AssignedUserId = userId;
-        taskEntity.LastUpdateTime = DateTime.Now;
+        taskEntity.LastUpdateTime = DateTime.UtcNow;
 
         await _context.SaveChangesAsync();
 
-        return taskEntity;
+        return (taskEntity, null);
     }
 
     #endregion PUT METHODS
@@ -78,37 +84,45 @@ public class TasksRepository : ITasksRepository
     
     #region DELETE METHODS
 
-    public async Task Delete(Guid id)
+    public async Task<bool> Delete(Guid id)
     {
         var taskEntity = await _context.ProjectTasks.FindAsync(id);
         if (taskEntity == null)
         {
-            throw new KeyNotFoundException("Task not found!");
+            return false;
         }
         _context.ProjectTasks.Remove(taskEntity);
         await _context.SaveChangesAsync();
+        return true;
     }
     
-    public async Task RemoveUser(Guid taskId)
+    public async Task<string?> RemoveUser(Guid taskId)
     {
         var projectTaskEntity = await _context.ProjectTasks.FindAsync(taskId);
         if (projectTaskEntity == null)
         {
-            throw new KeyNotFoundException("Task not found!");
+            return "Task not found";
         }
 
         if (projectTaskEntity.Status == TaskStatuses.Done)
         {
-            throw new ArgumentException("Can't remove assigned user from completed task!");
+            return "Can't remove assigned user from completed task!";
         }
 
         projectTaskEntity.AssignedUser = null;
         projectTaskEntity.AssignedUserId = null;
-        projectTaskEntity.LastUpdateTime = DateTime.Now;
-
+        projectTaskEntity.LastUpdateTime = DateTime.UtcNow;
         
         await _context.SaveChangesAsync();
+        return null;
     }
 
     #endregion DELETE METHODS
+
+    private async Task<bool> UserExistsInProject(Guid userId, ProjectTaskEntity taskEntity)
+    {
+        var projectUsersEnity =
+           await _context.ProjectUsers.FirstOrDefaultAsync(i => i.ProjectId == taskEntity!.ProjectId && i.UserId == userId);
+        return projectUsersEnity != null;
+    }
 }

@@ -26,30 +26,26 @@ public class ProjectsRepository : IProjectsRepository
         return await _context.Projects.FindAsync(id);
     }
     
-    public async Task<IEnumerable<ProjectTaskEntity>> GetTasks(Guid projectId)
+    public async Task<IEnumerable<ProjectTaskEntity>?> GetTasks(Guid projectId)
     {
         var projectEntity = await _context.Projects.FindAsync(projectId);
 
         if (projectEntity == null)
         {
-            throw new KeyNotFoundException("Project doesn't exist");
+            return null;
         }
 
         return await _context.ProjectTasks.Where(t => t.ProjectId == projectId).ToListAsync();
     }
     
-    public async Task<IEnumerable<UserEntity>> GetUsers(Guid projectId)
+    public async Task<IEnumerable<UserEntity>?> GetUsers(Guid projectId)
     {
         var projectEntity = await _context.Projects.FindAsync(projectId);
 
-        if (projectEntity == null)
-        {
-            throw new KeyNotFoundException("Project doesn't exist");
-        }
+        if (projectEntity == null) return null;
 
         return await _context.ProjectUsers.
             Where(pu => pu.ProjectId == projectId)
-            .Include(t => t.User.Tasks)
             .Select(u => u.User)
             .ToListAsync();
     }
@@ -66,16 +62,16 @@ public class ProjectsRepository : IProjectsRepository
         return projectEntity;
     }
 
-    public async Task<ProjectTaskEntity> AddTask(Guid projectId, ProjectTaskEntity taskEntity)
+    public async Task<ProjectTaskEntity?> AddTask(Guid projectId, ProjectTaskEntity taskEntity)
     {
         var projectEntity = await _context.Projects.FindAsync(projectId);
+
         if (projectEntity == null)
         {
-            throw new KeyNotFoundException("Project not found!");
+            return null;
         }
-
         taskEntity.ProjectId = projectId;
-        projectEntity.LastUpdateTime = DateTime.Now;
+        projectEntity.LastUpdateTime = DateTime.UtcNow;
 
         _context.ProjectTasks.Add(taskEntity);
         await _context.SaveChangesAsync();
@@ -83,25 +79,25 @@ public class ProjectsRepository : IProjectsRepository
         return taskEntity;
     }
     
-    public async Task<ProjectUserEntity> AddUser(Guid projectId, Guid userId)
+    public async Task<(ProjectUserEntity? userEntity, string? error)> AddUser(Guid projectId, Guid userId)
     {
         var projectEntity = await _context.Projects.FindAsync(projectId);
         if (projectEntity == null)
         {
-            throw new KeyNotFoundException("Project not found!");
+            return (null, "Project not found");
         }
         
         var userEntity = await _context.Users.FindAsync(userId);
         if (userEntity == null)
         {
-            throw new KeyNotFoundException("User not found!");
+            return (null, "User not found");
         }
         
         var existingProjectUser = await _context.ProjectUsers
             .FirstOrDefaultAsync(pu => pu.ProjectId == projectId && pu.UserId == userId);
         if (existingProjectUser != null)
         {
-            throw new ArgumentException("User already exists in the project!");
+            return (null, "User already exists in the project!");
         }
 
         var projectUserEntity = new ProjectUserEntity()
@@ -114,12 +110,12 @@ public class ProjectsRepository : IProjectsRepository
 
         await _context.ProjectUsers.AddAsync(projectUserEntity);
         projectEntity.ProjectUsers.Add(projectUserEntity);
-        projectEntity.LastUpdateTime = DateTime.Now;
+        projectEntity.LastUpdateTime = DateTime.UtcNow;
         userEntity.ProjectUsers.Add(projectUserEntity);
         
         await _context.SaveChangesAsync();
         
-        return projectUserEntity;
+        return (projectUserEntity, null);
     }
 
     #endregion POST METHODS
@@ -139,29 +135,30 @@ public class ProjectsRepository : IProjectsRepository
 
     #region DELETE METHODS
 
-    public async Task Delete(Guid id)
+    public async Task<bool> Delete(Guid id)
     {
         var projectEntity = await _context.Projects.FindAsync(id);
         if (projectEntity == null)
         {
-            throw new KeyNotFoundException("Project not found!");
+            return false;
         }
         _context.Projects.Remove(projectEntity);
         await _context.SaveChangesAsync();
+        return true;
     }
     
-    public async Task RemoveUser(Guid projectId, Guid userId)
+    public async Task<(Guid? userId, string? error)> RemoveUser(Guid projectId, Guid userId)
     {
         var projectEntity = await _context.Projects.FindAsync(projectId);
         if (projectEntity == null)
         {
-            throw new KeyNotFoundException("Project not found!");
+            return (null, "Project not found");
         }
         
         var userEntity = await _context.Users.FindAsync(userId);
         if (userEntity == null)
         {
-            throw new KeyNotFoundException("User not found!");
+            return (null, "User not found");
         }
         
         var existingProjectUser = await _context.ProjectUsers
@@ -169,11 +166,12 @@ public class ProjectsRepository : IProjectsRepository
         
         if (existingProjectUser == null)
         {
-            throw new ArgumentException("There is no such user in the project!");
+            return (null, "There is no such user in the project!");
         }
 
         _context.ProjectUsers.Remove(existingProjectUser);
         await _context.SaveChangesAsync();
+        return (userId, null);
     }
 
     #endregion DELETE METHODS

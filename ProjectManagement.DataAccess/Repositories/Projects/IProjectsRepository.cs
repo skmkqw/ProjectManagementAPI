@@ -10,19 +10,19 @@ public interface IProjectsRepository
 
     public Task<ProjectEntity?> GetById(Guid id);
     
-    public Task<IEnumerable<ProjectTaskEntity>> GetTasks(Guid projectId);
+    public Task<IEnumerable<ProjectTaskEntity>?> GetTasks(Guid projectId);
     
-    public Task<IEnumerable<UserEntity>> GetUsers(Guid projectId);
+    public Task<IEnumerable<UserEntity>?> GetUsers(Guid projectId);
 
     public Task<ProjectEntity> Create(ProjectEntity projectEntity);
 
-    public Task<ProjectTaskEntity> AddTask(Guid projectId, ProjectTaskEntity taskEntity);
+    public Task<ProjectTaskEntity?> AddTask(Guid projectId, ProjectTaskEntity taskEntity);
     
-    public Task<ProjectUserEntity> AddUser(Guid projectId, Guid userId);
+    public Task<(ProjectUserEntity? userEntity, string? error)> AddUser(Guid projectId, Guid userId);
 
-    public Task RemoveUser(Guid projectId, Guid userId);
+    public Task<(Guid? userId, string? error)> RemoveUser(Guid projectId, Guid userId);
 
     public Task<ProjectEntity> Update(ProjectEntity projectEntity, UpdateProjectDto updateProjectDto);
 
-    public Task Delete(Guid id);
+    public Task<bool> Delete(Guid id);
 }

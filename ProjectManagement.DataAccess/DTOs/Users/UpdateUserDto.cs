@@ -15,5 +15,5 @@ public class UpdateUserDto
     public string Password { get; set; } = string.Empty;
     
     [JsonIgnore]
-    public DateTime LastUpdateTime { get; set; } = DateTime.Now;
+    public DateTime LastUpdateTime { get; set; } = DateTime.UtcNow;
 }

@@ -29,16 +29,13 @@ public class TasksController : ControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById([FromRoute] Guid id)
     {
-        try
+        var task = await _tasksService.GetTaskById(id);
+        if (task != null)
         {
-            var task = await _tasksService.GetTaskById(id);
             return Ok(task.ToTaskDto());
+        }
 
-        }
-        catch (KeyNotFoundException e)
-        {
-            return NotFound(e.Message);
-        }
+        return NotFound("Task not found");
     }
 
     #endregion GET ENDPOINTS
@@ -49,51 +46,37 @@ public class TasksController : ControllerBase
     [HttpPut("{id}")]
     public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateTaskDto updateTaskDto)
     {
-        try
+        var updatedTask = await _tasksService.UpdateTask(id, updateTaskDto);
+        if (updatedTask != null)
         {
-            var updatedTask = await _tasksService.UpdateTask(id, updateTaskDto);
             return Ok(updatedTask.ToTaskDto());
         }
-        catch (ArgumentException ex)
-        {
-            return NotFound(ex.Message);
-        }
+
+        return NotFound("Task not found");
     }
 
     [HttpPatch("{id}/status")]
     public async Task<IActionResult> UpdateStatus([FromRoute] Guid id, [FromQuery] TaskStatuses status)
     {
-        try
+        (var updatedTask, string? error) = await _tasksService.UpdateTaskStatus(id, status);
+        if (updatedTask != null)
         {
-            var updatedTask = await _tasksService.UpdateTaskStatus(id, status);
             return Ok(updatedTask.ToTaskDto());
         }
-        catch (KeyNotFoundException e)
-        {
-            return NotFound(e.Message);
-        }
-        catch (ArgumentException e)
-        {
-            return BadRequest(e.Message);
-        }
+
+        return BadRequest(error);
     }
 
     [HttpPut("{taskId}/assign_user")]
     public async Task<IActionResult> AssignUser([FromRoute] Guid taskId, [FromQuery] Guid userId)
     {
-        try
+        (var task, string? error) = await _tasksService.AssignUserToTask(taskId, userId);
+        if (task != null)
         {
-            var task = await _tasksService.AssignUserToTask(taskId, userId);
             return Ok(task.ToTaskDto());
         }
-        catch (KeyNotFoundException e)
-        {
-            return BadRequest(e.Message);
-        }
-        catch (ArgumentException e)
-        {
-            return BadRequest(e.Message);
-        }
+
+        return BadRequest(error);
     }
 
     #endregion PUT ENDPOINTS
@@ -104,33 +87,20 @@ public class TasksController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete([FromRoute] Guid id)
     {
-        try
+        bool isDeleted = await _tasksService.DeleteTask(id);
+        if (isDeleted)
         {
-            await _tasksService.DeleteTask(id);
             return NoContent();
         }
-        catch (KeyNotFoundException ex)
-        {
-            return NotFound(ex.Message);
-        }
+
+        return NotFound("Task not found");
     }
 
     [HttpDelete("{taskId}/remove_user")]
     public async Task<IActionResult> RemoveUser([FromRoute] Guid taskId)
     {
-        try
-        {
-            await _tasksService.RemoveUserFromTask(taskId);
-            return NoContent();
-        }
-        catch (KeyNotFoundException e)
-        {
-            return NotFound(e.Message);
-        }
-        catch (ArgumentException e)
-        {
-            return BadRequest(e.Message);
-        }
+        string? error = await _tasksService.RemoveUserFromTask(taskId);
+        return error != null ? BadRequest(error) : NoContent();
     }
 
     #endregion DELETE ENDPOINTS

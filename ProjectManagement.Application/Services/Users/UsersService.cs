@@ -1,4 +1,3 @@
-using ProjectManagement.Core.Entities;
 using ProjectManagement.Core.Models;
 using ProjectManagement.DataAccess.DTOs.Users;
 using ProjectManagement.DataAccess.Mappers;
@@ -6,11 +5,11 @@ using ProjectManagement.DataAccess.Repositories.Users;
 
 namespace ProjectManagement.Application.Services.Users;
 
-public class UserService : IUsersService
+public class UsersService : IUsersService
 {
     private readonly IUsersRepository _usersRepository;
 
-    public UserService(IUsersRepository usersRepository)
+    public UsersService(IUsersRepository usersRepository)
     {
         _usersRepository = usersRepository;
     }
@@ -23,42 +22,35 @@ public class UserService : IUsersService
         return userEntities.Select(u => u.ToUserModel());
     }
 
-    public async Task<User> GetUserById(Guid id)
+    public async Task<User?> GetUserById(Guid id)
     {
         var userEntity = await _usersRepository.GetById(id);
-        
-        if (userEntity == null)
-        {
-            throw new KeyNotFoundException("User not found!");
-        }
+
+        if (userEntity == null) return null;
 
         return userEntity.ToUserModel();
     }
     
-    public async Task<IEnumerable<ProjectTask>> GetUserTasks(Guid userId)
-    {
-        try
+    public async Task<IEnumerable<ProjectTask>?> GetUserTasks(Guid userId)
+    { 
+        var taskEntities = await _usersRepository.GetTasks(userId);
+        if (taskEntities != null)
         {
-            var taskEntities = await _usersRepository.GetTasks(userId);
             return taskEntities.Select(t => t.ToTaskModel());
         }
-        catch (KeyNotFoundException e)
-        {
-            throw new KeyNotFoundException(e.Message);
-        }
+
+        return null;
     }
 
-    public async Task<IEnumerable<Project>> GetUserProjects(Guid userId)
+    public async Task<IEnumerable<Project>?> GetUserProjects(Guid userId)
     {
-        try
+        var projectEntities = await _usersRepository.GetProjects(userId);
+        if (projectEntities != null)
         {
-            var projectEntities = await _usersRepository.GetProjects(userId);
             return projectEntities.Select(p => p.ToProjectModel());
         }
-        catch (KeyNotFoundException e)
-        {
-            throw new KeyNotFoundException(e.Message);
-        }
+
+        return null;
     }
 
     #endregion GET METHODS
@@ -80,14 +72,11 @@ public class UserService : IUsersService
 
     #region PUT METHODS
 
-    public async Task<User> UpdateUser(Guid id, UpdateUserDto updateUserDto)
+    public async Task<User?> UpdateUser(Guid id, UpdateUserDto updateUserDto)
     {
         var userEntity = await _usersRepository.GetById(id);
 
-        if (userEntity == null)
-        {
-            throw new KeyNotFoundException("User not found");
-        }
+        if (userEntity == null) return null;
 
         await _usersRepository.Update(userEntity, updateUserDto);
 
@@ -99,16 +88,10 @@ public class UserService : IUsersService
 
     #region DELETE METHODS
 
-    public async Task DeleteUser(Guid id)
+    public async Task<bool> DeleteUser(Guid id)
     {
-        try
-        {
-            await _usersRepository.Delete(id);
-        }
-        catch (KeyNotFoundException ex)
-        {
-            throw new KeyNotFoundException(ex.Message);
-        }
+        bool isDeleted = await _usersRepository.Delete(id);
+        return isDeleted;
     }
 
     #endregion DELETE METHODS

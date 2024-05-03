@@ -18,7 +18,7 @@ public static class UserMappers
         };
     }
     
-    public static UserDto FromUserModelToDto(this User user)
+    public static UserDto ToUserDto(this User user)
     {
         
         return new UserDto()
