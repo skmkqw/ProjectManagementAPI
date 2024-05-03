@@ -9,9 +9,9 @@ public interface ITasksRepository
 
     public Task<ProjectTaskEntity?> GetById(Guid id);
     
-    public Task<ProjectTaskEntity> AssignUser(Guid taskId, Guid userId);
+    public Task<(ProjectTaskEntity? taskEntity, string? error)> AssignUser(Guid taskId, Guid userId);
 
-    public Task RemoveUser(Guid taskId);
+    public Task<string?> RemoveUser(Guid taskId);
     
     public Task<ProjectTaskEntity> Update(ProjectTaskEntity projectTaskEntity, UpdateTaskDto updateTaskDto);
 
