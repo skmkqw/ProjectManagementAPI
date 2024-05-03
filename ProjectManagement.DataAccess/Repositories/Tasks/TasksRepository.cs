@@ -65,6 +65,12 @@ public class TasksRepository : ITasksRepository
             return (null, "User not found");
         }
 
+        bool userExistsInProject = await UserExistsInProject(userId, taskEntity);
+        if (userExistsInProject == false)
+        {
+            return (null, "Can't assign task to user until user is added to project");
+        }
+
         taskEntity.AssignedUserId = userId;
         taskEntity.LastUpdateTime = DateTime.Now;
 
@@ -112,4 +118,11 @@ public class TasksRepository : ITasksRepository
     }
 
     #endregion DELETE METHODS
+
+    private async Task<bool> UserExistsInProject(Guid userId, ProjectTaskEntity taskEntity)
+    {
+        var projectUsersEnity =
+           await _context.ProjectUsers.FirstOrDefaultAsync(i => i.ProjectId == taskEntity!.ProjectId && i.UserId == userId);
+        return projectUsersEnity != null;
+    }
 }
