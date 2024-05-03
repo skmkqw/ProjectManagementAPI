@@ -26,32 +26,23 @@ public class UsersRepository : IUsersRepository
         return await _context.Users.FirstOrDefaultAsync(i => i.Id == id);
     }
     
-    public async Task<IEnumerable<ProjectTaskEntity>> GetTasks(Guid userId)
+    public async Task<IEnumerable<ProjectTaskEntity>?> GetTasks(Guid userId)
     {
         var userEntity = await _context.Users.FindAsync(userId);
 
-        if (userEntity == null)
-        {
-            throw new KeyNotFoundException("User doesn't exist");
-        }
+        if (userEntity == null) return null;
 
         return await _context.ProjectTasks.Where(t => t.AssignedUserId == userId).ToListAsync();
     }
 
-    public async Task<IEnumerable<ProjectEntity>> GetProjects(Guid userId)
+    public async Task<IEnumerable<ProjectEntity>?> GetProjects(Guid userId)
     {
         var userEntity = await _context.Users.FindAsync(userId);
 
-        if (userEntity == null)
-        {
-            throw new KeyNotFoundException("User doesn't exist");
-        }
+        if (userEntity == null) return null;
 
         return await _context.ProjectUsers
             .Where(pu => pu.UserId == userId)
-            .Include(p => p.Project.Tasks)
-            .Include(pu => pu.Project.ProjectUsers)
-            .ThenInclude(au => au.User)
             .Select(p => p.Project)
             .ToListAsync();
     }
@@ -94,7 +85,7 @@ public class UsersRepository : IUsersRepository
         }
         _context.Users.Remove(userEntity);
         await _context.SaveChangesAsync();
-        return true;
+        return true;                                                                                       
     }
 
     #endregion DELETE METHODS

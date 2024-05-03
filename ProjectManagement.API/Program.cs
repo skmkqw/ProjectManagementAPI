@@ -32,7 +32,7 @@ builder.Services.AddScoped<ITasksRepository, TasksRepository>();
 //Services
 builder.Services.AddScoped<IProjectsService, ProjectsService>();
 builder.Services.AddScoped<ITasksService, TasksService>();
-builder.Services.AddScoped<IUsersService, UserService>();
+builder.Services.AddScoped<IUsersService, UsersService>();
 
 //AssignedUser lowercase urls
 builder.Services.AddRouting(options => options.LowercaseUrls = true);

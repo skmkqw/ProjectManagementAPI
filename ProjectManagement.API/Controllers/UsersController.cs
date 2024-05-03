@@ -29,43 +29,37 @@ public class UsersController : ControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById([FromRoute] Guid id)
     {
-        try
+        var user = await _usersService.GetUserById(id);
+        if (user != null)
         {
-            var user = await _usersService.GetUserById(id);
             return Ok(user.ToUserDto());
         }
-        catch (KeyNotFoundException e)
-        {
-            return NotFound(e.Message);
-        }
+
+        return NotFound("User not found");
     }
     
     [HttpGet("{userId}/tasks")]
     public async Task<IActionResult> GetTasks([FromRoute] Guid userId)
     {
-        try
+        var tasks = await _usersService.GetUserTasks(userId);
+        if (tasks != null)
         {
-            var tasks = await _usersService.GetUserTasks(userId);
             return Ok(tasks.Select(t => t.ToTaskDto()));
         }
-        catch (KeyNotFoundException e)
-        {
-            return NotFound(e.Message);
-        }
+
+        return BadRequest("User not found");
     }
     
     [HttpGet("{userId}/projects")]
     public async Task<IActionResult> GetProjects([FromRoute] Guid userId)
     {
-        try
+        var projects = await _usersService.GetUserProjects(userId);
+        if (projects != null)
         {
-            var projects = await _usersService.GetUserProjects(userId);
             return Ok(projects.Select(p => p.ToProjectDto()));
         }
-        catch (KeyNotFoundException e)
-        {
-            return NotFound(e.Message);
-        }
+
+        return BadRequest("User not found");
     }
 
     #endregion GET ENDPOINTS
@@ -88,15 +82,13 @@ public class UsersController : ControllerBase
     [HttpPut("{id}")]
     public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateUserDto updateUserDto)
     {
-        try
+        var updatedUser = await _usersService.UpdateUser(id, updateUserDto);
+        if (updatedUser != null)
         {
-            var updatedUser = await _usersService.UpdateUser(id, updateUserDto);
             return Ok(updatedUser.ToUserDto());
         }
-        catch (ArgumentException ex)
-        {
-            return NotFound(ex.Message);
-        }
+
+        return NotFound("User not found");
     }
 
     #endregion PUT ENDPOINTS
