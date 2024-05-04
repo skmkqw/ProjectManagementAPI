@@ -1,6 +1,4 @@
-using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
-using ProjectManagement.Application.Services;
 using ProjectManagement.Application.Services.Projects;
 using ProjectManagement.Application.Services.Tasks;
 using ProjectManagement.Application.Services.Users;
@@ -52,3 +50,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+public partial class Program() {}

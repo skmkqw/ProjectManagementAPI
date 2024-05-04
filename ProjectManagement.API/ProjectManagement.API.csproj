@@ -20,5 +20,6 @@
       <ProjectReference Include="..\ProjectManagement.Core\ProjectManagement.Core.csproj" />
       <ProjectReference Include="..\ProjectManagement.DataAccess\ProjectManagement.DataAccess.csproj" />
     </ItemGroup>
+    
 
 </Project>

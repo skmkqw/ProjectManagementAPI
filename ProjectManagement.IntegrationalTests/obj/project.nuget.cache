@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "s/xKUA0X9yj9OE4zvqTsy6GRZct6buBMLEpR8++Y3cGc4RPO6028VMJxi3w+DOmo58Oa/fHzb3PqAcaLKeTU/Q==",
+  "dgSpecHash": "y5hHm38n+QFXPnIt9PNB5h0L6Z3ohsw9+JnDjSdCdETozYGHSd8tzsyeXbTBEeG5JqTkVUdgr8uu8Yz3MM9Fdw==",
   "success": true,
   "projectFilePath": "/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.IntegrationalTests/ProjectManagement.IntegrationalTests.csproj",
   "expectedPackageFiles": [
@@ -18,6 +18,7 @@
     "/Users/skmkqw/.nuget/packages/microsoft.entityframeworkcore/8.0.4/microsoft.entityframeworkcore.8.0.4.nupkg.sha512",
     "/Users/skmkqw/.nuget/packages/microsoft.entityframeworkcore.abstractions/8.0.4/microsoft.entityframeworkcore.abstractions.8.0.4.nupkg.sha512",
     "/Users/skmkqw/.nuget/packages/microsoft.entityframeworkcore.analyzers/8.0.4/microsoft.entityframeworkcore.analyzers.8.0.4.nupkg.sha512",
+    "/Users/skmkqw/.nuget/packages/microsoft.entityframeworkcore.inmemory/8.0.4/microsoft.entityframeworkcore.inmemory.8.0.4.nupkg.sha512",
     "/Users/skmkqw/.nuget/packages/microsoft.entityframeworkcore.relational/8.0.4/microsoft.entityframeworkcore.relational.8.0.4.nupkg.sha512",
     "/Users/skmkqw/.nuget/packages/microsoft.entityframeworkcore.sqlserver/8.0.4/microsoft.entityframeworkcore.sqlserver.8.0.4.nupkg.sha512",
     "/Users/skmkqw/.nuget/packages/microsoft.extensions.apidescription.server/6.0.5/microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
