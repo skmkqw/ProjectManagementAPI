@@ -20,7 +20,7 @@ builder.Services.AddSwaggerGen();
 
 //DbContext
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("TestConnection"), b => b.MigrationsAssembly("ProjectManagement.DataAccess")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("ProjectManagement.DataAccess")));
 
 //Repositories
 builder.Services.AddScoped<IProjectsRepository, ProjectsRepository>();

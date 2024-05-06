@@ -39,6 +39,7 @@
           "FluentAssertions": "6.12.0",
           "Microsoft.AspNetCore.Mvc.Testing": "8.0.4",
           "Microsoft.EntityFrameworkCore": "8.0.4",
+          "Microsoft.EntityFrameworkCore.InMemory": "8.0.4",
           "Microsoft.NET.Test.Sdk": "17.8.0",
           "ProjectManagement.API": "1.0.0",
           "ProjectManagement.Application": "1.0.0",
@@ -556,6 +557,20 @@
         }
       },
       "Microsoft.EntityFrameworkCore.Analyzers/8.0.4": {},
+      "Microsoft.EntityFrameworkCore.InMemory/8.0.4": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "8.0.4"
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.EntityFrameworkCore.InMemory.dll": {
+            "assemblyVersion": "8.0.4.0",
+            "fileVersion": "8.0.424.16902"
+          }
+        },
+        "compile": {
+          "lib/net8.0/Microsoft.EntityFrameworkCore.InMemory.dll": {}
+        }
+      },
       "Microsoft.EntityFrameworkCore.Relational/8.0.4": {
         "dependencies": {
           "Microsoft.EntityFrameworkCore": "8.0.4",
@@ -4154,6 +4169,13 @@
       "sha512": "sha512-P8hfMZECdbgle4Us8HGRUKAjqVwgbtr5JqtCxqEoiVORrNQAmcpu3g1NKwTAoUsO9Z0QRgExtYoAmdggR/DkMQ==",
       "path": "microsoft.entityframeworkcore.analyzers/8.0.4",
       "hashPath": "microsoft.entityframeworkcore.analyzers.8.0.4.nupkg.sha512"
+    },
+    "Microsoft.EntityFrameworkCore.InMemory/8.0.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-3fj0V/NKG66LLwUtoDofSyogku1ueF78uUIdGPEJJhS3MW7w3xLsizMaDYX+ooR74IM96YJI5N3tyOU5FZiiwg==",
+      "path": "microsoft.entityframeworkcore.inmemory/8.0.4",
+      "hashPath": "microsoft.entityframeworkcore.inmemory.8.0.4.nupkg.sha512"
     },
     "Microsoft.EntityFrameworkCore.Relational/8.0.4": {
       "type": "package",

@@ -1,10 +1,13 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.VisualStudio.TestPlatform.TestHost;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using ProjectManagement.Application.Services.Projects;
 using ProjectManagement.Core.Entities;
 using ProjectManagement.DataAccess.Data;
+using ProjectManagement.DataAccess.Repositories.Projects;
 
 namespace ProjectManagement.IntegrationalTest;
 
@@ -12,37 +15,26 @@ public class TestWebApplicationFactory : WebApplicationFactory<Program>
 {
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
-        builder.ConfigureServices(services =>
+        builder.ConfigureTestServices(services =>
         {
-            var descriptor = services.SingleOrDefault(
-                d => d.ServiceType ==
-                     typeof(DbContextOptions<ApplicationDbContext>));
-
-            if (descriptor != null)
-            {
-                services.Remove(descriptor);
-            }
+            services.RemoveAll(typeof(DbContextOptions<ApplicationDbContext>));
 
             services.AddDbContext<ApplicationDbContext>(options =>
             {
-                options.UseSqlServer("Data Source=localhost;Initial Catalog=ProjectManagementDTest;User Id=sa;Password=skmkqw04012006Tima;Integrated Security=True;TrustServerCertificate=true;Trusted_Connection=false"); // Замените "your_connection_string" на вашу строку подключения к SQL Server
+                options.UseInMemoryDatabase("test");
             });
+            
+            services.AddScoped<IProjectsRepository, ProjectsRepository>();
+            services.AddScoped<IProjectsService, ProjectsService>();
 
             var serviceProvider = services.BuildServiceProvider();
             using (var scope = serviceProvider.CreateScope())
             {
                 var scopedServices = scope.ServiceProvider;
                 var dbContext = scopedServices.GetRequiredService<ApplicationDbContext>();
-
-                try
-                {
-                    dbContext.Database.EnsureCreated();
-                    PopulateTestData(dbContext);
-                }
-                catch (Exception)
-                {
-                    Console.WriteLine("An error occurred creating the database.");
-                }
+                dbContext.Database.EnsureDeleted();
+                dbContext.Database.EnsureCreated();
+                PopulateTestData(dbContext);
             }
         });
     }
@@ -53,19 +45,19 @@ public class TestWebApplicationFactory : WebApplicationFactory<Program>
         {
             new ()
             {
-                Id = Guid.NewGuid(),
+                Id = new Guid("d99b037b-1e3a-4de0-812f-90e35b30f07a"),
                 Name = "Project 1",
                 Description = "Description for Project 1",
             },
             new ()
             {
-                Id = Guid.NewGuid(),
+                Id = new Guid("18c06c2c-7476-48f0-b9e6-4bcbe8d2a129"),
                 Name = "Project 2",
                 Description = "Description for Project 2",
             },
             new ()
             {
-                Id = Guid.NewGuid(),
+                Id = new Guid("5ac6bace-5059-4e5d-bfc1-643d0e9c05cf"),
                 Name = "Project 3",
                 Description = "Description for Project 3",
             }

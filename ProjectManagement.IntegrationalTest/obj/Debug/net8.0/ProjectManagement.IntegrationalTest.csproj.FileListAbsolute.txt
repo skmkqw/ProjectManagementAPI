@@ -460,3 +460,4 @@
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.IntegrationalTest/obj/Debug/net8.0/ProjectManagement.IntegrationalTest.pdb
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.IntegrationalTest/obj/Debug/net8.0/ProjectManagement.IntegrationalTest.genruntimeconfig.cache
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.IntegrationalTest/obj/Debug/net8.0/ref/ProjectManagement.IntegrationalTest.dll
+/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.IntegrationalTest/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.InMemory.dll
