@@ -88,8 +88,8 @@ public class TasksControllerTests(TestWebApplicationFactory factory) : IClassFix
 
         // Assert
         updatedTask.Should().NotBeNull();
-        updateTaskDto.Title.Should().Be("Task 4");
-        updatedTask!.Description.Should().Be("Description for task 4");
+        updatedTask!.Title.Should().Be("Task 4");
+        updatedTask.Description.Should().Be("Description for task 4");
         
         var scope = _factory.Services.CreateScope();
         var scopedServices = scope.ServiceProvider;
