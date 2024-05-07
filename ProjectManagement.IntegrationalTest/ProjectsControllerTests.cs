@@ -4,8 +4,11 @@ using System.Text;
 using System.Transactions;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
+using ProjectManagement.DataAccess.Data;
 using ProjectManagement.DataAccess.DTOs.Projects;
+using ProjectManagement.IntegrationalTest.Helpers;
 
 namespace ProjectManagement.IntegrationalTest;
 
@@ -87,6 +90,11 @@ public class ProjectsControllerTests : IClassFixture<TestWebApplicationFactory>
         // Assert
         project.Should().NotBeNull();
         project!.Name.Should().Be("Project 4");
+        
+        var scope = _factory.Services.CreateScope();
+        var scopedServices = scope.ServiceProvider;
+        var db = scopedServices.GetRequiredService<ApplicationDbContext>();
+        Utilities.Cleanup(db);
     }
 
     [Fact]
@@ -111,6 +119,11 @@ public class ProjectsControllerTests : IClassFixture<TestWebApplicationFactory>
         updatedProject.Should().NotBeNull();
         updateProjectDto.Name.Should().Be("project 4");
         updatedProject!.Description.Should().Be("description for project 4");
+        
+        var scope = _factory.Services.CreateScope();
+        var scopedServices = scope.ServiceProvider;
+        var db = scopedServices.GetRequiredService<ApplicationDbContext>();
+        Utilities.Cleanup(db);
     }
 
     [Fact]
@@ -134,24 +147,29 @@ public class ProjectsControllerTests : IClassFixture<TestWebApplicationFactory>
         response.StatusCode.Should().Be(HttpStatusCode.NotFound);
     }
 
-    // [Fact]
-    // public async Task DeleteProject_WithExistingId_DeletesProject()
-    // {
-    //     // Arrange 
-    //     var client = _factory.CreateClient();
-    //     
-    //     // Act
-    //     var response = await client.DeleteAsync("api/projects/d99b037b-1e3a-4de0-812f-90e35b30f07a");
-    //     response.EnsureSuccessStatusCode();
-    //     
-    //     var allProjectsResponse = await client.GetAsync("/api/projects");
-    //     allProjectsResponse.EnsureSuccessStatusCode();
-    //     var projects = await allProjectsResponse.Content.ReadFromJsonAsync<List<ProjectDto>>();
-    //     
-    //     // Assert
-    //     projects.Should().NotBeNull();
-    //     projects.Should().HaveCount(2);
-    // }
+    [Fact]
+    public async Task DeleteProject_WithExistingId_DeletesProject()
+    {
+        // Arrange 
+        var client = _factory.CreateClient();
+        
+        // Act
+        var response = await client.DeleteAsync("api/projects/d99b037b-1e3a-4de0-812f-90e35b30f07a");
+        response.EnsureSuccessStatusCode();
+        
+        var allProjectsResponse = await client.GetAsync("/api/projects");
+        allProjectsResponse.EnsureSuccessStatusCode();
+        var projects = await allProjectsResponse.Content.ReadFromJsonAsync<List<ProjectDto>>();
+        
+        // Assert
+        projects.Should().NotBeNull();
+        projects.Should().HaveCount(2);
+        
+        var scope = _factory.Services.CreateScope();
+        var scopedServices = scope.ServiceProvider;
+        var db = scopedServices.GetRequiredService<ApplicationDbContext>();
+        Utilities.Cleanup(db);
+    }
     
     [Fact]
     public async Task DeleteProject_WithNotExistingId_DeletesProject()
