@@ -11,6 +11,8 @@ using ProjectManagement.IntegrationalTests.Helpers;
 
 namespace ProjectManagement.IntegrationalTests.Projects;
 
+
+[Collection("ControllerTestCollection")]
 public class ProjectsControllerTests(TestWebApplicationFactory factory) : IClassFixture<TestWebApplicationFactory>
 {
     private readonly WebApplicationFactory<Program> _factory = factory;

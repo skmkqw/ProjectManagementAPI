@@ -15,6 +15,7 @@ public class Utilities
     public static void Cleanup(ApplicationDbContext dbContext)
     {
         dbContext.Projects.RemoveRange(dbContext.Projects);
+        dbContext.Users.RemoveRange(dbContext.Users);
         dbContext.SaveChanges();
         PopulateTestData(dbContext);
     }
@@ -43,7 +44,39 @@ public class Utilities
             }
         };
 
+        var users = new List<UserEntity>()
+        {
+            new ()
+            {
+                Id = new Guid("fcd21c1e-914c-4a6f-aa18-41505d29c8e7"),
+                FirstName = "Timofei",
+                LastName = "Korsakov",
+                Email = "tkorsakov77@gmail.com",
+                Login = "skmkqw",
+                Password = "040412006"
+            },
+            new ()
+            {
+                Id = new Guid("7ec8d9b7-17a3-4855-8d17-7fb0a6c037d4"),
+                FirstName = "Denis",
+                LastName = "Rezanko",
+                Email = "rezden22@gmail.com",
+                Login = "rezden",
+                Password = "17092005"
+            },
+            new ()
+            {
+                Id = new Guid("b1b2a921-af2a-4e38-a6e9-3d38e540dca9"),
+                FirstName = "Artem",
+                LastName = "Novikov",
+                Email = "artnov11@gmail.com",
+                Login = "artnov",
+                Password = "26082005"
+            }
+        };
+
         dbContext.Projects.AddRange(projects);
+        dbContext.Users.AddRange(users);
         dbContext.SaveChanges();
     }
 }
