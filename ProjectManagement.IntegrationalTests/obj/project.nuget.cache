@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ope7G7BjSpl/tJeSnrssaof9WBv8xn7F+4/C/gv229qtkNytNVz//3FkLU/OWflf1XSti39D7aCT0cUFOzKkxw==",
+  "dgSpecHash": "48PkxjLH2GDxgnftI3JCm8xLhoYmcIdPCL5PK3SRSnYEaiXwiUokmmuBV7DhCT5ePMvVceZweZu4E1R5Jwj6RQ==",
   "success": true,
-  "projectFilePath": "/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.IntegrationalTest/ProjectManagement.IntegrationalTest.csproj",
+  "projectFilePath": "/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.IntegrationalTests/ProjectManagement.IntegrationalTests.csproj",
   "expectedPackageFiles": [
     "/Users/skmkqw/.nuget/packages/azure.core/1.35.0/azure.core.1.35.0.nupkg.sha512",
     "/Users/skmkqw/.nuget/packages/azure.identity/1.10.3/azure.identity.1.10.3.nupkg.sha512",

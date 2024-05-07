@@ -1,8 +1,7 @@
-using Microsoft.EntityFrameworkCore;
 using ProjectManagement.Core.Entities;
 using ProjectManagement.DataAccess.Data;
 
-namespace ProjectManagement.IntegrationalTest.Helpers;
+namespace ProjectManagement.IntegrationalTests.Helpers;
 
 public class Utilities
 {

@@ -1,25 +1,19 @@
 using System.Net;
 using System.Net.Http.Json;
 using System.Text;
-using System.Transactions;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using ProjectManagement.DataAccess.Data;
 using ProjectManagement.DataAccess.DTOs.Projects;
-using ProjectManagement.IntegrationalTest.Helpers;
+using ProjectManagement.IntegrationalTests.Helpers;
 
-namespace ProjectManagement.IntegrationalTest;
+namespace ProjectManagement.IntegrationalTests.Projects;
 
-public class ProjectsControllerTests : IClassFixture<TestWebApplicationFactory>
+public class ProjectsControllerTests(TestWebApplicationFactory factory) : IClassFixture<TestWebApplicationFactory>
 {
-    private readonly WebApplicationFactory<Program> _factory;
-
-    public ProjectsControllerTests(TestWebApplicationFactory factory)
-    {
-        _factory = factory;
-    }
+    private readonly WebApplicationFactory<Program> _factory = factory;
 
     [Fact]
     public async Task GetAll_ReturnsAllProjects()

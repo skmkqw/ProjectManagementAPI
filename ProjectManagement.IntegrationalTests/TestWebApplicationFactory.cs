@@ -5,12 +5,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using ProjectManagement.Application.Services.Projects;
-using ProjectManagement.Core.Entities;
 using ProjectManagement.DataAccess.Data;
 using ProjectManagement.DataAccess.Repositories.Projects;
-using ProjectManagement.IntegrationalTest.Helpers;
+using ProjectManagement.IntegrationalTests.Helpers;
 
-namespace ProjectManagement.IntegrationalTest;
+namespace ProjectManagement.IntegrationalTests;
 
 public class TestWebApplicationFactory : WebApplicationFactory<Program>
 {

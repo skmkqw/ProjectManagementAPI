@@ -9822,11 +9822,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.IntegrationalTest/ProjectManagement.IntegrationalTest.csproj",
-      "projectName": "ProjectManagement.IntegrationalTest",
-      "projectPath": "/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.IntegrationalTest/ProjectManagement.IntegrationalTest.csproj",
+      "projectUniqueName": "/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.IntegrationalTests/ProjectManagement.IntegrationalTests.csproj",
+      "projectName": "ProjectManagement.IntegrationalTests",
+      "projectPath": "/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.IntegrationalTests/ProjectManagement.IntegrationalTests.csproj",
       "packagesPath": "/Users/skmkqw/.nuget/packages/",
-      "outputPath": "/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.IntegrationalTest/obj/",
+      "outputPath": "/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.IntegrationalTests/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/skmkqw/.nuget/NuGet/NuGet.Config"

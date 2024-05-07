@@ -33,4 +33,9 @@
       <ProjectReference Include="..\ProjectManagement.Core\ProjectManagement.Core.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Tasks\" />
+      <Folder Include="Users\" />
+    </ItemGroup>
+
 </Project>
