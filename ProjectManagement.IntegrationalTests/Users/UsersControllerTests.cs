@@ -34,7 +34,7 @@ public class UsersControllerTests(TestWebApplicationFactory factory) : IClassFix
     }
     
     [Fact]
-    public async Task GetById_WithExistingId_ReturnsUsers()
+    public async Task GetById_WithExistingId_ReturnsUser()
     {
         // Arrange
         var client = _factory.CreateClient();
@@ -52,7 +52,7 @@ public class UsersControllerTests(TestWebApplicationFactory factory) : IClassFix
     }
     
     [Fact]
-    public async Task GetById_WithNotExistingId_ReturnsUsers()
+    public async Task GetById_WithNotExistingId_ReturnsNotFound()
     {
         // Arrange
         var client = _factory.CreateClient();
@@ -85,11 +85,16 @@ public class UsersControllerTests(TestWebApplicationFactory factory) : IClassFix
         var response = await client.PostAsync("api/users", httpContent);
         response.EnsureSuccessStatusCode();
         var createdUser = await response.Content.ReadFromJsonAsync<UserDto>();
+        
+        var allUsersResponse = await client.GetAsync("api/users");
+        allUsersResponse.EnsureSuccessStatusCode();
+        var users = await allUsersResponse.Content.ReadFromJsonAsync<List<UserDto>>();
 
         // Assert
         createdUser.Should().NotBeNull();
         createdUser!.FirstName.Should().Be("Andrew");
         createdUser.Login.Should().Be("ajackson");
+        users.Should().HaveCount(4);
         
         var scope = _factory.Services.CreateScope();
         var scopedServices = scope.ServiceProvider;
@@ -117,7 +122,10 @@ public class UsersControllerTests(TestWebApplicationFactory factory) : IClassFix
         // Act
         var response = await client.PutAsync("api/users/fcd21c1e-914c-4a6f-aa18-41505d29c8e7", httpContent);
         response.EnsureSuccessStatusCode();
-        var updatedUser = await response.Content.ReadFromJsonAsync<UserDto>();
+        
+        var updatedUserResponse = await client.GetAsync("api/users/fcd21c1e-914c-4a6f-aa18-41505d29c8e7");
+        response.EnsureSuccessStatusCode();
+        var updatedUser = await updatedUserResponse.Content.ReadFromJsonAsync<UserDto>();
 
         // Assert
         updatedUser.Should().NotBeNull();
@@ -131,7 +139,7 @@ public class UsersControllerTests(TestWebApplicationFactory factory) : IClassFix
     }
     
     [Fact]
-    public async Task UpdateUser_WithNotExistingId_UpdatesUser()
+    public async Task UpdateUser_WithNotExistingId_ReturnsNotFound()
     {
         // Arrange
         var client = _factory.CreateClient();
@@ -178,7 +186,7 @@ public class UsersControllerTests(TestWebApplicationFactory factory) : IClassFix
     }
     
     [Fact]
-    public async Task DeleteUser_WithNotExisingId_DeletesUser()
+    public async Task DeleteUser_WithNotExisingId_ReturnsNotFound()
     {
         // Arrange 
         var client = _factory.CreateClient();

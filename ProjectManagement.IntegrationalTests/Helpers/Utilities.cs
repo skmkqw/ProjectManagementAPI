@@ -16,6 +16,7 @@ public class Utilities
     {
         dbContext.Projects.RemoveRange(dbContext.Projects);
         dbContext.Users.RemoveRange(dbContext.Users);
+        dbContext.ProjectTasks.RemoveRange(dbContext.ProjectTasks);
         dbContext.SaveChanges();
         PopulateTestData(dbContext);
     }
@@ -75,8 +76,36 @@ public class Utilities
             }
         };
 
+        var tasks = new List<ProjectTaskEntity>()
+        {
+            new ()
+            {
+                Id = new Guid("9f4a9b16-45b1-4895-a3c6-8e2eb8deae58"),
+                Title = "Task 1",
+                Description = "Description for task 1",
+                ProjectId = new Guid("d99b037b-1e3a-4de0-812f-90e35b30f07a")
+            },
+            
+            new ()
+            {
+                Id = new Guid("6c12bbf9-3a8a-4f7c-9e19-9e0b5b27a08a"),
+                Title = "Task 2",
+                Description = "Description for task 2",
+                ProjectId = new Guid("18c06c2c-7476-48f0-b9e6-4bcbe8d2a129")
+            },
+            
+            new ()
+            {
+                Id = new Guid("2e9f7e98-4870-4c04-9e9b-5946f2a30ae9"),
+                Title = "Task 3",
+                Description = "Description for task 3",
+                ProjectId = new Guid("5ac6bace-5059-4e5d-bfc1-643d0e9c05cf")
+            }
+        };
+
         dbContext.Projects.AddRange(projects);
         dbContext.Users.AddRange(users);
+        dbContext.ProjectTasks.AddRange(tasks);
         dbContext.SaveChanges();
     }
 }

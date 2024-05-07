@@ -81,11 +81,16 @@ public class ProjectsControllerTests(TestWebApplicationFactory factory) : IClass
         var response = await client.PostAsync("api/projects", httpContent);
         response.EnsureSuccessStatusCode();
         var project = await response.Content.ReadFromJsonAsync<ProjectDto>();
+        
+        var allProjectsResponse = await client.GetAsync("api/projects");
+        allProjectsResponse.EnsureSuccessStatusCode();
+        var projects = await allProjectsResponse.Content.ReadFromJsonAsync<List<ProjectDto>>();
 
 
         // Assert
         project.Should().NotBeNull();
         project!.Name.Should().Be("Project 4");
+        projects.Should().HaveCount(4);
         
         var scope = _factory.Services.CreateScope();
         var scopedServices = scope.ServiceProvider;
@@ -109,7 +114,10 @@ public class ProjectsControllerTests(TestWebApplicationFactory factory) : IClass
         // Act
         var response = await client.PutAsync("api/projects/d99b037b-1e3a-4de0-812f-90e35b30f07a", httpContent);
         response.EnsureSuccessStatusCode();
-        var updatedProject = await response.Content.ReadFromJsonAsync<ProjectDto>();
+        
+        var updatedProjectResponse = await client.GetAsync("api/projects/d99b037b-1e3a-4de0-812f-90e35b30f07a");
+        response.EnsureSuccessStatusCode();
+        var updatedProject = await updatedProjectResponse.Content.ReadFromJsonAsync<ProjectDto>();
 
         // Assert
         updatedProject.Should().NotBeNull();
@@ -123,7 +131,7 @@ public class ProjectsControllerTests(TestWebApplicationFactory factory) : IClass
     }
 
     [Fact]
-    public async Task UpdateProject_WithNotExistingId_UpdatesProject()
+    public async Task UpdateProject_WithNotExistingId_ReturnsNotFound()
     {
         // Arrange
         var client = _factory.CreateClient();
@@ -168,7 +176,7 @@ public class ProjectsControllerTests(TestWebApplicationFactory factory) : IClass
     }
     
     [Fact]
-    public async Task DeleteProject_WithNotExistingId_DeletesProject()
+    public async Task DeleteProject_WithNotExistingId_ReturnsNotFound()
     {
         // Arrange 
         var client = _factory.CreateClient();
