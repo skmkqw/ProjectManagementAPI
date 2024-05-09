@@ -59,7 +59,7 @@ public class ProjectsControllerTests(TestWebApplicationFactory factory) : IClass
 
         // Act
         var response = await client.GetAsync("api/projects/d99b037b-1e3a-4de0-812f-90e35b30f97a");
-
+        
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.NotFound);
     }

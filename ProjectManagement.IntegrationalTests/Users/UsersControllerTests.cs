@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using ProjectManagement.DataAccess.Data;
+using ProjectManagement.DataAccess.DTOs.Projects;
 using ProjectManagement.DataAccess.DTOs.Users;
 using ProjectManagement.IntegrationalTests.Helpers;
 
@@ -196,5 +197,37 @@ public class UsersControllerTests(TestWebApplicationFactory factory) : IClassFix
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.NotFound);
+    }
+
+    [Fact]
+    public async Task GetProjects_WithExisingUserId_ReturnsProjects()
+    {
+        // Arrange
+        var client = _factory.CreateClient();
+
+        // Act
+        var response = await client.GetAsync("api/users/fcd21c1e-914c-4a6f-aa18-41505d29c8e7/projects");
+        response.EnsureSuccessStatusCode();
+        var projects = await response.Content.ReadFromJsonAsync<List<ProjectDto>>();
+
+        // Assert
+        projects.Should().NotBeNull();
+        projects.Should().HaveCount(1);
+        projects![0].Id.Should().Be(new Guid("d99b037b-1e3a-4de0-812f-90e35b30f07a"));
+    }
+    
+    [Fact]
+    public async Task GetProjects_WithNotExisingUserId_ReturnsProjects()
+    {
+        // Arrange
+        var client = _factory.CreateClient();
+
+        // Act
+        var response = await client.GetAsync("api/users/fcd21c1e-914c-4a6f-aa18-41505d29c8e0/projects");
+        var error = await response.Content.ReadAsStringAsync();
+        
+        // Assert
+        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        error.Should().Be("User not found");
     }
 }

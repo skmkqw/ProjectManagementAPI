@@ -41,9 +41,11 @@ public class ProjectTaskRelationTests(TestWebApplicationFactory factory) : IClas
         
         // Act
         var response = await client.GetAsync("api/projects/d99b037b-1e3a-4de0-812f-90e35b30f97a/tasks");
+        var error = await response.Content.ReadAsStringAsync();
         
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        error.Should().Be("Project not found");
     }
     
     [Fact]
@@ -97,8 +99,10 @@ public class ProjectTaskRelationTests(TestWebApplicationFactory factory) : IClas
         
         // Act
         var response = await client.PostAsync($"api/projects/d99b037b-1e3a-4de0-812f-90e35b30f97a/add_task", httpContent);
+        var error = await response.Content.ReadAsStringAsync();
         
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        error.Should().Be("Project not found");
     }
 }

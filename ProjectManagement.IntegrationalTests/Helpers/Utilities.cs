@@ -1,4 +1,5 @@
 using ProjectManagement.Core.Entities;
+using ProjectManagement.Core.Models;
 using ProjectManagement.DataAccess.Data;
 
 namespace ProjectManagement.IntegrationalTests.Helpers;
@@ -92,7 +93,8 @@ public class Utilities
                 Id = new Guid("6c12bbf9-3a8a-4f7c-9e19-9e0b5b27a08a"),
                 Title = "Task 2",
                 Description = "Description for task 2",
-                ProjectId = new Guid("18c06c2c-7476-48f0-b9e6-4bcbe8d2a129")
+                ProjectId = new Guid("18c06c2c-7476-48f0-b9e6-4bcbe8d2a129"),
+                AssignedUserId = new Guid("fcd21c1e-914c-4a6f-aa18-41505d29c8e7")
             },
             
             new ()
@@ -100,7 +102,9 @@ public class Utilities
                 Id = new Guid("2e9f7e98-4870-4c04-9e9b-5946f2a30ae9"),
                 Title = "Task 3",
                 Description = "Description for task 3",
-                ProjectId = new Guid("5ac6bace-5059-4e5d-bfc1-643d0e9c05cf")
+                ProjectId = new Guid("5ac6bace-5059-4e5d-bfc1-643d0e9c05cf"),
+                Status = TaskStatuses.Done,
+                AssignedUserId = new Guid("18c06c2c-7476-48f0-b9e6-4bcbe8d2a129")
             }
         };
 

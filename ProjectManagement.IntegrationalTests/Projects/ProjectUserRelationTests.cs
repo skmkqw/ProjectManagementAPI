@@ -1,8 +1,6 @@
 using System.Net;
 using System.Net.Http.Json;
-using System.Runtime.InteropServices.JavaScript;
 using FluentAssertions;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using ProjectManagement.DataAccess.Data;
