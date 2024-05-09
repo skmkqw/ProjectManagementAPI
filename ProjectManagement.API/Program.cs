@@ -1,6 +1,4 @@
-using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
-using ProjectManagement.Application.Services;
 using ProjectManagement.Application.Services.Projects;
 using ProjectManagement.Application.Services.Tasks;
 using ProjectManagement.Application.Services.Users;
@@ -22,7 +20,7 @@ builder.Services.AddSwaggerGen();
 
 //DbContext
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("TestConnection"), b => b.MigrationsAssembly("ProjectManagement.DataAccess")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("ProjectManagement.DataAccess")));
 
 //Repositories
 builder.Services.AddScoped<IProjectsRepository, ProjectsRepository>();
@@ -52,3 +50,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+public partial class Program() {}
