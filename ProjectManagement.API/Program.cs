@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using ProjectManagement.Application.Services.Accounts;
 using ProjectManagement.Application.Services.Projects;
 using ProjectManagement.Application.Services.Tasks;
 using ProjectManagement.Application.Services.Users;
 using ProjectManagement.Core.Models;
 using ProjectManagement.DataAccess.Data;
+using ProjectManagement.DataAccess.Repositories.Accounts;
 using ProjectManagement.DataAccess.Repositories.Projects;
 using ProjectManagement.DataAccess.Repositories.Tasks;
 using ProjectManagement.DataAccess.Repositories.Users;
@@ -60,11 +62,13 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddScoped<IProjectsRepository, ProjectsRepository>();
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 builder.Services.AddScoped<ITasksRepository, TasksRepository>();
+builder.Services.AddScoped<IAccountsRepository, AccountsRepository>();
 
 //Services
 builder.Services.AddScoped<IProjectsService, ProjectsService>();
 builder.Services.AddScoped<ITasksService, TasksService>();
 builder.Services.AddScoped<IUsersService, UsersService>();
+builder.Services.AddScoped<IAccountsService, AccountsService>();
 
 //AssignedUser lowercase urls
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
