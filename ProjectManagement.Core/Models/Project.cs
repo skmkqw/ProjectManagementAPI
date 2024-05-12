@@ -10,7 +10,7 @@ public class Project
 
     public List<ProjectTask> Tasks { get; set; } = new();
     
-    public List<User> AddedUsers { get; set; } = new();
+    public List<AppUser> AddedUsers { get; set; } = new();
 
     public DateTime CreationDate { get; set; } = DateTime.UtcNow;
 

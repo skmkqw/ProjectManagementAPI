@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using ProjectManagement.Application.Services.Projects;
 using ProjectManagement.DataAccess.DTOs.Projects;
@@ -58,9 +57,9 @@ public class ProjectsController : ControllerBase
         var users = await _projectsService.GetProjectUsers(projectId);
         if (users != null)
         {
-            return Ok(users.Select(t => t.ToUserDto()));
+            return Ok(users);
         }
-
+    
         return BadRequest("Project not found");
     }
     
@@ -95,7 +94,7 @@ public class ProjectsController : ControllerBase
         {
             return CreatedAtAction(nameof(GetById), new { id = createdEntity.UserId }, createdEntity.ToDto());
         }
-
+    
         return BadRequest(error);
     }
 
@@ -140,7 +139,7 @@ public class ProjectsController : ControllerBase
         {
             return Ok(removedUserId);
         }
-
+    
         return BadRequest(error);
     }
 

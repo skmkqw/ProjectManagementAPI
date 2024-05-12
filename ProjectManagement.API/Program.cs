@@ -1,7 +1,12 @@
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using ProjectManagement.Application.Services.Projects;
 using ProjectManagement.Application.Services.Tasks;
 using ProjectManagement.Application.Services.Users;
+using ProjectManagement.Core.Models;
 using ProjectManagement.DataAccess.Data;
 using ProjectManagement.DataAccess.Repositories.Projects;
 using ProjectManagement.DataAccess.Repositories.Tasks;
@@ -21,6 +26,35 @@ builder.Services.AddSwaggerGen();
 //DbContext
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("ProjectManagement.DataAccess")));
+
+builder.Services.AddIdentityCore<AppUser>()
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultTokenProviders();
+builder.Services.AddAuthentication(options =>
+{ 
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme; 
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme; 
+    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(options =>
+{ 
+    var secret = builder.Configuration["JwtConfig:Secret"]; 
+    var issuer = builder.Configuration["JwtConfig:ValidIssuer"]; 
+    var audience = builder.Configuration["JwtConfig:ValidAudiences"]; 
+    if (secret is null || issuer is null || audience is null) 
+    { 
+        throw new ApplicationException("Jwt is not set in the configuration"); 
+    } 
+    options.SaveToken = true; 
+    options.RequireHttpsMetadata = false; 
+    options.TokenValidationParameters = new TokenValidationParameters() 
+    { 
+        ValidateIssuer = true, 
+        ValidateAudience = true, 
+        ValidAudience = audience, 
+        ValidIssuer = issuer, 
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret)) 
+    };
+});
 
 //Repositories
 builder.Services.AddScoped<IProjectsRepository, ProjectsRepository>();
@@ -45,6 +79,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

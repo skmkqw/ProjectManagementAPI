@@ -1,3 +1,5 @@
+using ProjectManagement.Core.Models;
+
 namespace ProjectManagement.Core.Entities;
 
 public class ProjectUserEntity
@@ -8,5 +10,5 @@ public class ProjectUserEntity
 
     public Guid UserId { get; set; }
 
-    public UserEntity User { get; set; } = null!;
+    public AppUser User { get; set; } = null!;
 }

@@ -1,19 +1,16 @@
-using System.Text.Json.Serialization;
+using System.ComponentModel.DataAnnotations;
 
 namespace ProjectManagement.DataAccess.DTOs.Users;
 
 public class UpdateUserDto
 {
-    public string FirstName { get; set; } = string.Empty;
-    
-    public string LastName { get; set; } = string.Empty;
-    
-    public string Email { get; set; } = string.Empty;
-    
-    public string Login { get; set; } = string.Empty;
-
+    [Required(ErrorMessage = "User name is required")] 
+    public string UserName { get; set; } = string.Empty; 
+		
+    [EmailAddress] 
+    [Required(ErrorMessage = "Email is required")] 
+    public string Email { get; set; } = string.Empty; 
+		
+    [Required(ErrorMessage = "Password is required")] 
     public string Password { get; set; } = string.Empty;
-    
-    [JsonIgnore]
-    public DateTime LastUpdateTime { get; set; } = DateTime.UtcNow;
 }

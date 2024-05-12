@@ -30,8 +30,6 @@
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.IntegrationalTests/bin/Debug/net8.0/refs/Microsoft.AspNetCore.Connections.Abstractions.dll
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.IntegrationalTests/bin/Debug/net8.0/refs/Microsoft.AspNetCore.CookiePolicy.dll
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.IntegrationalTests/bin/Debug/net8.0/refs/Microsoft.AspNetCore.Cors.dll
-/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.IntegrationalTests/bin/Debug/net8.0/refs/Microsoft.AspNetCore.Cryptography.Internal.dll
-/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.IntegrationalTests/bin/Debug/net8.0/refs/Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.IntegrationalTests/bin/Debug/net8.0/refs/Microsoft.AspNetCore.DataProtection.Abstractions.dll
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.IntegrationalTests/bin/Debug/net8.0/refs/Microsoft.AspNetCore.DataProtection.dll
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.IntegrationalTests/bin/Debug/net8.0/refs/Microsoft.AspNetCore.DataProtection.Extensions.dll
@@ -127,8 +125,6 @@
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.IntegrationalTests/bin/Debug/net8.0/refs/Microsoft.Extensions.Hosting.Abstractions.dll
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.IntegrationalTests/bin/Debug/net8.0/refs/Microsoft.Extensions.Hosting.dll
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.IntegrationalTests/bin/Debug/net8.0/refs/Microsoft.Extensions.Http.dll
-/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.IntegrationalTests/bin/Debug/net8.0/refs/Microsoft.Extensions.Identity.Core.dll
-/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.IntegrationalTests/bin/Debug/net8.0/refs/Microsoft.Extensions.Identity.Stores.dll
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.IntegrationalTests/bin/Debug/net8.0/refs/Microsoft.Extensions.Localization.Abstractions.dll
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.IntegrationalTests/bin/Debug/net8.0/refs/Microsoft.Extensions.Localization.dll
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.IntegrationalTests/bin/Debug/net8.0/refs/Microsoft.Extensions.Logging.Abstractions.dll
@@ -461,3 +457,10 @@
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.IntegrationalTests/obj/Debug/net8.0/ProjectManagement.IntegrationalTests.pdb
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.IntegrationalTests/obj/Debug/net8.0/ProjectManagement.IntegrationalTests.genruntimeconfig.cache
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.IntegrationalTests/obj/Debug/net8.0/ref/ProjectManagement.IntegrationalTests.dll
+/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.IntegrationalTests/bin/Debug/net8.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.IntegrationalTests/bin/Debug/net8.0/Microsoft.AspNetCore.Cryptography.Internal.dll
+/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.IntegrationalTests/bin/Debug/net8.0/Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.IntegrationalTests/bin/Debug/net8.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.IntegrationalTests/bin/Debug/net8.0/Microsoft.Extensions.Identity.Core.dll
+/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.IntegrationalTests/bin/Debug/net8.0/Microsoft.Extensions.Identity.Stores.dll
+/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.IntegrationalTests/bin/Debug/net8.0/Microsoft.Extensions.Options.dll

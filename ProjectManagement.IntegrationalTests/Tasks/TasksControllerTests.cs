@@ -2,9 +2,11 @@ using System.Net;
 using System.Net.Http.Json;
 using System.Text;
 using FluentAssertions;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
+using ProjectManagement.Core.Models;
 using ProjectManagement.DataAccess.Data;
 using ProjectManagement.DataAccess.DTOs.Tasks;
 using ProjectManagement.IntegrationalTests.Helpers;
@@ -94,7 +96,8 @@ public class TasksControllerTests(TestWebApplicationFactory factory) : IClassFix
         var scope = _factory.Services.CreateScope();
         var scopedServices = scope.ServiceProvider;
         var db = scopedServices.GetRequiredService<ApplicationDbContext>();
-        Utilities.Cleanup(db);
+        var userManager = scopedServices.GetRequiredService<UserManager<AppUser>>();
+        Utilities.Cleanup(db, userManager);
     }
 
     [Fact]
@@ -138,7 +141,8 @@ public class TasksControllerTests(TestWebApplicationFactory factory) : IClassFix
         var scope = _factory.Services.CreateScope();
         var scopedServices = scope.ServiceProvider;
         var db = scopedServices.GetRequiredService<ApplicationDbContext>();
-        Utilities.Cleanup(db);
+        var userManager = scopedServices.GetRequiredService<UserManager<AppUser>>();
+        Utilities.Cleanup(db, userManager);
     }
     
     [Fact]

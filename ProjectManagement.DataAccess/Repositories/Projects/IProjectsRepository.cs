@@ -12,7 +12,7 @@ public interface IProjectsRepository
     
     public Task<IEnumerable<ProjectTaskEntity>?> GetTasks(Guid projectId);
     
-    public Task<IEnumerable<UserEntity>?> GetUsers(Guid projectId);
+    public Task<IEnumerable<AppUser>?> GetUsers(Guid projectId);
 
     public Task<ProjectEntity> Create(ProjectEntity projectEntity);
 

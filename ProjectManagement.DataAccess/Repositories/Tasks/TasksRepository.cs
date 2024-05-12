@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ProjectManagement.Core.Entities;
 using ProjectManagement.Core.Models;
@@ -10,9 +11,12 @@ public class TasksRepository : ITasksRepository
 {
     private readonly ApplicationDbContext _context;
 
-    public TasksRepository(ApplicationDbContext context)
+    private readonly UserManager<AppUser> _userManager;
+    
+    public TasksRepository(ApplicationDbContext context, UserManager<AppUser> userManager)
     {
         _context = context;
+        _userManager = userManager;
     }
 
     #region GET METHODS
@@ -59,23 +63,23 @@ public class TasksRepository : ITasksRepository
             return (null, "Can't reassign user for completed task!");
         }
         
-        var userEntity = await _context.Users.FindAsync(userId);
+        var userEntity = await _userManager.FindByIdAsync(userId.ToString());
         if (userEntity == null)
         {
             return (null, "User not found");
         }
-
+    
         bool userExistsInProject = await UserExistsInProject(userId, taskEntity);
         if (userExistsInProject == false)
         {
             return (null, "Can't assign task to user until user is added to project");
         }
-
+    
         taskEntity.AssignedUserId = userId;
         taskEntity.LastUpdateTime = DateTime.UtcNow;
-
+    
         await _context.SaveChangesAsync();
-
+    
         return (taskEntity, null);
     }
 

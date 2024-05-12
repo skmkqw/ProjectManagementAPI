@@ -38,10 +38,10 @@ public class ProjectsService : IProjectsService
         return taskEntities?.Select(t => t.ToTaskModel());
     }
     
-    public async Task<IEnumerable<User>?> GetProjectUsers(Guid projectId)
+    public async Task<IEnumerable<AppUser>?> GetProjectUsers(Guid projectId)
     {
         var userEntities = await _projectsRepository.GetUsers(projectId);
-        return userEntities?.Select(t => t.ToUserModel());
+        return userEntities;
     }
 
     #endregion GET METHODS

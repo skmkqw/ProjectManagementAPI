@@ -21,7 +21,7 @@ public class ProjectTask
 
     public Guid? AssignedUserId { get; set; }
 
-    public User? AssignedUser { get; set; }
+    public AppUser? AssignedUser { get; set; }
     
     public TaskStatuses Status { get; set; } = TaskStatuses.ToDo;
     

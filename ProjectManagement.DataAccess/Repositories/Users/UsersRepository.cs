@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ProjectManagement.Core.Entities;
+using ProjectManagement.Core.Models;
 using ProjectManagement.DataAccess.Data;
 using ProjectManagement.DataAccess.DTOs.Users;
 
@@ -9,38 +11,41 @@ public class UsersRepository : IUsersRepository
 {
     private readonly ApplicationDbContext _context;
 
-    public UsersRepository(ApplicationDbContext context)
+    private readonly UserManager<AppUser> _userManager;
+
+    public UsersRepository(ApplicationDbContext context, UserManager<AppUser> userManager)
     {
         _context = context;
+        _userManager = userManager;
     }
     
     #region GET METHODS
 
-    public async Task<IEnumerable<UserEntity>> GetAll()
+    public async Task<IEnumerable<AppUser>> GetAll()
     {
-        return await _context.Users.AsNoTracking().ToListAsync();
+        return await _userManager.Users.ToListAsync();
     }
 
-    public async Task<UserEntity?> GetById(Guid id)
+    public async Task<AppUser?> GetById(Guid id)
     {
-        return await _context.Users.FirstOrDefaultAsync(i => i.Id == id);
+        return await _userManager.FindByIdAsync(id.ToString());
     }
     
     public async Task<IEnumerable<ProjectTaskEntity>?> GetTasks(Guid userId)
     {
-        var userEntity = await _context.Users.FindAsync(userId);
-
+        var userEntity = await _userManager.FindByIdAsync(userId.ToString());
+    
         if (userEntity == null) return null;
-
+    
         return await _context.ProjectTasks.Where(t => t.AssignedUserId == userId).ToListAsync();
     }
-
+    
     public async Task<IEnumerable<ProjectEntity>?> GetProjects(Guid userId)
     {
-        var userEntity = await _context.Users.FindAsync(userId);
-
+        var userEntity = await _userManager.FindByIdAsync(userId.ToString());
+    
         if (userEntity == null) return null;
-
+    
         return await _context.ProjectUsers
             .Where(pu => pu.UserId == userId)
             .Select(p => p.Project)
@@ -50,25 +55,22 @@ public class UsersRepository : IUsersRepository
     #endregion GET METHODS
 
 
-    #region POST METHODS
-
-    public async Task<UserEntity> Create(UserEntity userEntity)
-    {
-        await _context.Users.AddAsync(userEntity);
-        await _context.SaveChangesAsync();
-        return userEntity;
-    }
-
-    #endregion POST METHODS
-
-
     #region PUT METHODS
 
-    public async Task<UserEntity> Update(UserEntity userEntity, UpdateUserDto updateUserDto)
+    public async Task<AppUser> Update(AppUser userEntity, UpdateUserDto updateUserDto)
     {
-        _context.Entry(userEntity).CurrentValues.SetValues(updateUserDto);
-        await _context.SaveChangesAsync();
-        return userEntity;
+        userEntity.UserName = updateUserDto.UserName;
+        userEntity.Email = updateUserDto.Email;
+        userEntity.LastUpdateTime = DateTime.UtcNow;
+
+        var result = await _userManager.UpdateAsync(userEntity);
+        
+        if (result.Succeeded)
+        {
+            await _userManager.UpdateSecurityStampAsync(userEntity);
+            return userEntity;
+        }
+        throw new ApplicationException($"Unable to update user: {result.Errors}");
     }
 
     #endregion PUT METHODS
@@ -78,14 +80,18 @@ public class UsersRepository : IUsersRepository
 
     public async Task<bool> Delete(Guid id)
     {
-        var userEntity = await _context.Users.FindAsync(id);
+        var userEntity = await _userManager.FindByIdAsync(id.ToString());
         if (userEntity == null)
         {
             return false;
         }
-        _context.Users.Remove(userEntity);
-        await _context.SaveChangesAsync();
-        return true;                                                                                       
+
+        var result = await _userManager.DeleteAsync(userEntity);
+        if (result.Succeeded)
+        {
+            return true;
+        }
+        throw new ApplicationException($"Unable to delete user: {result.Errors}");
     }
 
     #endregion DELETE METHODS

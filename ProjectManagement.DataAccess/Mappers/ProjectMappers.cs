@@ -35,7 +35,7 @@ public static class ProjectMappers
             Name = projectEntity.Name, 
             Description = projectEntity.Description,
             Tasks = projectEntity.Tasks.Select(p => p.ToTaskModel()).ToList(),
-            AddedUsers = projectEntity.ProjectUsers.Select(u => u.User.ToUserModel()).ToList(),
+            AddedUsers = projectEntity.ProjectUsers.Select(u => u.User).ToList(),
             CreationDate = projectEntity.CreationDate,
             LastUpdateTime = projectEntity.LastUpdateTime
         };
