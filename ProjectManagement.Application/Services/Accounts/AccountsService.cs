@@ -16,4 +16,9 @@ public class AccountsService : IAccountsService
     {
         return await _repository.Register(registerDto);
     }
+
+    public async Task<(string? token, string? error)> LoginUser(LoginUserDto loginDto)
+    {
+        return await _repository.Login(loginDto);
+    }
 }

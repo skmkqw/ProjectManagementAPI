@@ -30,4 +30,21 @@ public class AccountController(UserManager<AppUser> userManager, IConfiguration 
 
         return BadRequest();
     }
+
+    [HttpPost("login")]
+    public async Task<IActionResult> Login([FromBody] LoginUserDto loginDto)
+    {
+        if (ModelState.IsValid)
+        {
+            (string? token, string? error) = await accountsService.LoginUser(loginDto);
+            if (token != null)
+            {
+                return Ok(new { token });
+            }
+
+            return BadRequest(error);
+        }
+
+        return BadRequest();
+    }
 }

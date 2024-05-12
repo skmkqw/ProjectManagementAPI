@@ -49,6 +49,21 @@ public class AccountsRepository : IAccountsRepository
         return (null, "Failed to create user");
     }
 
+    public async Task<(string? token, string? error)> Login(LoginUserDto loginDto)
+    {
+        var user = await _userManager.FindByNameAsync(loginDto.UserName); 
+        if (user != null) 
+        { 
+            if (await _userManager.CheckPasswordAsync(user, loginDto.Password)) 
+            { 
+                var token = GenerateToken(loginDto.UserName);
+                return (token, null);
+            } 
+        } 
+        
+        return (null, "Invalid username or password");
+    }
+
     private string? GenerateToken(string userName)
     {
         var secret = _configuration["JwtConfig:Secret"];
