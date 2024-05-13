@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using ProjectManagement.DataAccess.DTOs.Users;
 using ProjectManagement.DataAccess.Repositories.Accounts;
 
@@ -12,9 +13,9 @@ public class AccountsService : IAccountsService
         _repository = repository;
     }
     
-    public async Task<(string? token, string? error)> RegisterUser(AddUserDto registerDto)
+    public async Task<(string? token, ModelStateDictionary modelStateErrors)> RegisterUser(AddUserDto registerDto, ModelStateDictionary modelState)
     {
-        return await _repository.Register(registerDto);
+        return await _repository.Register(registerDto, modelState);
     }
 
     public async Task<(string? token, string? error)> LoginUser(LoginUserDto loginDto)

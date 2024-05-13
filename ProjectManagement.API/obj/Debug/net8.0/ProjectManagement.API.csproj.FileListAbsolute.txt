@@ -148,3 +148,9 @@
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.API/bin/Debug/net8.0/Microsoft.Extensions.Identity.Core.dll
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.API/bin/Debug/net8.0/Microsoft.Extensions.Identity.Stores.dll
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.API/bin/Debug/net8.0/Microsoft.Extensions.Options.dll
+/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.API/bin/Debug/net8.0/Microsoft.AspNetCore.JsonPatch.dll
+/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.API/bin/Debug/net8.0/Microsoft.AspNetCore.Mvc.Razor.Extensions.dll
+/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.API/bin/Debug/net8.0/Microsoft.AspNetCore.Razor.Language.dll
+/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.API/bin/Debug/net8.0/Microsoft.CodeAnalysis.Razor.dll
+/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.API/bin/Debug/net8.0/Newtonsoft.Json.dll
+/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.API/bin/Debug/net8.0/Newtonsoft.Json.Bson.dll

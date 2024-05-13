@@ -2,6 +2,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using ProjectManagement.Core.Models;
@@ -21,14 +22,15 @@ public class AccountsRepository : IAccountsRepository
         _configuration = configuration;
     }
     
-    public async Task<(string? token, string? error)> Register(AddUserDto registerDto)
+    public async Task<(string? token, ModelStateDictionary modelStateErrors)> Register(AddUserDto registerDto, ModelStateDictionary modelState)
     {
         
         var exisingUser = await _userManager.FindByNameAsync(registerDto.UserName);
 
         if (exisingUser != null)
         {
-            return (null, "Username is already taken!");
+            modelState.AddModelError("", "Username is already taken!");
+            return (null, modelState);
         }
 
         var user = new AppUser()
@@ -43,10 +45,15 @@ public class AccountsRepository : IAccountsRepository
         if (result.Succeeded)
         {
             var token = GenerateToken(registerDto.UserName);
-            return (token, null);
+            return (token, modelState);
+        }
+        
+        foreach (var error in result.Errors)
+        {
+            modelState.AddModelError("", error.Description);
         }
 
-        return (null, "Failed to create user");
+        return (null, modelState);
     }
 
     public async Task<(string? token, string? error)> Login(LoginUserDto loginDto)

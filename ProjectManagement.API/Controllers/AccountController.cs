@@ -1,9 +1,6 @@
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using ProjectManagement.Application.Services.Accounts;
 using ProjectManagement.Core.Models;
 using ProjectManagement.DataAccess.DTOs.Users;
@@ -19,16 +16,16 @@ public class AccountController(UserManager<AppUser> userManager, IConfiguration 
     {
         if (ModelState.IsValid)
         {
-            (string? token, string? error) = await accountsService.RegisterUser(registerDto);
+            (string? token, ModelStateDictionary modelStateErrors) = await accountsService.RegisterUser(registerDto, ModelState);
             if (token != null)
             {
                 return Ok(new { token });
             }
 
-            return BadRequest(error);
+            return BadRequest(modelStateErrors);
         }
 
-        return BadRequest();
+        return BadRequest(ModelState);
     }
 
     [HttpPost("login")]
