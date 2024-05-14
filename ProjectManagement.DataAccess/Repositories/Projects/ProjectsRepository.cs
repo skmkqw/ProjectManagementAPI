@@ -42,7 +42,20 @@ public class ProjectsRepository : IProjectsRepository
 
         return await _context.ProjectTasks.Where(t => t.ProjectId == projectId).ToListAsync();
     }
-    
+
+    public async Task<IEnumerable<ProjectTaskEntity>?> GetUserTasks(Guid userId, Guid projectId)
+    {
+        var projectEnitty = await _context.Projects.FindAsync(projectId);
+        var userEntity = await _userManager.FindByIdAsync(userId.ToString());
+        if (userEntity == null || projectEnitty == null)
+        {
+            return null!;
+        }
+
+        return await _context.ProjectTasks.Where(pui => pui.ProjectId == projectId && pui.AssignedUserId == userId)
+            .ToListAsync();
+    }
+
     public async Task<IEnumerable<AppUser>?> GetUsers(Guid projectId)
     {
         var projectEntity = await _context.Projects.FindAsync(projectId);
