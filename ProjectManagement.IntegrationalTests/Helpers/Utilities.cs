@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using ProjectManagement.Core.Entities;
 using ProjectManagement.Core.Models;
 using ProjectManagement.DataAccess.Data;
+using Exception = System.Exception;
 
 namespace ProjectManagement.IntegrationalTests.Helpers;
 
@@ -11,7 +12,15 @@ public class Utilities
     {
         context.Database.EnsureDeleted();
         context.Database.EnsureCreated();
-        PopulateTestData(context, userManager);
+        try
+        {
+            PopulateTestData(context, userManager).Wait();
+        }
+        catch (Exception e)
+        {
+            throw new Exception(e.Message);
+        }
+        
     }
     
     public static void Cleanup(ApplicationDbContext dbContext, UserManager<AppUser> userManager)
@@ -19,11 +28,22 @@ public class Utilities
         dbContext.Projects.RemoveRange(dbContext.Projects);
         dbContext.ProjectTasks.RemoveRange(dbContext.ProjectTasks);
         dbContext.ProjectUsers.RemoveRange(dbContext.ProjectUsers);
+        
+        var users = userManager.Users.ToList();
+        foreach (var user in users)
+        {
+            var result = userManager.DeleteAsync(user).Result;
+            if (!result.Succeeded)
+            {
+                Console.WriteLine($"Error deleting user {user.UserName}: {string.Join(", ", result.Errors.Select(e => e.Description))}");
+            }
+        }
+        
         dbContext.SaveChanges();
-        PopulateTestData(dbContext, userManager);
+        PopulateTestData(dbContext, userManager).Wait();
     }
     
-    public static void PopulateTestData(ApplicationDbContext dbContext, UserManager<AppUser> userManager)
+    public static async Task PopulateTestData(ApplicationDbContext dbContext, UserManager<AppUser> userManager)
     {
         var projects = new List<ProjectEntity>
         {
@@ -120,12 +140,12 @@ public class Utilities
         
         foreach (var user in users)
         {
-            userManager.CreateAsync(user, "password123!").Wait();
+            await userManager.CreateAsync(user, "password123!");
         }
         
         dbContext.Projects.AddRange(projects);
         dbContext.ProjectTasks.AddRange(tasks);
         dbContext.ProjectUsers.AddRange(projectUsers);
-        dbContext.SaveChanges();
+        await dbContext.SaveChangesAsync();
     }
 }
