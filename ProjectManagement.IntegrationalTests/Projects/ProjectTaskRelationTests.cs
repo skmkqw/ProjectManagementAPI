@@ -1,6 +1,8 @@
 using System.Net;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text;
+using System.Text.Json;
 using FluentAssertions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -9,6 +11,7 @@ using Newtonsoft.Json;
 using ProjectManagement.Core.Models;
 using ProjectManagement.DataAccess.Data;
 using ProjectManagement.DataAccess.DTOs.Tasks;
+using ProjectManagement.DataAccess.DTOs.Users;
 using ProjectManagement.IntegrationalTests.Helpers;
 
 namespace ProjectManagement.IntegrationalTests.Projects;
@@ -23,6 +26,24 @@ public class ProjectTaskRelationTests(TestWebApplicationFactory factory) : IClas
     {
         // Arrange
         var client = _factory.CreateClient();
+
+        var loginDto = new LoginUserDto()
+        {
+            UserName = "user1", 
+            Password = "Password123!"
+        };
+        
+        var httpContent = new StringContent(JsonConvert.SerializeObject(loginDto), Encoding.UTF8, "application/json");
+        
+        var tokenResponse = await client.PostAsync("api/accounts/login", httpContent);
+        tokenResponse.EnsureSuccessStatusCode();
+        var tokenJson = await tokenResponse.Content.ReadAsStringAsync();
+
+        using (var jsonDoc = JsonDocument.Parse(tokenJson))
+        {
+            var token = jsonDoc.RootElement.GetProperty("token").GetString();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+        }
         
         // Act
         var response = await client.GetAsync("api/projects/d99b037b-1e3a-4de0-812f-90e35b30f07a/tasks");
@@ -40,6 +61,24 @@ public class ProjectTaskRelationTests(TestWebApplicationFactory factory) : IClas
     {
         // Arrange
         var client = _factory.CreateClient();
+        
+        var loginDto = new LoginUserDto()
+        {
+            UserName = "user1", 
+            Password = "Password123!"
+        };
+        
+        var httpContent = new StringContent(JsonConvert.SerializeObject(loginDto), Encoding.UTF8, "application/json");
+        
+        var tokenResponse = await client.PostAsync("api/accounts/login", httpContent);
+        tokenResponse.EnsureSuccessStatusCode();
+        var tokenJson = await tokenResponse.Content.ReadAsStringAsync();
+
+        using (var jsonDoc = JsonDocument.Parse(tokenJson))
+        {
+            var token = jsonDoc.RootElement.GetProperty("token").GetString();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+        }
         
         // Act
         var response = await client.GetAsync("api/projects/d99b037b-1e3a-4de0-812f-90e35b30f97a/tasks");

@@ -140,7 +140,7 @@ public class Utilities
         
         foreach (var user in users)
         {
-            await userManager.CreateAsync(user, "password123!");
+            await userManager.CreateAsync(user, "Password123!");
         }
         
         dbContext.Projects.AddRange(projects);

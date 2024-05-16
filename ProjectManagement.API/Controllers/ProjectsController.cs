@@ -51,7 +51,7 @@ public class ProjectsController : ControllerBase
             {
                 return Ok(userTasks.Select(t => t.ToTaskDto()));
             }
-            return NotFound("Tasks for the specified user not found");
+            return BadRequest("Tasks for the specified user not found");
         }
         else
         {
@@ -60,7 +60,7 @@ public class ProjectsController : ControllerBase
             {
                 return Ok(projectTasks.Select(t => t.ToTaskDto()));
             }
-            return NotFound("Project not found");
+            return BadRequest("Project not found");
         }
     }
 
