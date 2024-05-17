@@ -13,7 +13,9 @@ public interface IProjectsService
     
     public Task<IEnumerable<ProjectTask>?> GetProjectTasks(Guid projectId);
     
-    public Task<IEnumerable<User>?> GetProjectUsers(Guid projectId);
+    public Task<IEnumerable<ProjectTask>?> GetUserTasks(Guid userId, Guid projectId);
+    
+    public Task<IEnumerable<AppUser>?> GetProjectUsers(Guid projectId);
 
     public Task<Project> CreateProject(CreateProjectDto createProjectDto);
     

@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ProjectManagement.Core.Entities;
+using ProjectManagement.Core.Models;
 using ProjectManagement.DataAccess.Data;
 using ProjectManagement.DataAccess.DTOs.Projects;
 
@@ -8,10 +10,13 @@ namespace ProjectManagement.DataAccess.Repositories.Projects;
 public class ProjectsRepository : IProjectsRepository
 {
     private readonly ApplicationDbContext _context;
+    
+    private readonly UserManager<AppUser> _userManager;
 
-    public ProjectsRepository(ApplicationDbContext context)
+    public ProjectsRepository(ApplicationDbContext context, UserManager<AppUser> userManager)
     {
         _context = context;
+        _userManager = userManager;
     }
 
     #region GET METHODS 
@@ -37,13 +42,26 @@ public class ProjectsRepository : IProjectsRepository
 
         return await _context.ProjectTasks.Where(t => t.ProjectId == projectId).ToListAsync();
     }
-    
-    public async Task<IEnumerable<UserEntity>?> GetUsers(Guid projectId)
+
+    public async Task<IEnumerable<ProjectTaskEntity>?> GetUserTasks(Guid userId, Guid projectId)
+    {
+        var projectEnitty = await _context.Projects.FindAsync(projectId);
+        var userEntity = await _userManager.FindByIdAsync(userId.ToString());
+        if (userEntity == null || projectEnitty == null)
+        {
+            return null!;
+        }
+
+        return await _context.ProjectTasks.Where(pui => pui.ProjectId == projectId && pui.AssignedUserId == userId)
+            .ToListAsync();
+    }
+
+    public async Task<IEnumerable<AppUser>?> GetUsers(Guid projectId)
     {
         var projectEntity = await _context.Projects.FindAsync(projectId);
 
         if (projectEntity == null) return null;
-
+        
         return await _context.ProjectUsers.
             Where(pu => pu.ProjectId == projectId)
             .Select(u => u.User)
@@ -87,7 +105,7 @@ public class ProjectsRepository : IProjectsRepository
             return (null, "Project not found");
         }
         
-        var userEntity = await _context.Users.FindAsync(userId);
+        var userEntity = await _userManager.FindByIdAsync(userId.ToString());
         if (userEntity == null)
         {
             return (null, "User not found");
@@ -99,7 +117,7 @@ public class ProjectsRepository : IProjectsRepository
         {
             return (null, "User already exists in the project!");
         }
-
+    
         var projectUserEntity = new ProjectUserEntity()
         {
             ProjectId = projectId,
@@ -107,7 +125,7 @@ public class ProjectsRepository : IProjectsRepository
             UserId = userId,
             User = userEntity
         };
-
+    
         await _context.ProjectUsers.AddAsync(projectUserEntity);
         projectEntity.ProjectUsers.Add(projectUserEntity);
         projectEntity.LastUpdateTime = DateTime.UtcNow;
@@ -155,7 +173,7 @@ public class ProjectsRepository : IProjectsRepository
             return (null, "Project not found");
         }
         
-        var userEntity = await _context.Users.FindAsync(userId);
+        var userEntity = await _userManager.FindByIdAsync(userId.ToString());
         if (userEntity == null)
         {
             return (null, "User not found");
@@ -168,7 +186,7 @@ public class ProjectsRepository : IProjectsRepository
         {
             return (null, "There is no such user in the project!");
         }
-
+    
         _context.ProjectUsers.Remove(existingProjectUser);
         await _context.SaveChangesAsync();
         return (userId, null);

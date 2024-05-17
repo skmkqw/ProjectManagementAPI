@@ -10,3 +10,4 @@
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.Core/obj/Debug/net8.0/refint/ProjectManagement.Core.dll
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.Core/obj/Debug/net8.0/ProjectManagement.Core.pdb
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.Core/obj/Debug/net8.0/ref/ProjectManagement.Core.dll
+/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectManagement.Core/obj/Debug/net8.0/ProjectManagement.Core.csproj.AssemblyReference.cache

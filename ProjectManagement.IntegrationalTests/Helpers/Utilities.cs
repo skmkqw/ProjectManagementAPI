@@ -1,29 +1,49 @@
+using Microsoft.AspNetCore.Identity;
 using ProjectManagement.Core.Entities;
 using ProjectManagement.Core.Models;
 using ProjectManagement.DataAccess.Data;
+using Exception = System.Exception;
 
 namespace ProjectManagement.IntegrationalTests.Helpers;
 
 public class Utilities
 {
-    public static void InitializeDatabase(ApplicationDbContext context)
+    public static void InitializeDatabase(ApplicationDbContext context, UserManager<AppUser> userManager)
     {
         context.Database.EnsureDeleted();
         context.Database.EnsureCreated();
-        PopulateTestData(context);
+        try
+        {
+            PopulateTestData(context, userManager).Wait();
+        }
+        catch (Exception e)
+        {
+            throw new Exception(e.Message);
+        }
+        
     }
     
-    public static void Cleanup(ApplicationDbContext dbContext)
+    public static void Cleanup(ApplicationDbContext dbContext, UserManager<AppUser> userManager)
     {
         dbContext.Projects.RemoveRange(dbContext.Projects);
-        dbContext.Users.RemoveRange(dbContext.Users);
         dbContext.ProjectTasks.RemoveRange(dbContext.ProjectTasks);
         dbContext.ProjectUsers.RemoveRange(dbContext.ProjectUsers);
+        
+        var users = userManager.Users.ToList();
+        foreach (var user in users)
+        {
+            var result = userManager.DeleteAsync(user).Result;
+            if (!result.Succeeded)
+            {
+                Console.WriteLine($"Error deleting user {user.UserName}: {string.Join(", ", result.Errors.Select(e => e.Description))}");
+            }
+        }
+        
         dbContext.SaveChanges();
-        PopulateTestData(dbContext);
+        PopulateTestData(dbContext, userManager).Wait();
     }
     
-    public static void PopulateTestData(ApplicationDbContext dbContext)
+    public static async Task PopulateTestData(ApplicationDbContext dbContext, UserManager<AppUser> userManager)
     {
         var projects = new List<ProjectEntity>
         {
@@ -47,34 +67,28 @@ public class Utilities
             }
         };
 
-        var users = new List<UserEntity>()
+        var users = new List<AppUser>()
         {
             new ()
             {
                 Id = new Guid("fcd21c1e-914c-4a6f-aa18-41505d29c8e7"),
-                FirstName = "Timofei",
-                LastName = "Korsakov",
-                Email = "tkorsakov77@gmail.com",
-                Login = "skmkqw",
-                Password = "040412006"
+                Email = "example1@gmail.com",
+                UserName = "user1",
+                SecurityStamp = Guid.NewGuid().ToString()
             },
             new ()
             {
                 Id = new Guid("7ec8d9b7-17a3-4855-8d17-7fb0a6c037d4"),
-                FirstName = "Denis",
-                LastName = "Rezanko",
-                Email = "rezden22@gmail.com",
-                Login = "rezden",
-                Password = "17092005"
+                Email = "example2@gmail.com",
+                UserName = "user2",
+                SecurityStamp = Guid.NewGuid().ToString()
             },
             new ()
             {
                 Id = new Guid("b1b2a921-af2a-4e38-a6e9-3d38e540dca9"),
-                FirstName = "Artem",
-                LastName = "Novikov",
-                Email = "artnov11@gmail.com",
-                Login = "artnov",
-                Password = "26082005"
+                Email = "example3@gmail.com",
+                UserName = "user3",
+                SecurityStamp = Guid.NewGuid().ToString()
             }
         };
 
@@ -123,10 +137,15 @@ public class Utilities
             }
         };
 
+        
+        foreach (var user in users)
+        {
+            await userManager.CreateAsync(user, "Password123!");
+        }
+        
         dbContext.Projects.AddRange(projects);
-        dbContext.Users.AddRange(users);
         dbContext.ProjectTasks.AddRange(tasks);
         dbContext.ProjectUsers.AddRange(projectUsers);
-        dbContext.SaveChanges();
+        await dbContext.SaveChangesAsync();
     }
 }

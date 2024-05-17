@@ -15,20 +15,20 @@ public class UsersService : IUsersService
     }
     
     #region GET METHODS
-
-    public async Task<IEnumerable<User>> GetAllUsers()
+    
+    public async Task<IEnumerable<AppUser>> GetAllUsers()
     {
         var userEntities = await _usersRepository.GetAll();
-        return userEntities.Select(u => u.ToUserModel());
+        return userEntities;
     }
-
-    public async Task<User?> GetUserById(Guid id)
+    
+    public async Task<AppUser?> GetUserById(Guid id)
     {
         var userEntity = await _usersRepository.GetById(id);
-
+    
         if (userEntity == null) return null;
-
-        return userEntity.ToUserModel();
+    
+        return userEntity;
     }
     
     public async Task<IEnumerable<ProjectTask>?> GetUserTasks(Guid userId)
@@ -38,10 +38,10 @@ public class UsersService : IUsersService
         {
             return taskEntities.Select(t => t.ToTaskModel());
         }
-
+    
         return null;
     }
-
+    
     public async Task<IEnumerable<Project>?> GetUserProjects(Guid userId)
     {
         var projectEntities = await _usersRepository.GetProjects(userId);
@@ -49,50 +49,36 @@ public class UsersService : IUsersService
         {
             return projectEntities.Select(p => p.ToProjectModel());
         }
-
+    
         return null;
     }
-
+    
     #endregion GET METHODS
-
-
-    #region POST METHODS
-
-    public async Task<User> CreateUser(CreateUserDto createUser)
-    {
-        var userEntity = createUser.FromCreateDtoToUserEntity();
-
-        var createdEntity = await _usersRepository.Create(userEntity);
-
-        return createdEntity.ToUserModel();
-    }
-
-    #endregion POST METHODS
-
-
+    
+    
     #region PUT METHODS
-
-    public async Task<User?> UpdateUser(Guid id, UpdateUserDto updateUserDto)
+    
+    public async Task<AppUser?> UpdateUser(Guid id, UpdateUserDto updateUserDto)
     {
         var userEntity = await _usersRepository.GetById(id);
-
+    
         if (userEntity == null) return null;
-
+    
         await _usersRepository.Update(userEntity, updateUserDto);
-
-        return userEntity.ToUserModel();
+    
+        return userEntity;
     }
-
+    
     #endregion PUT METHODS
-
-
+    
+    
     #region DELETE METHODS
-
+    
     public async Task<bool> DeleteUser(Guid id)
     {
         bool isDeleted = await _usersRepository.Delete(id);
         return isDeleted;
     }
-
+    
     #endregion DELETE METHODS
 }

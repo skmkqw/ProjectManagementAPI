@@ -16,7 +16,7 @@ public class ProjectTaskEntity
     
     public Guid? AssignedUserId { get; set; }
 
-    public UserEntity? AssignedUser { get; set; }
+    public AppUser? AssignedUser { get; set; }
     
     public TaskStatuses Status { get; set; } = TaskStatuses.ToDo;
     

@@ -37,11 +37,17 @@ public class ProjectsService : IProjectsService
         var taskEntities = await _projectsRepository.GetTasks(projectId);
         return taskEntities?.Select(t => t.ToTaskModel());
     }
-    
-    public async Task<IEnumerable<User>?> GetProjectUsers(Guid projectId)
+
+    public async Task<IEnumerable<ProjectTask>?> GetUserTasks(Guid userId, Guid projectId)
+    {
+        var taskEntities = await _projectsRepository.GetUserTasks(projectId, userId);
+        return taskEntities?.Select(t => t.ToTaskModel());
+    }
+
+    public async Task<IEnumerable<AppUser>?> GetProjectUsers(Guid projectId)
     {
         var userEntities = await _projectsRepository.GetUsers(projectId);
-        return userEntities?.Select(t => t.ToUserModel());
+        return userEntities;
     }
 
     #endregion GET METHODS

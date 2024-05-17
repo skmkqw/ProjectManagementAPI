@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProjectManagement.Application.Services.Projects;
 using ProjectManagement.DataAccess.DTOs.Projects;
@@ -40,16 +40,28 @@ public class ProjectsController : ControllerBase
         return NotFound("Project not found");
     }
     
+    [Authorize]
     [HttpGet("{projectId}/tasks")]
-    public async Task<IActionResult> GetTasks([FromRoute] Guid projectId)
+    public async Task<IActionResult> GetTasks([FromRoute] Guid projectId, [FromQuery] Guid? userId = null)
     {
-        var tasks = await _projectsService.GetProjectTasks(projectId);
-        if (tasks != null)
+        if (userId.HasValue)
         {
-            return Ok(tasks.Select(t => t.ToTaskDto()));
+            var userTasks = await _projectsService.GetUserTasks(projectId, userId.Value);
+            if (userTasks != null)
+            {
+                return Ok(userTasks.Select(t => t.ToTaskDto()));
+            }
+            return BadRequest("Tasks for the specified user not found");
         }
-
-        return BadRequest("Project not found");
+        else
+        {
+            var projectTasks = await _projectsService.GetProjectTasks(projectId);
+            if (projectTasks != null)
+            {
+                return Ok(projectTasks.Select(t => t.ToTaskDto()));
+            }
+            return BadRequest("Project not found");
+        }
     }
 
     [HttpGet("{projectId}/users")]
@@ -58,9 +70,9 @@ public class ProjectsController : ControllerBase
         var users = await _projectsService.GetProjectUsers(projectId);
         if (users != null)
         {
-            return Ok(users.Select(t => t.ToUserDto()));
+            return Ok(users);
         }
-
+    
         return BadRequest("Project not found");
     }
     
@@ -95,7 +107,7 @@ public class ProjectsController : ControllerBase
         {
             return CreatedAtAction(nameof(GetById), new { id = createdEntity.UserId }, createdEntity.ToDto());
         }
-
+    
         return BadRequest(error);
     }
 
@@ -140,7 +152,7 @@ public class ProjectsController : ControllerBase
         {
             return Ok(removedUserId);
         }
-
+    
         return BadRequest(error);
     }
 
