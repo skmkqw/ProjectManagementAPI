@@ -82,9 +82,9 @@ public class ProjectsController : ControllerBase
     #region POST ENDPOINTS
 
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] CreateProjectDto createProjectDto)
+    public async Task<IActionResult> Create([FromBody] CreateProjectDto createProjectDto, [FromQuery] Guid creatorId)
     {
-        var project = await _projectsService.CreateProject(createProjectDto);
+        var project = await _projectsService.CreateProject(createProjectDto, creatorId);
         return CreatedAtAction(nameof(GetById), new { id = project.Id }, project.ToProjectDto());
     }
 

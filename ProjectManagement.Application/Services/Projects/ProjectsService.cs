@@ -55,11 +55,11 @@ public class ProjectsService : IProjectsService
 
     #region POST METHODS
 
-    public async Task<Project> CreateProject(CreateProjectDto createProjectDto)
+    public async Task<Project> CreateProject(CreateProjectDto createProjectDto, Guid creatorId)
     {
         var projectEntity = createProjectDto.FromCreateDtoToProjectEntity();
 
-        var createdEntity = await _projectsRepository.Create(projectEntity);
+        var createdEntity = await _projectsRepository.Create(projectEntity, creatorId);
 
         return createdEntity.ToProjectModel();
     }

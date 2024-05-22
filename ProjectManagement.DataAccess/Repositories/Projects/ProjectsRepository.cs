@@ -73,11 +73,13 @@ public class ProjectsRepository : IProjectsRepository
 
     #region POST ENDPOINTS
 
-    public async Task<ProjectEntity> Create(ProjectEntity projectEntity)
+    public async Task<ProjectEntity> Create(ProjectEntity projectEntity, Guid creatorId)
     {
-        await _context.Projects.AddAsync(projectEntity);
+        var newProjectEntry = await _context.Projects.AddAsync(projectEntity);
+        var newProject = newProjectEntry.Entity;
+        await AddUser(newProject.Id, creatorId);
         await _context.SaveChangesAsync();
-        return projectEntity;
+        return newProject;
     }
 
     public async Task<ProjectTaskEntity?> AddTask(Guid projectId, ProjectTaskEntity taskEntity)

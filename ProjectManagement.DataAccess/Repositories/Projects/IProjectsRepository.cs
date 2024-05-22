@@ -16,7 +16,7 @@ public interface IProjectsRepository
     
     public Task<IEnumerable<AppUser>?> GetUsers(Guid projectId);
 
-    public Task<ProjectEntity> Create(ProjectEntity projectEntity);
+    public Task<ProjectEntity> Create(ProjectEntity projectEntity, Guid creatorId);
 
     public Task<ProjectTaskEntity?> AddTask(Guid projectId, ProjectTaskEntity taskEntity);
     
