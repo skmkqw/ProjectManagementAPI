@@ -23,7 +23,7 @@ public class UsersController : ControllerBase
     {
         var users = await _usersService.GetAllUsers();
 
-        return Ok(users.Select(u => u.ToUserDto()));
+        return Ok(users);
     }
 
     [HttpGet("{id}")]
@@ -32,9 +32,9 @@ public class UsersController : ControllerBase
         var user = await _usersService.GetUserById(id);
         if (user != null)
         {
-            return Ok(user.ToUserDto());
+            return Ok(user);
         }
-
+    
         return NotFound("User not found");
     }
     
@@ -46,7 +46,7 @@ public class UsersController : ControllerBase
         {
             return Ok(tasks.Select(t => t.ToTaskDto()));
         }
-
+    
         return BadRequest("User not found");
     }
     
@@ -58,44 +58,32 @@ public class UsersController : ControllerBase
         {
             return Ok(projects.Select(p => p.ToProjectDto()));
         }
-
+    
         return BadRequest("User not found");
     }
-
+    
     #endregion GET ENDPOINTS
-
-
-    #region POST ENDPOINTS
-
-    [HttpPost]
-    public async Task<IActionResult> Create([FromBody] CreateUserDto createUser)
-    {
-        var user = await _usersService.CreateUser(createUser);
-        return CreatedAtAction(nameof(GetById), new { id = user.Id }, user.ToUserDto());
-    }
-
-    #endregion POST ENDPOINTS
-
-
+    
+    
     #region PUT ENDPOINTS
-
+    
     [HttpPut("{id}")]
     public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateUserDto updateUserDto)
     {
         var updatedUser = await _usersService.UpdateUser(id, updateUserDto);
         if (updatedUser != null)
         {
-            return Ok(updatedUser.ToUserDto());
+            return Ok(updatedUser);
         }
-
+    
         return NotFound("User not found");
     }
-
+    
     #endregion PUT ENDPOINTS
-
-
+    
+    
     #region DELETE ENDPOINTS
-
+    
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete([FromRoute] Guid id)
     {
@@ -104,9 +92,9 @@ public class UsersController : ControllerBase
         {
             return NoContent();
         }
-
+    
         return NotFound("User not found");
     }
-
+    
     #endregion DELETE ENDPOINTS
 }

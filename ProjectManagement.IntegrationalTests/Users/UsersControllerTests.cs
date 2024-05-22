@@ -2,9 +2,11 @@ using System.Net;
 using System.Net.Http.Json;
 using System.Text;
 using FluentAssertions;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
+using ProjectManagement.Core.Models;
 using ProjectManagement.DataAccess.Data;
 using ProjectManagement.DataAccess.DTOs.Projects;
 using ProjectManagement.DataAccess.DTOs.Users;
@@ -26,7 +28,7 @@ public class UsersControllerTests(TestWebApplicationFactory factory) : IClassFix
         // Act
         var response = await client.GetAsync("api/users");
         response.EnsureSuccessStatusCode();
-        var users = await response.Content.ReadFromJsonAsync<List<UserDto>>();
+        var users = await response.Content.ReadFromJsonAsync<List<AppUser>>();
 
         // Assert
         users.Should().NotBeNull();
@@ -43,13 +45,12 @@ public class UsersControllerTests(TestWebApplicationFactory factory) : IClassFix
         // Act
         var response = await client.GetAsync("api/users/fcd21c1e-914c-4a6f-aa18-41505d29c8e7");
         response.EnsureSuccessStatusCode();
-        var user = await response.Content.ReadFromJsonAsync<UserDto>();
+        var user = await response.Content.ReadFromJsonAsync<AppUser>();
 
 
         // Assert
         user.Should().NotBeNull();
         user!.Id.Should().Be("fcd21c1e-914c-4a6f-aa18-41505d29c8e7");
-        user.FirstName.Should().Be("Timofei");
     }
     
     [Fact]
@@ -65,43 +66,6 @@ public class UsersControllerTests(TestWebApplicationFactory factory) : IClassFix
         response.StatusCode.Should().Be(HttpStatusCode.NotFound);
     }
     
-    [Fact]
-    public async Task CreateUser_CreatesUser()
-    {
-        // Arrange
-        var client = _factory.CreateClient();
-
-        var createUserDto = new CreateUserDto()
-        {
-            FirstName = "Andrew",
-            LastName = "Jackson",
-            Email = "ajackson@gmail.com",
-            Login = "ajackson",
-            Password = "jack1241"
-        };
-        
-        var httpContent = new StringContent(JsonConvert.SerializeObject(createUserDto), Encoding.UTF8, "application/json");
-        
-        // Act
-        var response = await client.PostAsync("api/users", httpContent);
-        response.EnsureSuccessStatusCode();
-        var createdUser = await response.Content.ReadFromJsonAsync<UserDto>();
-        
-        var allUsersResponse = await client.GetAsync("api/users");
-        allUsersResponse.EnsureSuccessStatusCode();
-        var users = await allUsersResponse.Content.ReadFromJsonAsync<List<UserDto>>();
-
-        // Assert
-        createdUser.Should().NotBeNull();
-        createdUser!.FirstName.Should().Be("Andrew");
-        createdUser.Login.Should().Be("ajackson");
-        users.Should().HaveCount(4);
-        
-        var scope = _factory.Services.CreateScope();
-        var scopedServices = scope.ServiceProvider;
-        var db = scopedServices.GetRequiredService<ApplicationDbContext>();
-        Utilities.Cleanup(db);
-    }
     
     [Fact]
     public async Task UpdateUser_WithExistingId_UpdatesUser()
@@ -109,12 +73,10 @@ public class UsersControllerTests(TestWebApplicationFactory factory) : IClassFix
         // Arrange
         var client = _factory.CreateClient();
 
-        var updateUserDto = new CreateUserDto()
+        var updateUserDto = new AddUserDto()
         {
-            FirstName = "Andrew",
-            LastName = "Jackson",
             Email = "ajackson@gmail.com",
-            Login = "ajackson",
+            UserName = "ajackson",
             Password = "jack1241"
         };
         
@@ -126,17 +88,18 @@ public class UsersControllerTests(TestWebApplicationFactory factory) : IClassFix
         
         var updatedUserResponse = await client.GetAsync("api/users/fcd21c1e-914c-4a6f-aa18-41505d29c8e7");
         response.EnsureSuccessStatusCode();
-        var updatedUser = await updatedUserResponse.Content.ReadFromJsonAsync<UserDto>();
+        var updatedUser = await updatedUserResponse.Content.ReadFromJsonAsync<AppUser>();
 
         // Assert
         updatedUser.Should().NotBeNull();
-        updatedUser!.FirstName.Should().Be("Andrew");
-        updatedUser.Login.Should().Be("ajackson");
+        updatedUser!.Email.Should().Be("ajackson@gmail.com");
+        updatedUser.UserName.Should().Be("ajackson");
         
         var scope = _factory.Services.CreateScope();
         var scopedServices = scope.ServiceProvider;
         var db = scopedServices.GetRequiredService<ApplicationDbContext>();
-        Utilities.Cleanup(db);
+        var userManager = scopedServices.GetRequiredService<UserManager<AppUser>>();
+        Utilities.Cleanup(db, userManager);
     }
     
     [Fact]
@@ -145,12 +108,10 @@ public class UsersControllerTests(TestWebApplicationFactory factory) : IClassFix
         // Arrange
         var client = _factory.CreateClient();
 
-        var updateUserDto = new CreateUserDto()
+        var updateUserDto = new AddUserDto()
         {
-            FirstName = "Andrew",
-            LastName = "Jackson",
             Email = "ajackson@gmail.com",
-            Login = "ajackson",
+            UserName = "ajackson",
             Password = "jack1241"
         };
         var httpContent = new StringContent(JsonConvert.SerializeObject(updateUserDto), Encoding.UTF8, "application/json");
@@ -174,7 +135,7 @@ public class UsersControllerTests(TestWebApplicationFactory factory) : IClassFix
         
         var allUsersResponse = await client.GetAsync("/api/users");
         allUsersResponse.EnsureSuccessStatusCode();
-        var users = await allUsersResponse.Content.ReadFromJsonAsync<List<UserDto>>();
+        var users = await allUsersResponse.Content.ReadFromJsonAsync<List<AppUser>>();
         
         // Assert
         users.Should().NotBeNull();
@@ -183,7 +144,8 @@ public class UsersControllerTests(TestWebApplicationFactory factory) : IClassFix
         var scope = _factory.Services.CreateScope();
         var scopedServices = scope.ServiceProvider;
         var db = scopedServices.GetRequiredService<ApplicationDbContext>();
-        Utilities.Cleanup(db);
+        var userManager = scopedServices.GetRequiredService<UserManager<AppUser>>();
+        Utilities.Cleanup(db, userManager);
     }
     
     [Fact]

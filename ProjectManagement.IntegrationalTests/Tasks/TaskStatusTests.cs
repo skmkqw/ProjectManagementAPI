@@ -1,6 +1,7 @@
 using System.Net;
 using System.Net.Http.Json;
 using FluentAssertions;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using ProjectManagement.Core.Models;
@@ -36,7 +37,8 @@ public class TaskStatusTests(TestWebApplicationFactory factory) : IClassFixture<
         var scope = _factory.Services.CreateScope();
         var scopedServices = scope.ServiceProvider;
         var db = scopedServices.GetRequiredService<ApplicationDbContext>();
-        Utilities.Cleanup(db);
+        var userManager = scopedServices.GetRequiredService<UserManager<AppUser>>();
+        Utilities.Cleanup(db, userManager);
     }
     
     [Fact]

@@ -1,11 +1,12 @@
 using System.Net;
 using System.Net.Http.Json;
 using FluentAssertions;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
+using ProjectManagement.Core.Models;
 using ProjectManagement.DataAccess.Data;
 using ProjectManagement.DataAccess.DTOs;
-using ProjectManagement.DataAccess.DTOs.Users;
 using ProjectManagement.IntegrationalTests.Helpers;
 
 namespace ProjectManagement.IntegrationalTests.Projects;
@@ -24,7 +25,7 @@ public class ProjectUserRealtionTests(TestWebApplicationFactory factory) : IClas
         // Act
         var response = await client.GetAsync($"api/projects/d99b037b-1e3a-4de0-812f-90e35b30f07a/users");
         response.EnsureSuccessStatusCode();
-        var users = await response.Content.ReadFromJsonAsync<List<UserDto>>();
+        var users = await response.Content.ReadFromJsonAsync<List<AppUser>>();
 
 
         // Assert
@@ -68,7 +69,8 @@ public class ProjectUserRealtionTests(TestWebApplicationFactory factory) : IClas
         var scope = _factory.Services.CreateScope();
         var scopedServices = scope.ServiceProvider;
         var db = scopedServices.GetRequiredService<ApplicationDbContext>();
-        Utilities.Cleanup(db);
+        var userManager = scopedServices.GetRequiredService<UserManager<AppUser>>();
+        Utilities.Cleanup(db, userManager);
     }
     
     [Fact]
@@ -128,7 +130,7 @@ public class ProjectUserRealtionTests(TestWebApplicationFactory factory) : IClas
 
         var projectUsersRepsponse = await client.GetAsync($"api/projects/d99b037b-1e3a-4de0-812f-90e35b30f07a/users");
         projectUsersRepsponse.EnsureSuccessStatusCode();
-        var projectUsers = await projectUsersRepsponse.Content.ReadFromJsonAsync<List<UserDto>>();
+        var projectUsers = await projectUsersRepsponse.Content.ReadFromJsonAsync<List<AppUser>>();
         
         // Assert
         projectUsers.Should().BeEmpty();
@@ -136,7 +138,8 @@ public class ProjectUserRealtionTests(TestWebApplicationFactory factory) : IClas
         var scope = _factory.Services.CreateScope();
         var scopedServices = scope.ServiceProvider;
         var db = scopedServices.GetRequiredService<ApplicationDbContext>();
-        Utilities.Cleanup(db);
+        var userManager = scopedServices.GetRequiredService<UserManager<AppUser>>();
+        Utilities.Cleanup(db, userManager);
     }
     
     [Fact]

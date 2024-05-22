@@ -11,10 +11,12 @@ public interface IProjectsRepository
     public Task<ProjectEntity?> GetById(Guid id);
     
     public Task<IEnumerable<ProjectTaskEntity>?> GetTasks(Guid projectId);
-    
-    public Task<IEnumerable<UserEntity>?> GetUsers(Guid projectId);
 
-    public Task<ProjectEntity> Create(ProjectEntity projectEntity);
+    public Task<IEnumerable<ProjectTaskEntity>?> GetUserTasks(Guid userId, Guid projectId);
+    
+    public Task<IEnumerable<AppUser>?> GetUsers(Guid projectId);
+
+    public Task<ProjectEntity> Create(ProjectEntity projectEntity, Guid creatorId);
 
     public Task<ProjectTaskEntity?> AddTask(Guid projectId, ProjectTaskEntity taskEntity);
     

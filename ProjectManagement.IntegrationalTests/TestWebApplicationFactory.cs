@@ -1,10 +1,13 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using ProjectManagement.Application.Services.Projects;
+using ProjectManagement.Core.Models;
 using ProjectManagement.DataAccess.Data;
 using ProjectManagement.DataAccess.Repositories.Projects;
 using ProjectManagement.IntegrationalTests.Helpers;
@@ -24,6 +27,17 @@ public class TestWebApplicationFactory : WebApplicationFactory<Program>
                 options.UseInMemoryDatabase("test");
             });
             
+            services.AddIdentityCore<AppUser>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+            
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            });
+            
             services.AddScoped<IProjectsRepository, ProjectsRepository>();
             services.AddScoped<IProjectsService, ProjectsService>();
 
@@ -32,7 +46,8 @@ public class TestWebApplicationFactory : WebApplicationFactory<Program>
             {
                 var scopedServices = scope.ServiceProvider;
                 var dbContext = scopedServices.GetRequiredService<ApplicationDbContext>();
-                Utilities.InitializeDatabase(dbContext);
+                var userManager = scopedServices.GetRequiredService<UserManager<AppUser>>();
+                Utilities.InitializeDatabase(dbContext, userManager);
             }
         });
     }

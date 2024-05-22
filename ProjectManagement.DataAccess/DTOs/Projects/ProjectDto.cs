@@ -1,6 +1,3 @@
-using ProjectManagement.DataAccess.DTOs.Tasks;
-using ProjectManagement.DataAccess.DTOs.Users;
-
 namespace ProjectManagement.DataAccess.DTOs.Projects;
 
 public class ProjectDto
