@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using ProjectManagement.Core.Models;
+using ProjectManagement.DataAccess.Data;
 using ProjectManagement.DataAccess.DTOs.Users;
 
 namespace ProjectManagement.DataAccess.Repositories.Accounts;
@@ -15,6 +16,7 @@ public class AccountsRepository : IAccountsRepository
     private readonly UserManager<AppUser> _userManager;
 
     private readonly IConfiguration _configuration;
+    private readonly ApplicationDbContext _context;
 
     public AccountsRepository(UserManager<AppUser> userManager, IConfiguration configuration)
     {
@@ -44,7 +46,12 @@ public class AccountsRepository : IAccountsRepository
 
         if (result.Succeeded)
         {
-            var token = GenerateToken(registerDto.UserName);
+            Guid? userId = await FetchUserId(registerDto.UserName);
+            if (userId == null)
+            {
+                modelState.AddModelError("", "Failed to fetch user Id");
+            }
+            var token = GenerateToken(registerDto.UserName, userId);
             return (token, modelState);
         }
         
@@ -61,9 +68,14 @@ public class AccountsRepository : IAccountsRepository
         var user = await _userManager.FindByNameAsync(loginDto.UserName); 
         if (user != null) 
         { 
-            if (await _userManager.CheckPasswordAsync(user, loginDto.Password)) 
-            { 
-                var token = GenerateToken(loginDto.UserName);
+            if (await _userManager.CheckPasswordAsync(user, loginDto.Password))
+            {
+                Guid? userId = await FetchUserId(loginDto.UserName);
+                if (userId == null)
+                {
+                    return (null, "Failed to fetch user Id");
+                }
+                var token = GenerateToken(loginDto.UserName, userId);
                 return (token, null);
             } 
         } 
@@ -71,7 +83,7 @@ public class AccountsRepository : IAccountsRepository
         return (null, "Invalid username or password");
     }
 
-    private string? GenerateToken(string userName)
+    private string? GenerateToken(string userName, Guid? userId)
     {
         var secret = _configuration["JwtConfig:Secret"];
         var issuer = _configuration["JwtConfig:ValidIssuer"];
@@ -86,7 +98,11 @@ public class AccountsRepository : IAccountsRepository
         var tokenHandler = new JwtSecurityTokenHandler();
         var tokenDescriptor = new SecurityTokenDescriptor()
         {
-            Subject = new ClaimsIdentity(new[] {new Claim(ClaimTypes.Name, userName)}),
+            Subject = new ClaimsIdentity(new[]
+            {
+                new Claim(ClaimTypes.Name, userName),
+                new Claim(ClaimTypes.NameIdentifier, userId.ToString()!)
+            }),
             Expires = DateTime.UtcNow.AddDays(1),
             Issuer = issuer,
             Audience = audience,
@@ -95,5 +111,11 @@ public class AccountsRepository : IAccountsRepository
         var securityToken = tokenHandler.CreateToken(tokenDescriptor);
         var token = tokenHandler.WriteToken(securityToken);
         return token;
+    }
+
+    private async Task<Guid?> FetchUserId(string userName)
+    {
+        AppUser? user = await _userManager.FindByNameAsync(userName);
+        return user?.Id ?? null;
     }
 }
