@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectPulse.Application", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectPulse.IntegrationalTests", "ProjectPulse.IntegrationalTests\ProjectPulse.IntegrationalTests.csproj", "{06F24E3E-4C4E-4E8D-A5E7-50B7801680C6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectPulse.Web", "ProjectPulse.Web\ProjectPulse.Web.csproj", "{F067B5A3-A23D-42DD-837E-472A7A61099C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{06F24E3E-4C4E-4E8D-A5E7-50B7801680C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{06F24E3E-4C4E-4E8D-A5E7-50B7801680C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{06F24E3E-4C4E-4E8D-A5E7-50B7801680C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F067B5A3-A23D-42DD-837E-472A7A61099C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F067B5A3-A23D-42DD-837E-472A7A61099C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F067B5A3-A23D-42DD-837E-472A7A61099C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F067B5A3-A23D-42DD-837E-472A7A61099C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
