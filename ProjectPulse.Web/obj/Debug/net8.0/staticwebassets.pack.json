@@ -21,6 +21,62 @@
       "PackagePath": "staticwebassets/favicon.png"
     },
     {
+      "Id": "/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/wwwroot/img/add-project.svg",
+      "PackagePath": "staticwebassets/img/add-project.svg"
+    },
+    {
+      "Id": "/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/wwwroot/img/calendar.svg",
+      "PackagePath": "staticwebassets/img/calendar.svg"
+    },
+    {
+      "Id": "/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/wwwroot/img/hide_sidebar.svg",
+      "PackagePath": "staticwebassets/img/hide_sidebar.svg"
+    },
+    {
+      "Id": "/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/wwwroot/img/home.svg",
+      "PackagePath": "staticwebassets/img/home.svg"
+    },
+    {
+      "Id": "/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/wwwroot/img/logo.svg",
+      "PackagePath": "staticwebassets/img/logo.svg"
+    },
+    {
+      "Id": "/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/wwwroot/img/members.svg",
+      "PackagePath": "staticwebassets/img/members.svg"
+    },
+    {
+      "Id": "/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/wwwroot/img/message-question.svg",
+      "PackagePath": "staticwebassets/img/message-question.svg"
+    },
+    {
+      "Id": "/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/wwwroot/img/message.svg",
+      "PackagePath": "staticwebassets/img/message.svg"
+    },
+    {
+      "Id": "/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/wwwroot/img/notification.svg",
+      "PackagePath": "staticwebassets/img/notification.svg"
+    },
+    {
+      "Id": "/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/wwwroot/img/search.svg",
+      "PackagePath": "staticwebassets/img/search.svg"
+    },
+    {
+      "Id": "/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/wwwroot/img/settings.svg",
+      "PackagePath": "staticwebassets/img/settings.svg"
+    },
+    {
+      "Id": "/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/wwwroot/img/tasks.svg",
+      "PackagePath": "staticwebassets/img/tasks.svg"
+    },
+    {
+      "Id": "/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/wwwroot/img/user.jpeg",
+      "PackagePath": "staticwebassets/img/user.jpeg"
+    },
+    {
+      "Id": "/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/wwwroot/js/app.js",
+      "PackagePath": "staticwebassets/js/app.js"
+    },
+    {
       "Id": "obj/Debug/net8.0/staticwebassets/msbuild.ProjectPulse.Web.Microsoft.AspNetCore.StaticWebAssets.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
     },

@@ -10,4 +10,8 @@
       <ProjectReference Include="..\ProjectPulse.Core\ProjectPulse.Core.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="wwwroot\img\" />
+    </ItemGroup>
+
 </Project>

@@ -20,7 +20,6 @@
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.ProjectPulse.Web.props
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/obj/Debug/net8.0/staticwebassets.pack.json
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/obj/Debug/net8.0/scopedcss/Components/Layout/MainLayout.razor.rz.scp.css
-/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/obj/Debug/net8.0/scopedcss/Components/Layout/NavMenu.razor.rz.scp.css
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/obj/Debug/net8.0/scopedcss/bundle/ProjectPulse.Web.styles.css
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/obj/Debug/net8.0/scopedcss/projectbundle/ProjectPulse.Web.bundle.scp.css
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/obj/Debug/net8.0/ProjectPulse.Web.dll
@@ -41,3 +40,5 @@
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/bin/Debug/net8.0/ProjectPulse.Core.pdb
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/obj/Debug/net8.0/ProjectPulse.Web.csproj.AssemblyReference.cache
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/obj/Debug/net8.0/ProjectP.717E1114.Up2Date
+/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/obj/Debug/net8.0/scopedcss/Components/Layout/Navbar.razor.rz.scp.css
+/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/obj/Debug/net8.0/scopedcss/Components/Layout/Sidebar.razor.rz.scp.css
