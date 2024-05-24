@@ -1,0 +1,41 @@
+{
+  "Files": [
+    {
+      "Id": "/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/obj/Debug/net8.0/scopedcss/projectbundle/ProjectPulse.Web.bundle.scp.css",
+      "PackagePath": "staticwebassets/ProjectPulse.Web.bundle.scp.css"
+    },
+    {
+      "Id": "/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/wwwroot/app.css",
+      "PackagePath": "staticwebassets/app.css"
+    },
+    {
+      "Id": "/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/wwwroot/bootstrap/bootstrap.min.css",
+      "PackagePath": "staticwebassets/bootstrap/bootstrap.min.css"
+    },
+    {
+      "Id": "/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/wwwroot/bootstrap/bootstrap.min.css.map",
+      "PackagePath": "staticwebassets/bootstrap/bootstrap.min.css.map"
+    },
+    {
+      "Id": "/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/wwwroot/favicon.png",
+      "PackagePath": "staticwebassets/favicon.png"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.ProjectPulse.Web.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.build.ProjectPulse.Web.props",
+      "PackagePath": "build\\ProjectPulse.Web.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildMultiTargeting.ProjectPulse.Web.props",
+      "PackagePath": "buildMultiTargeting\\ProjectPulse.Web.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.ProjectPulse.Web.props",
+      "PackagePath": "buildTransitive\\ProjectPulse.Web.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
