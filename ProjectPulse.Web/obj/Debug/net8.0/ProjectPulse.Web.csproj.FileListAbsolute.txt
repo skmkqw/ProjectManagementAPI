@@ -42,3 +42,4 @@
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/obj/Debug/net8.0/ProjectP.717E1114.Up2Date
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/obj/Debug/net8.0/scopedcss/Components/Layout/Navbar.razor.rz.scp.css
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/obj/Debug/net8.0/scopedcss/Components/Layout/Sidebar.razor.rz.scp.css
+/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/obj/Debug/net8.0/scopedcss/Components/Layout/NavItem.razor.rz.scp.css

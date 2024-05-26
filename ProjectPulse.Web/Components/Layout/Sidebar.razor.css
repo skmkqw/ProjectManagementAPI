@@ -42,7 +42,7 @@
     flex-direction: column;
 }
 
-.sidebar-options-content-item, .sidebar-projects-content-item {
+.sidebar-projects-content-item {
     display: flex;
     align-items: center;
     gap: 15px;
@@ -54,11 +54,6 @@
     cursor: pointer;
 }
 
-.sidebar-options-content-item-active {
-    background-color: rgba(151, 151, 151, 0.1);
-    border-radius: 15px;
-    color: #0D062D;
-}
 
 .sidebar-projects-content-item-active {
     background-color: rgba(80, 48, 229, 0.08);
