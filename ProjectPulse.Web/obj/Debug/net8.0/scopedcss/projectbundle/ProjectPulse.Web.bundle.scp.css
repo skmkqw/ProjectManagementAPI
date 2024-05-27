@@ -1,3 +1,12 @@
+/* _content/ProjectPulse.Web/Components/Layout/LogInLayout.razor.rz.scp.css */
+.login-wrapper[b-ojknlplxnm] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    background-color: #f8f9fa
+}
 /* _content/ProjectPulse.Web/Components/Layout/MainLayout.razor.rz.scp.css */
 .page[b-3fv9nij9hg] {
     position: relative;
@@ -280,4 +289,162 @@ nav[b-gx4u4j2n2e] {
     height: 8px;
     background-color: #0a53be;
     border-radius: 100%;
+}
+/* _content/ProjectPulse.Web/Components/Pages/Login.razor.rz.scp.css */
+.login-container[b-sapm7f1hii] {
+    background-color: #fff;
+    width: 400px;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.login-title[b-sapm7f1hii] {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.login-subtitle[b-sapm7f1hii] {
+    font-size: 14px;
+    color: #6c757d;
+    margin-bottom: 30px;
+}
+
+.form-group[b-sapm7f1hii] {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-label[b-sapm7f1hii] {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-control[b-sapm7f1hii] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+}
+
+.forgot-password[b-sapm7f1hii] {
+    display: block;
+    text-align: right;
+    font-size: 12px;
+    color: #007bff;
+    text-decoration: none;
+    margin-top: 5px;
+}
+
+.btn-primary[b-sapm7f1hii] {
+    background-color: rgb(80, 48, 229);
+    border-color: #5030E5;
+    color: #fff;
+    padding: 10px;
+    border-radius: 4px;
+    width: 100%;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-primary:hover[b-sapm7f1hii] {
+    background-color: rgba(80, 48, 229, 0.8);
+}
+
+.register-link[b-sapm7f1hii] {
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.register-link a[b-sapm7f1hii] {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.fail-message[b-sapm7f1hii] {
+    margin-top: 5px;
+    color: red;
+}
+/* _content/ProjectPulse.Web/Components/Pages/Register.razor.rz.scp.css */
+.login-container[b-wzjoklqnvg] {
+    background-color: #fff;
+    width: 400px;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.login-title[b-wzjoklqnvg] {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.login-subtitle[b-wzjoklqnvg] {
+    font-size: 14px;
+    color: #6c757d;
+    margin-bottom: 30px;
+}
+
+.form-group[b-wzjoklqnvg] {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-label[b-wzjoklqnvg] {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-control[b-wzjoklqnvg] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+}
+
+.forgot-password[b-wzjoklqnvg] {
+    display: block;
+    text-align: right;
+    font-size: 12px;
+    color: #007bff;
+    text-decoration: none;
+    margin-top: 5px;
+}
+
+.btn-primary[b-wzjoklqnvg] {
+    background-color: rgb(80, 48, 229);
+    border-color: #5030E5;
+    color: #fff;
+    padding: 10px;
+    border-radius: 4px;
+    width: 100%;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-primary:hover[b-wzjoklqnvg] {
+    background-color: rgba(80, 48, 229, 0.8);
+}
+
+.register-link[b-wzjoklqnvg] {
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.register-link a[b-wzjoklqnvg] {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.fail-message[b-wzjoklqnvg] {
+    margin-top: 5px;
+    color: red;
 }

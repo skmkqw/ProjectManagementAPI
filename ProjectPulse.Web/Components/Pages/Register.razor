@@ -1,0 +1,35 @@
+@using ProjectPulse.DataAccess.DTOs.Users
+@using ProjectPulse.Web.Components.Layout
+@page "/Account/Register"
+@layout LogInLayout
+
+<div class="login-container">
+    <h2 class="login-title">Register</h2>
+    <EditForm OnSubmit="HandleRegistration" Model="_user" FormName="register">
+        <div class="form-group">
+            <label for="email">Username</label>
+            <InputText id="email" @bind-Value="_user.UserName" type="email" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="username">Username</label>
+            <InputText id="username" @bind-Value="_user.UserName" type="text" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <label for="password" class="form-label">Password</label>
+            <InputText id="password" @bind-Value="_user.Password" type="password" class="form-control"/>
+        </div>
+        <button type="submit" class="btn btn-primary login-button">Register</button>
+    </EditForm>
+    <p class="register-link">
+        Already have a ProjectPulse account? <a href="/Account/Login">Log in now</a>
+    </p>
+</div>
+
+@code {
+    private AddUserDto _user = new AddUserDto();
+
+    private void HandleRegistration()
+    {
+        Console.WriteLine("Registration attempt");
+    }
+}
