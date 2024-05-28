@@ -78,6 +78,10 @@ build_metadata.AdditionalFiles.CssScope = b-8a4bwrdjto
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9Mb2dpbi5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = b-sapm7f1hii
 
+[/Users/skmkqw/Documents/C\# Learning/ProjectManagementAPI/ProjectPulse.Web/Components/Pages/Logout.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9Mb2dvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-2f22eloj8t
+
 [/Users/skmkqw/Documents/C\# Learning/ProjectManagementAPI/ProjectPulse.Web/Components/Pages/Register.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9SZWdpc3Rlci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = b-wzjoklqnvg

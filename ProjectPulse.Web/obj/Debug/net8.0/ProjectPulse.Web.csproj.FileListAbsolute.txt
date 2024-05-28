@@ -95,3 +95,4 @@
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/obj/Debug/net8.0/scopedcss/Components/Layout/LogInLayout.razor.rz.scp.css
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/obj/Debug/net8.0/scopedcss/Components/Pages/Register.razor.rz.scp.css
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/bin/Debug/net8.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/obj/Debug/net8.0/scopedcss/Components/Pages/Logout.razor.rz.scp.css

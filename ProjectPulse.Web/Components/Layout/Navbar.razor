@@ -1,5 +1,3 @@
-@using Microsoft.AspNetCore.Authentication
-@using Microsoft.AspNetCore.Authentication.Cookies
 @inject IHttpContextAccessor HttpContextAccessor
 @inject NavigationManager Navigation
 
@@ -51,16 +49,17 @@
 
         StateHasChanged();
     }
+    //
+    // private async Task Logout()
+    // {
+    //     HttpContextAccessor.HttpContext!.Response.Cookies.Delete("UserId");
+    //     HttpContextAccessor.HttpContext.Response.Cookies.Delete("UserName");
+    //     
+    //     await HttpContextAccessor.HttpContext!.SignOutAsync("Auth").ConfigureAwait(false);
+    // }
     
-    private async Task Logout()
+    private void Logout()
     {
-        if (HttpContextAccessor.HttpContext is not null)
-        {
-            await HttpContextAccessor.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            // HttpContextAccessor.HttpContext.Response.Cookies.Delete("UserName");
-            // HttpContextAccessor.HttpContext.Response.Cookies.Delete("UserId");
-        }
-
-        Navigation.NavigateTo("/login");
+        Navigation.NavigateTo("/Logout");
     }
 }

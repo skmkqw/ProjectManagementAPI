@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Authentication.Cookies;
 using ProjectPulse.Web.Components;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,11 +13,14 @@ builder.Services.AddScoped<HttpClient>(sp =>
 
 builder.Services.AddHttpContextAccessor();
 
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie(options =>
-    {
-        options.LoginPath = "/Account/Login";
+builder.Services.AddAuthentication("Auth")
+    .AddCookie("Auth", options =>
+    {            
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(1);
+        options.SlidingExpiration = true;
+        options.LoginPath = "/account/login";
     });
+builder.Services.AddCascadingAuthenticationState();
 
 
 var app = builder.Build();
@@ -30,6 +32,9 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.UseStaticFiles();
 app.UseAntiforgery();
