@@ -1,6 +1,11 @@
+@using Microsoft.AspNetCore.Authentication
+@using Microsoft.AspNetCore.Authentication.Cookies
 @inject IHttpContextAccessor HttpContextAccessor
+@inject NavigationManager Navigation
 
-<nav class="border-bottom" id="navbar" @onload="GetUserName">
+@rendermode InteractiveServer
+
+<nav class="border-bottom" id="navbar">
     <div class="nav-left">
         <div class="sidebar-show sidebar-show-hidden" id="show-sidebar">
             <img src="img/hide_sidebar.svg" alt="">
@@ -23,6 +28,7 @@
         <div class="nav-user">
             <p>@UserName</p>
             <img src="img/user.jpeg" alt="" class="nav-user-img">
+            <img src="img/logout.png" alt="Logout" style="cursor: pointer; max-width: 18px; opacity: 0.8;" @onclick="Logout">
         </div>
     </div>
 </nav>
@@ -44,5 +50,17 @@
         }
 
         StateHasChanged();
+    }
+    
+    private async Task Logout()
+    {
+        if (HttpContextAccessor.HttpContext is not null)
+        {
+            await HttpContextAccessor.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            // HttpContextAccessor.HttpContext.Response.Cookies.Delete("UserName");
+            // HttpContextAccessor.HttpContext.Response.Cookies.Delete("UserId");
+        }
+
+        Navigation.NavigateTo("/login");
     }
 }

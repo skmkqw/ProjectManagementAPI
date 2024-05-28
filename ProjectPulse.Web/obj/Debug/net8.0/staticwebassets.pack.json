@@ -41,6 +41,10 @@
       "PackagePath": "staticwebassets/img/logo.svg"
     },
     {
+      "Id": "/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/wwwroot/img/logout.png",
+      "PackagePath": "staticwebassets/img/logout.png"
+    },
+    {
       "Id": "/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/wwwroot/img/members.svg",
       "PackagePath": "staticwebassets/img/members.svg"
     },

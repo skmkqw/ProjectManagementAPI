@@ -12,13 +12,14 @@ builder.Services.AddScoped<HttpClient>(sp =>
     return client;
 });
 
+builder.Services.AddHttpContextAccessor();
+
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
         options.LoginPath = "/Account/Login";
     });
 
-builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
