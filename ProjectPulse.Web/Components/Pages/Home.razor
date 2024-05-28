@@ -1,7 +1,46 @@
 ﻿@page "/"
 
+@inject IHttpContextAccessor HttpContextAccessor
+
 <PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
+<h1>Hello, @UserName!</h1>
 
-Welcome to your new app.
+Your ID is: @UserId
+
+
+@code
+{
+    
+    private string UserName { get; set; } = "Guest";
+
+    private string UserId { get; set; } = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        GetUserName();
+        GetUserId();
+    }
+
+    private void GetUserName()
+    {
+        if (HttpContextAccessor.HttpContext!.Request.Cookies.TryGetValue("UserName", out var username))
+        {
+            UserName = username;
+        }
+
+        StateHasChanged();
+    }
+    
+    private void GetUserId()
+    {
+        if (HttpContextAccessor.HttpContext!.Request.Cookies.TryGetValue("UserId", out var userId))
+        {
+            UserId = userId;
+        }
+
+        StateHasChanged();
+    }
+}
+
+

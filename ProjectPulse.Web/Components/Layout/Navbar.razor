@@ -1,4 +1,6 @@
-<nav class="border-bottom" id="navbar">
+@inject IHttpContextAccessor HttpContextAccessor
+
+<nav class="border-bottom" id="navbar" @onload="GetUserName">
     <div class="nav-left">
         <div class="sidebar-show sidebar-show-hidden" id="show-sidebar">
             <img src="img/hide_sidebar.svg" alt="">
@@ -19,12 +21,28 @@
             <div class="nav-icon-item"><img src="img/notification.svg" alt=""></div>
         </div>
         <div class="nav-user">
-            <p>Username</p>
+            <p>@UserName</p>
             <img src="img/user.jpeg" alt="" class="nav-user-img">
         </div>
     </div>
 </nav>
 
-@code {
-    
+@code
+{
+    private string UserName { get; set; } = "Guest";
+
+    protected override void OnInitialized()
+    {
+        GetUserName();
+    }
+
+    private void GetUserName()
+    {
+        if (HttpContextAccessor.HttpContext!.Request.Cookies.TryGetValue("UserName", out var username))
+        {
+            UserName = username;
+        }
+
+        StateHasChanged();
+    }
 }

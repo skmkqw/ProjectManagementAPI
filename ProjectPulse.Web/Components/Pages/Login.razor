@@ -1,3 +1,9 @@
+@using System.IdentityModel.Tokens.Jwt
+@using System.Security.Claims
+@using System.Text.Json
+@using Azure
+@using Microsoft.AspNetCore.Authentication
+@using Microsoft.AspNetCore.Authentication.Cookies
 @using ProjectPulse.DataAccess.DTOs.Users
 @using ProjectPulse.Web.Components.Layout
 
@@ -9,14 +15,14 @@
 
 <div class="login-container">
     <h2 class="login-title">Log in</h2>
-    <EditForm OnValidSubmit="HandleLogin" Model="_user" FormName="login">
+    <EditForm OnValidSubmit="HandleLogin" Model="User" FormName="login">
         <div class="form-group">
             <label for="username">Username</label>
-            <InputText id="username" @bind-Value="_user.UserName" type="text" class="form-control" />
+            <InputText id="username" @bind-Value="User.UserName" type="text" class="form-control" />
         </div>
         <div class="form-group">
             <label for="password" class="form-label">Password</label>
-            <InputText id="password" @bind-Value="_user.Password" type="password" class="form-control" />
+            <InputText id="password" @bind-Value="User.Password" type="password" class="form-control" />
         </div>
         <button type="submit" class="btn btn-primary login-button">Log in</button>
     </EditForm>
@@ -28,14 +34,44 @@
 @code {
     
     [SupplyParameterFromForm]
-    private LoginUserDto _user { get; set; } = new ();
+    private LoginUserDto User { get; set; } = new ();
+    
+    [Inject]
+    private IHttpContextAccessor HttpContextAccessor { get; set; }
 
     private async Task HandleLogin()
     {
-        var response = await HttpClient.PostAsJsonAsync("api/accounts/login", _user);
+        var response = await HttpClient.PostAsJsonAsync("api/accounts/login", User);
 
         if (response.IsSuccessStatusCode)
         {
+            var responseContent = await response.Content.ReadAsStringAsync();
+            var jsonDoc = JsonDocument.Parse(responseContent);
+            var token = jsonDoc.RootElement.GetProperty("token").GetString();
+
+            var handler = new JwtSecurityTokenHandler();
+            var jwtToken = handler.ReadJwtToken(token);
+            var userId = jwtToken.Claims.First(claim => claim.Type == "nameid").Value;
+
+            var claims = new[]
+            {
+                new Claim(ClaimTypes.Name, User.UserName),
+                new Claim(ClaimTypes.NameIdentifier, userId),
+            };
+            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var principal = new ClaimsPrincipal(identity);
+
+            await HttpContextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+
+            var cookieOptions = new CookieOptions
+            {
+                Expires = DateTimeOffset.UtcNow.AddDays(1),
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.Strict
+            };
+            HttpContextAccessor.HttpContext.Response.Cookies.Append("UserId", userId, cookieOptions);
+            HttpContextAccessor.HttpContext.Response.Cookies.Append("UserName", User.UserName, cookieOptions);
             Navigation.NavigateTo("/");
         }
         else
