@@ -24,6 +24,10 @@
             <label for="password" class="form-label">Password</label>
             <InputText id="password" @bind-Value="User.Password" type="password" class="form-control" />
         </div>
+        @if (!string.IsNullOrEmpty(ErrorMessage))
+        {
+            <div class="alert-danger">@ErrorMessage</div>
+        }
         <button type="submit" class="btn btn-primary login-button">Log in</button>
     </EditForm>
     <p class="register-link">
@@ -38,6 +42,8 @@
     
     [Inject]
     private IHttpContextAccessor HttpContextAccessor { get; set; }
+
+    private string ErrorMessage { get; set; } = string.Empty;
 
     private async Task HandleLogin()
     {
@@ -76,7 +82,8 @@
         }
         else
         {
-            Console.WriteLine("Login failed");
+            var error = await response.Content.ReadAsStringAsync();
+            ErrorMessage = error;
         }
     }
 }
