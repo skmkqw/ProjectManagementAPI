@@ -1,23 +1,34 @@
+@using System.IdentityModel.Tokens.Jwt
+@using System.Security.Claims
+@using System.Text.Json
+@using Microsoft.AspNetCore.Authentication
 @using ProjectPulse.DataAccess.DTOs.Users
 @using ProjectPulse.Web.Components.Layout
 @page "/Account/Register"
 @layout LogInLayout
 
+@inject HttpClient HttpClient
+@inject NavigationManager Navigation
+
 <div class="login-container">
     <h2 class="login-title">Register</h2>
-    <EditForm OnSubmit="HandleRegistration" Model="_user" FormName="register">
+    <EditForm OnValidSubmit="HandleRegistration" Model="User" FormName="register">
         <div class="form-group">
-            <label for="email">Username</label>
-            <InputText id="email" @bind-Value="_user.UserName" type="email" class="form-control" />
+            <label for="email">Email</label>
+            <InputText id="email" @bind-Value="User.Email" type="email" class="form-control"/>
         </div>
         <div class="form-group">
             <label for="username">Username</label>
-            <InputText id="username" @bind-Value="_user.UserName" type="text" class="form-control"/>
+            <InputText id="username" @bind-Value="User.UserName" type="text" class="form-control"/>
         </div>
         <div class="form-group">
             <label for="password" class="form-label">Password</label>
-            <InputText id="password" @bind-Value="_user.Password" type="password" class="form-control"/>
+            <InputText id="password" @bind-Value="User.Password" type="password" class="form-control"/>
         </div>
+        @if (!string.IsNullOrEmpty(ErrorMessage))
+        {
+            <div class="alert-danger">@ErrorMessage</div>
+        }
         <button type="submit" class="btn btn-primary login-button">Register</button>
     </EditForm>
     <p class="register-link">
@@ -26,10 +37,55 @@
 </div>
 
 @code {
-    private AddUserDto _user = new AddUserDto();
+    
+    [SupplyParameterFromForm]
+    private AddUserDto User { get; set; } = new ();
+    
+    [Inject]
+    private IHttpContextAccessor HttpContextAccessor { get; set; }
 
-    private void HandleRegistration()
+    private string ErrorMessage { get; set; } = string.Empty;
+
+    private async Task HandleRegistration()
     {
-        Console.WriteLine("Registration attempt");
+        var response = await HttpClient.PostAsJsonAsync("api/accounts/register", User);
+    
+
+        if (response.IsSuccessStatusCode)
+        {
+            var responseContent = await response.Content.ReadAsStringAsync();
+            var jsonDoc = JsonDocument.Parse(responseContent);
+            var token = jsonDoc.RootElement.GetProperty("token").GetString();
+
+            var handler = new JwtSecurityTokenHandler();
+            var jwtToken = handler.ReadJwtToken(token);
+            var userId = jwtToken.Claims.First(claim => claim.Type == "nameid").Value;
+
+            var claims = new[]
+            {
+                new Claim(ClaimTypes.Name, User.UserName),
+                new Claim(ClaimTypes.NameIdentifier, userId),
+            };
+            var identity = new ClaimsIdentity(claims, "Auth");
+            var principal = new ClaimsPrincipal(identity);
+
+            await HttpContextAccessor.HttpContext.SignInAsync("Auth", principal);
+
+            var cookieOptions = new CookieOptions
+            {
+                Expires = DateTimeOffset.UtcNow.AddMinutes(1),
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.Strict
+            };
+            HttpContextAccessor.HttpContext.Response.Cookies.Append("UserId", userId, cookieOptions);
+            HttpContextAccessor.HttpContext.Response.Cookies.Append("UserName", User.UserName, cookieOptions);
+            Navigation.NavigateTo("/");
+        }
+        else
+        {
+            var error = await response.Content.ReadAsStringAsync();
+            ErrorMessage = error;
+        }
     }
 }
