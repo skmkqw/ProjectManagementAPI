@@ -1,11 +1,10 @@
-﻿@using System.Text
-@using Newtonsoft.Json
-@using ProjectPulse.Core.Models
-@using ProjectPulse.DataAccess.DTOs.Projects
+﻿@using ProjectPulse.DataAccess.DTOs.Projects
+@using ProjectPulse.Web.Services.Projects
+@using ProjectPulse.Web.Services.Users
 @rendermode InteractiveServer
 
-@inject HttpClient HttpClient
-@inject IHttpContextAccessor HttpContextAccessor
+@inject IUsersService UsersService
+@inject IProjectsService ProjectsService
 
 @if (DisplayModal)
 {
@@ -54,9 +53,9 @@
 @code {
     
     [Parameter]
-    public List<ProjectDto>? Projects { get; set; } = new List<ProjectDto>();
+    public List<ProjectDto>? Projects { get; set; } = new ();
     
-    public bool DisplayModal { get; set; } = false;
+    public bool DisplayModal { get; set; }
 
     private void ShowModal()
     {
@@ -68,41 +67,17 @@
         DisplayModal = isOpen;
     }
     
-    private string GetUserId()
+    private async Task GetProjects(string userId)
     {
-        if (HttpContextAccessor.HttpContext!.Request.Cookies.TryGetValue("UserId", out var userId))
-        {
-            return userId;
-        }
-
-        return "User ID not found";
-    }
-    
-    public async Task GetProjects(string userId)
-    {
-        var response = await HttpClient.GetAsync($"api/users/{userId}/projects");
-        if (response.IsSuccessStatusCode)
-        {
-            Projects = await response.Content.ReadFromJsonAsync<List<ProjectDto>>();
-        }
-        else
-        {
-            throw new ApplicationException("Unable to fetch user's projects");
-        }
+        var projects = await ProjectsService.GetProjects(userId);
+        Projects = projects;
         StateHasChanged();
     }
 
     private async Task CreateProject(CreateProjectDto newProject)
     {
-        string userId = GetUserId();
-        var httpContent = new StringContent(JsonConvert.SerializeObject(newProject), Encoding.UTF8, "application/json");
-        var response = await HttpClient.PostAsync($"api/projects?creatorId={userId}", httpContent);
-        if (!response.IsSuccessStatusCode)
-        {
-            Console.WriteLine(response.Content);
-            throw new ApplicationException("Failed to create a project");
-        }
-
+        string userId = UsersService.GetUserId();
+        await ProjectsService.CreateProject(newProject, userId);
         await GetProjects(userId);
     }
 }

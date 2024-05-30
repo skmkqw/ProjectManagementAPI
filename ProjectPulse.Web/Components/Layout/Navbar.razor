@@ -1,4 +1,6 @@
-@inject IHttpContextAccessor HttpContextAccessor
+@using ProjectPulse.Web.Services.Users
+
+@inject IUsersService UsersService
 @inject NavigationManager Navigation
 
 @rendermode InteractiveServer
@@ -42,21 +44,10 @@
 
     private void GetUserName()
     {
-        if (HttpContextAccessor.HttpContext!.Request.Cookies.TryGetValue("UserName", out var username))
-        {
-            UserName = username;
-        }
+        UserName = UsersService.GetUserName();
 
         StateHasChanged();
     }
-    //
-    // private async Task Logout()
-    // {
-    //     HttpContextAccessor.HttpContext!.Response.Cookies.Delete("UserId");
-    //     HttpContextAccessor.HttpContext.Response.Cookies.Delete("UserName");
-    //     
-    //     await HttpContextAccessor.HttpContext!.SignOutAsync("Auth").ConfigureAwait(false);
-    // }
     
     private void Logout()
     {

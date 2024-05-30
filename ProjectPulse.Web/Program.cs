@@ -1,4 +1,7 @@
 using ProjectPulse.Web.Components;
+using ProjectPulse.Web.Services.Accounts;
+using ProjectPulse.Web.Services.Projects;
+using ProjectPulse.Web.Services.Users;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +15,10 @@ builder.Services.AddScoped<HttpClient>(sp =>
 });
 
 builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddScoped<IAccountsService, AccountsService>();
+builder.Services.AddScoped<IUsersService, UsersService>();
+builder.Services.AddScoped<IProjectsService, ProjectsService>();
 
 builder.Services.AddAuthentication("Auth")
     .AddCookie("Auth", options =>

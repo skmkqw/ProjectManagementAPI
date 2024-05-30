@@ -1,7 +1,9 @@
 @page "/Logout"
-@using Microsoft.AspNetCore.Authentication
-@inject IHttpContextAccessor HttpContextAccessor
+@using ProjectPulse.Web.Services.Accounts
+
+@inject IAccountsService AccountsService
 @inject NavigationManager Navigation
+
 @attribute [Authorize]
 
 <h3>Logout</h3>
@@ -9,10 +11,7 @@
 @code {
     protected override async Task OnInitializedAsync()
     {
-        HttpContextAccessor.HttpContext!.Response.Cookies.Delete("UserId");
-        HttpContextAccessor.HttpContext.Response.Cookies.Delete("UserName");
-        
-        await HttpContextAccessor.HttpContext!.SignOutAsync("Auth").ConfigureAwait(false);
+        await AccountsService.Logout();
         
         Navigation.NavigateTo("/");
     }
