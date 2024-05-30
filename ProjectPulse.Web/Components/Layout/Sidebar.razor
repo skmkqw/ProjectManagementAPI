@@ -1,4 +1,17 @@
-﻿<div class="sidebar" id="sidebar">
+﻿@using System.Text
+@using Newtonsoft.Json
+@using ProjectPulse.Core.Models
+@using ProjectPulse.DataAccess.DTOs.Projects
+@rendermode InteractiveServer
+
+@inject HttpClient HttpClient
+@inject IHttpContextAccessor HttpContextAccessor
+
+@if (DisplayModal)
+{
+    <AddProject DisplayModal="DisplayModal" OnClose="OnModalClose" CreateProjectCallback="CreateProject"></AddProject>
+}
+<div class="sidebar" id="sidebar">
     <div class="sidebar-content">
         <div class="row border-bottom">
             <div class="sidebar-head" id="sidebar-head">
@@ -23,14 +36,73 @@
         <div class="row sidebar-projects">
             <div class="sidebar-projects-head">
                 <p>My projects</p>
-                <img src="img/add-project.svg" alt="" data-bs-toggle="modal" data-bs-target="#addProjectModal">
+                <img src="img/add-project.svg" alt="" data-bs-toggle="modal" data-bs-target="#addProjectModal" @onclick="ShowModal">
             </div>
             <div class="sidebar-projects-content">
-                <div class="sidebar-projects-content-item">
-                    <span class="project-circle"></span>
-                    <p>Project 1</p>
-                </div>
+                @foreach (ProjectDto project in Projects!)
+                {
+                    <div class="sidebar-projects-content-item">
+                        <span class="project-circle"></span>
+                        <p>@project.Name</p>
+                    </div> 
+                }
             </div>
         </div>
     </div>
 </div>
+
+@code {
+    
+    [Parameter]
+    public List<ProjectDto>? Projects { get; set; } = new List<ProjectDto>();
+    
+    public bool DisplayModal { get; set; } = false;
+
+    private void ShowModal()
+    {
+        DisplayModal = true;
+    }
+
+    private void OnModalClose(bool isOpen)
+    {
+        DisplayModal = isOpen;
+    }
+    
+    private string GetUserId()
+    {
+        if (HttpContextAccessor.HttpContext!.Request.Cookies.TryGetValue("UserId", out var userId))
+        {
+            return userId;
+        }
+
+        return "User ID not found";
+    }
+    
+    public async Task GetProjects(string userId)
+    {
+        var response = await HttpClient.GetAsync($"api/users/{userId}/projects");
+        if (response.IsSuccessStatusCode)
+        {
+            Projects = await response.Content.ReadFromJsonAsync<List<ProjectDto>>();
+        }
+        else
+        {
+            throw new ApplicationException("Unable to fetch user's projects");
+        }
+        StateHasChanged();
+    }
+
+    private async Task CreateProject(CreateProjectDto newProject)
+    {
+        string userId = GetUserId();
+        var httpContent = new StringContent(JsonConvert.SerializeObject(newProject), Encoding.UTF8, "application/json");
+        var response = await HttpClient.PostAsync($"api/projects?creatorId={userId}", httpContent);
+        if (!response.IsSuccessStatusCode)
+        {
+            Console.WriteLine(response.Content);
+            throw new ApplicationException("Failed to create a project");
+        }
+
+        await GetProjects(userId);
+    }
+}
