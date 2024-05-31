@@ -408,8 +408,18 @@ nav[b-gx4u4j2n2e] {
 
 .projects-top[b-kxfshqzys0] {
     display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.projects-top-head[b-kxfshqzys0] {
+    display: flex;
     align-items: center;
     gap: 20px;
+}
+
+.projects-top-footer[b-kxfshqzys0] {
+    color: #787486;
 }
 
 .projects-top > h1[b-kxfshqzys0]{
@@ -472,9 +482,22 @@ nav[b-gx4u4j2n2e] {
     width: 10px;
     height: 10px;
     border-radius: 100%;
+}
+
+.to-do .task-column-left > span[b-kxfshqzys0]
+{
     background-color: #5030E5;
 }
 
+.in-progress .task-column-left > span[b-kxfshqzys0]
+{
+    background-color: #FFA500;
+}
+
+.done .task-column-left > span[b-kxfshqzys0]
+{
+    background-color: #8BC48A;
+}
 
 .task-column-title[b-kxfshqzys0] {
     font-size: 18px;
@@ -495,7 +518,18 @@ nav[b-gx4u4j2n2e] {
 .task-column-border[b-kxfshqzys0] {
     height: 3px;
     width: 100%;
+}
+
+.to-do .task-column-border[b-kxfshqzys0]{
     background-color: #5030E5;
+}
+
+.in-progress .task-column-border[b-kxfshqzys0]{
+    background-color: #FFA500;
+}
+
+.done .task-column-border[b-kxfshqzys0]{
+    background-color: #8BC48A;
 }
 /* _content/ProjectPulse.Web/Components/Pages/Register.razor.rz.scp.css */
 .login-container[b-wzjoklqnvg] {
