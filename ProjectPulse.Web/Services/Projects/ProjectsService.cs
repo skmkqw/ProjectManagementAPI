@@ -24,6 +24,16 @@ public class ProjectsService : IProjectsService
         throw new ApplicationException("Unable to fetch user's projects");
     }
 
+    public async Task<ProjectDto?> GetProject(Guid projectId)
+    {
+        var response = await _httpClient.GetAsync($"api/projects/{projectId}");
+        if (response.IsSuccessStatusCode)
+        {
+            return await response.Content.ReadFromJsonAsync<ProjectDto>();
+        }
+        throw new ApplicationException("Unable to fetch user's projects");
+    }
+
     public async Task CreateProject(CreateProjectDto newProject, string userId)
     {
         var httpContent = new StringContent(JsonConvert.SerializeObject(newProject), Encoding.UTF8, "application/json");

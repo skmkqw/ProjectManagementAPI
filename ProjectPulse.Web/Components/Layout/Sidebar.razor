@@ -1,9 +1,12 @@
-﻿@using ProjectPulse.DataAccess.DTOs.Projects
+﻿@using Microsoft.EntityFrameworkCore.Metadata.Internal
+@using ProjectPulse.DataAccess.DTOs.Projects
 @using ProjectPulse.Web.Services.Projects
 @using ProjectPulse.Web.Services.Users
 @rendermode InteractiveServer
 
+
 @inject IJSRuntime JS
+@inject NavigationManager Navigation
 @inject IUsersService UsersService
 @inject IProjectsService ProjectsService
 
@@ -41,7 +44,7 @@
             <div class="sidebar-projects-content">
                 @foreach (ProjectDto project in Projects!)
                 {
-                    <div class="sidebar-projects-content-item" @onclick="HandleProjectClick">
+                    <div class="sidebar-projects-content-item" @onclick="() => HandleProjectClick(project.Id)">
                         <span class="project-circle"></span>
                         <p>@project.Name</p>
                     </div> 
@@ -87,8 +90,9 @@
         await JS.InvokeVoidAsync("HandleCloseSidebar");
     }
 
-    private async Task HandleProjectClick()
+    private async Task HandleProjectClick(Guid projectId)
     {
         await JS.InvokeVoidAsync("HandleProjectTabClick");
+        Navigation.NavigateTo($"/Project/{projectId}");
     }
 }

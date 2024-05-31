@@ -1,8 +1,13 @@
-@page "/Project"
+@page "/Project/{projectId:guid}"
+@using ProjectPulse.DataAccess.DTOs.Projects
+@using ProjectPulse.Web.Services.Projects
+
+@inject NavigationManager Navigation
+@inject IProjectsService ProjectsService
 
 <section class="projects-wrapper">
     <div class="projects-top">
-        <h1>Project</h1>
+        <h1>@_project.Name</h1>
         <div class="projects-buttons">
             <div class="projects-button-item">
                 <img src="img/edit.svg" alt="">
@@ -74,4 +79,20 @@
 
 @code {
     
+    [Parameter]
+    public Guid ProjectId { get; set; }
+
+    private ProjectDto _project { get; set; } = new ();
+
+    protected override async Task OnInitializedAsync()
+    {
+        ProjectDto? project = await ProjectsService.GetProject(ProjectId);
+        if (project == null)
+        {
+            Navigation.NavigateTo("/Error");
+        }
+
+        _project = project!;
+    }
+
 }
