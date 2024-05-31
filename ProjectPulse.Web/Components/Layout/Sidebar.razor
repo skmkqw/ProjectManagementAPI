@@ -3,6 +3,7 @@
 @using ProjectPulse.Web.Services.Users
 @rendermode InteractiveServer
 
+@inject IJSRuntime JS
 @inject IUsersService UsersService
 @inject IProjectsService ProjectsService
 
@@ -18,7 +19,7 @@
                     <img src="img/logo.svg" alt="">
                     <p>ProjectPulse</p>
                 </div>
-                <div class="sidebar-head-hide" id="hide-sidebar">
+                <div class="sidebar-head-hide" id="hide-sidebar" @onclick="HideSidebar">
                     <img src="img/hide_sidebar.svg" alt="">
                 </div>
             </div>
@@ -40,7 +41,7 @@
             <div class="sidebar-projects-content">
                 @foreach (ProjectDto project in Projects!)
                 {
-                    <div class="sidebar-projects-content-item">
+                    <div class="sidebar-projects-content-item" @onclick="HandleProjectClick">
                         <span class="project-circle"></span>
                         <p>@project.Name</p>
                     </div> 
@@ -79,5 +80,15 @@
         string userId = UsersService.GetUserId();
         await ProjectsService.CreateProject(newProject, userId);
         await GetProjects(userId);
+    }
+
+    private async Task HideSidebar()
+    {
+        await JS.InvokeVoidAsync("HandleCloseSidebar");
+    }
+
+    private async Task HandleProjectClick()
+    {
+        await JS.InvokeVoidAsync("HandleProjectTabClick");
     }
 }

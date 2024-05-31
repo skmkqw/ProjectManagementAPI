@@ -1,5 +1,6 @@
 @using ProjectPulse.Web.Services.Users
 
+@inject IJSRuntime JS
 @inject IUsersService UsersService
 @inject NavigationManager Navigation
 
@@ -7,7 +8,7 @@
 
 <nav class="border-bottom" id="navbar">
     <div class="nav-left">
-        <div class="sidebar-show sidebar-show-hidden" id="show-sidebar">
+        <div class="sidebar-show sidebar-show-hidden" id="show-sidebar" @onclick="OpenSidebar">
             <img src="img/hide_sidebar.svg" alt="">
         </div>
         <div class="nav-search">
@@ -52,5 +53,10 @@
     private void Logout()
     {
         Navigation.NavigateTo("/Logout");
+    }
+
+    private async Task OpenSidebar()
+    {
+        await JS.InvokeVoidAsync("HandleOpenSidebar");
     }
 }

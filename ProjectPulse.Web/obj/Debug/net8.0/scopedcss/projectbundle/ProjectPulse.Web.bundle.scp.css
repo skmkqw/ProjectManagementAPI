@@ -2,19 +2,6 @@
 .modal.fade[b-d2gkava784] {
     display: none;
 }
-
-.modal.fade.show[b-d2gkava784] {
-    display: block;
-    background-color: rgba(0, 0, 0, 0.5);
-}
-
-.modal-dialog[b-d2gkava784] {
-    position: relative;
-    margin: auto;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
 [b-d2gkava784] .add-project-form {
     display: flex;
     flex-direction: column;

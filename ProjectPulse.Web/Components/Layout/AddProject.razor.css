@@ -1,19 +1,6 @@
 .modal.fade {
     display: none;
 }
-
-.modal.fade.show {
-    display: block;
-    background-color: rgba(0, 0, 0, 0.5);
-}
-
-.modal-dialog {
-    position: relative;
-    margin: auto;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
 ::deep .add-project-form {
     display: flex;
     flex-direction: column;
