@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "48vC1c4HkFI222+KSPXdyvm6DPG1aEsJ1HWviD3EQrw=",
+  "Hash": "jIzrah7IyhZ4SMyhtTI8VRDABXxi63zqSWSK0yeSd1g=",
   "Source": "ProjectPulse.Web",
   "BasePath": "_content/ProjectPulse.Web",
   "Mode": "Default",
@@ -150,6 +150,25 @@
       "OriginalItemSpec": "wwwroot/img/calendar.svg"
     },
     {
+      "Identity": "/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/wwwroot/img/edit.svg",
+      "SourceId": "ProjectPulse.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/wwwroot/",
+      "BasePath": "_content/ProjectPulse.Web",
+      "RelativePath": "img/edit.svg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/img/edit.svg"
+    },
+    {
       "Identity": "/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/wwwroot/img/hide_sidebar.svg",
       "SourceId": "ProjectPulse.Web",
       "SourceType": "Discovered",
@@ -186,6 +205,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/img/home.svg"
+    },
+    {
+      "Identity": "/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/wwwroot/img/link.svg",
+      "SourceId": "ProjectPulse.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/wwwroot/",
+      "BasePath": "_content/ProjectPulse.Web",
+      "RelativePath": "img/link.svg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/img/link.svg"
     },
     {
       "Identity": "/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/wwwroot/img/logo.png",
@@ -319,6 +357,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/img/notification.svg"
+    },
+    {
+      "Identity": "/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/wwwroot/img/plus.svg",
+      "SourceId": "ProjectPulse.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/wwwroot/",
+      "BasePath": "_content/ProjectPulse.Web",
+      "RelativePath": "img/plus.svg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/img/plus.svg"
     },
     {
       "Identity": "/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/wwwroot/img/search.svg",

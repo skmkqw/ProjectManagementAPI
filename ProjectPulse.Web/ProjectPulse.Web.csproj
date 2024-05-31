@@ -13,7 +13,6 @@
 
     <ItemGroup>
       <Folder Include="Components\Modals\" />
-      <Folder Include="wwwroot\img\" />
     </ItemGroup>
 
     <ItemGroup>
