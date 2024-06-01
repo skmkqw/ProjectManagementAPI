@@ -1,0 +1,25 @@
+.modal.fade {
+    display: none;
+}
+::deep .add-project-form {
+    display: flex;
+    flex-direction: column;
+}
+::deep .add-project-form-group {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.add-project-form-group > label{
+    font-weight: bold;
+}
+
+::deep .add-project-form-submit {
+    margin-top: 20px;
+    width: 100%;
+}
+::deep .add-project-form-submit > button{
+    width: 100%;
+}

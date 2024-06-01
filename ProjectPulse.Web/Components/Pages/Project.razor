@@ -15,9 +15,14 @@
 
 @rendermode InteractiveServer
 
-@if (DisplayModal)
+@if (DisplayAddTaskModal)
 {
-    <AddTask DisplayModal="DisplayModal" OnClose="OnModalClose" CreateTaskCallback="CreateTask"></AddTask>
+    <AddTask DisplayModal="DisplayAddTaskModal" OnClose="OnAddTaskModalClose" CreateTaskCallback="CreateTask"></AddTask>
+}
+
+@if (DisplayEditProjectModal)
+{
+    <EditProject DisplayModal="DisplayEditProjectModal" OnClose="OnEditProjectModalClose" EditProjectCallback="EditProject"></EditProject>
 }
 
 <section class="projects-wrapper">
@@ -25,7 +30,7 @@
         <div class="projects-top-head">
             <h1>@_project.Name</h1>
             <div class="projects-buttons">
-                <div class="projects-button-item">
+                <div class="projects-button-item" @onclick="ShowEditProjectModal">
                     <img src="img/edit.svg" alt="">
                 </div>
                 <div class="projects-button-item">
@@ -58,7 +63,7 @@
                     </div>
                     <div class="task-column-right">
                         <div class="task-column-icon projects-button-item">
-                            <img src="img/plus.svg" alt="" @onclick="ShowModal">
+                            <img src="img/plus.svg" alt="" @onclick="ShowAddTaskModal">
                         </div>
                     </div>
                 </div>
@@ -283,22 +288,44 @@
         StateHasChanged();
     }
 
+    private async Task EditProject(UpdateProjectDto updateProject)
+    {
+        await ProjectsService.UpdateProject(updateProject, ProjectId.ToString());
+        TasksToDo = new List<TaskDto>();
+        TasksInProgress = new List<TaskDto>();
+        TasksDone = new List<TaskDto>();
+        await OnInitializedAsync();
+        StateHasChanged();
+    }
+
     private async Task DeleteProject()
     {
         await ProjectsService.DeleteProject(ProjectId.ToString());
         Navigation.NavigateTo("/");
     }
     
-    public bool DisplayModal { get; set; }
+    public bool DisplayAddTaskModal { get; set; }
 
-    private void ShowModal()
+    private void ShowAddTaskModal()
     {
-        DisplayModal = true;
+        DisplayAddTaskModal = true;
     }
 
-    private void OnModalClose(bool isOpen)
+    private void OnAddTaskModalClose(bool isOpen)
     {
-        DisplayModal = isOpen;
+        DisplayAddTaskModal = isOpen;
+    }
+    
+    public bool DisplayEditProjectModal { get; set; }
+
+    private void ShowEditProjectModal()
+    {
+        DisplayEditProjectModal = true;
+    }
+
+    private void OnEditProjectModalClose(bool isOpen)
+    {
+        DisplayEditProjectModal = isOpen;
     }
 
 }

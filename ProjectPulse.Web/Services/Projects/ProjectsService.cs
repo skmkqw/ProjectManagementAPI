@@ -45,6 +45,17 @@ public class ProjectsService : IProjectsService
         }
     }
 
+    public async Task UpdateProject(UpdateProjectDto updatedProject, string projectId)
+    {
+        var httpContent = new StringContent(JsonConvert.SerializeObject(updatedProject), Encoding.UTF8, "application/json");
+        var response = await _httpClient.PutAsync($"api/projects/{projectId}", httpContent);
+        if (!response.IsSuccessStatusCode)
+        {
+            Console.WriteLine(await response.Content.ReadAsStringAsync());
+            throw new ApplicationException("Failed to delete a project");
+        }
+    }
+
     public async Task DeleteProject(string projectId)
     {
         var response = await _httpClient.DeleteAsync($"api/projects/{projectId}");

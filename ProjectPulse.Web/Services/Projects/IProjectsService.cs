@@ -9,6 +9,7 @@ public interface IProjectsService
     public Task<ProjectDto?> GetProject(Guid projectId);
 
     public Task CreateProject(CreateProjectDto newProject, string userId);
-    
+
+    public Task UpdateProject(UpdateProjectDto updatedProject, string projectId);
     public Task DeleteProject(string projectId);
 }

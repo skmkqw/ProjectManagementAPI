@@ -99,3 +99,4 @@
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/obj/Debug/net8.0/ProjectPulse.Web.pdb
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/obj/Debug/net8.0/ProjectPulse.Web.genruntimeconfig.cache
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/obj/Debug/net8.0/ref/ProjectPulse.Web.dll
+/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/obj/Debug/net8.0/scopedcss/Components/Layout/EditProject.razor.rz.scp.css
