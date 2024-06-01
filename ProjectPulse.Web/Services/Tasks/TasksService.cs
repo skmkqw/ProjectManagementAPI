@@ -1,5 +1,6 @@
 using System.Text;
 using Newtonsoft.Json;
+using ProjectPulse.Core.Models;
 using ProjectPulse.DataAccess.DTOs.Tasks;
 
 namespace ProjectPulse.Web.Services.Tasks;
@@ -31,6 +32,26 @@ public class TasksService : ITasksService
         {
             Console.WriteLine(await response.Content.ReadAsStringAsync());
             throw new ApplicationException("Failed to create a task");
+        }
+    }
+
+    public async Task AssignUser(string taskId, string userId)
+    {
+        var response = await _httpClient.PutAsync($"api/tasks/{taskId}/assign_user?userId={userId}", null);
+        if (!response.IsSuccessStatusCode)
+        {
+            Console.WriteLine(await response.Content.ReadAsStringAsync());
+            throw new ApplicationException("Failed to assign user to a task");
+        }
+    }
+
+    public async Task ChangeStatus(string taskId, TaskStatuses status)
+    {
+        var response = await _httpClient.PatchAsync($"api/tasks/{taskId}/status?status={status}", null);
+        if (!response.IsSuccessStatusCode)
+        {
+            Console.WriteLine(await response.Content.ReadAsStringAsync());
+            throw new ApplicationException("Failed to change task status");
         }
     }
 

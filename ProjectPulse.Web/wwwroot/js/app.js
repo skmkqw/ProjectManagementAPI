@@ -1,3 +1,12 @@
+function AlertUserAssignmentSuccess()
+{
+    alert("Assigned user for a task");
+}
+
+function AlertChangeStatusFailed()
+{
+    alert("Assign user to a task before changing it's status");
+}
 function AdjustSidebar() {
     console.log("adjust sidebar invoked")
     const sidebar = document.getElementById('sidebar');

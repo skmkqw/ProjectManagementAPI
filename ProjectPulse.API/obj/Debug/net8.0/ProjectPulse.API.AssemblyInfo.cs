@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ProjectPulse.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d2e15b56fe7b960d8649d9498d55e368fefad9e9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d80fc988c995e8c36fa38e631abdac980fc43512")]
 [assembly: System.Reflection.AssemblyProductAttribute("ProjectPulse.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ProjectPulse.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

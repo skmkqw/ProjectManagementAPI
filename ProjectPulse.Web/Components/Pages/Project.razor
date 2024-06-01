@@ -5,8 +5,11 @@
 @using ProjectPulse.Web.Services.Projects
 @using ProjectPulse.Web.Services.Tasks
 @using ProjectPulse.Web.Components.Layout
+@using ProjectPulse.Web.Services.Users
 
+@inject IJSRuntime JS
 @inject NavigationManager Navigation
+@inject IUsersService UsersService
 @inject ITasksService TasksService
 @inject IProjectsService ProjectsService
 
@@ -67,6 +70,12 @@
                             <div class="task-card-head">
                                 <p class="task-title">@task.Title</p>
                                 <div class="task-buttons">
+                                    <div class="projects-button-item" @onclick="() => AssignSelf(task.Id.ToString())">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4z" stroke="#5030E5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M4 18c0-2.21 1.79-4 4-4h8c2.21 0 4 1.79 4 4v2H4v-2z" stroke="#5030E5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </div>
                                     <div class="projects-button-item" @onclick="() => DeleteTask(task.Id)">
                                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M3 6H5H21" stroke="#5030E5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -234,6 +243,13 @@
         TasksDone = new List<TaskDto>();
         SortTasks(tasks);
         StateHasChanged();
+    }
+
+    private async Task AssignSelf(string taskId)
+    {
+        string userId = UsersService.GetUserId();
+        await TasksService.AssignUser(taskId, userId);
+        await JS.InvokeVoidAsync("AlertUserAssignmentSuccess");
     }
 
     private async Task DeleteTask(Guid taskId)
