@@ -40,7 +40,6 @@ public class ProjectsController : ControllerBase
         return NotFound("Project not found");
     }
     
-    [Authorize]
     [HttpGet("{projectId}/tasks")]
     public async Task<IActionResult> GetTasks([FromRoute] Guid projectId, [FromQuery] Guid? userId = null)
     {
