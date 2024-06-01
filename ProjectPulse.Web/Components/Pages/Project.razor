@@ -194,13 +194,20 @@
 
         _project = project!;
 
+        var tasks = await GetTasks();
+        SortTasks(tasks);
+        
+    }
+
+    private async Task<List<TaskDto>> GetTasks()
+    {
         var tasks = await TasksService.GetTasks(ProjectId.ToString());
         if (tasks == null)
         {
             Navigation.NavigateTo("/Error");
         }
-        SortTasks(tasks!);
-        
+
+        return tasks!;
     }
 
     private void SortTasks(List<TaskDto> tasks)
@@ -224,7 +231,13 @@
     
     private async Task CreateTask(CreateTaskDto newTask)
     {
-        await Task.Delay(100);
+        await TasksService.CreateTask(newTask, ProjectId.ToString());
+        var tasks = await GetTasks();
+        TasksToDo = new List<TaskDto>();
+        TasksInProgress = new List<TaskDto>();
+        TasksDone = new List<TaskDto>();
+        SortTasks(tasks);
+        StateHasChanged();
     }
     
     public bool DisplayModal { get; set; }
