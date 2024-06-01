@@ -9,4 +9,6 @@ public interface IProjectsService
     public Task<ProjectDto?> GetProject(Guid projectId);
 
     public Task CreateProject(CreateProjectDto newProject, string userId);
+    
+    public Task DeleteProject(string projectId);
 }

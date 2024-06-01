@@ -44,4 +44,14 @@ public class ProjectsService : IProjectsService
             throw new ApplicationException("Failed to create a project");
         }
     }
+
+    public async Task DeleteProject(string projectId)
+    {
+        var response = await _httpClient.DeleteAsync($"api/projects/{projectId}");
+        if (!response.IsSuccessStatusCode)
+        {
+            Console.WriteLine(await response.Content.ReadAsStringAsync());
+            throw new ApplicationException("Failed to delete a project");
+        }
+    }
 }
