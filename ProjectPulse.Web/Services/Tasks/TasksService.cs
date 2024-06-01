@@ -33,4 +33,14 @@ public class TasksService : ITasksService
             throw new ApplicationException("Failed to create a task");
         }
     }
+
+    public async Task DeleteTask(string taskId)
+    {       
+        var response = await _httpClient.DeleteAsync($"api/tasks/{taskId}");
+        if (!response.IsSuccessStatusCode)
+        {
+            Console.WriteLine(await response.Content.ReadAsStringAsync());
+            throw new ApplicationException("Failed to delete a task");
+        }
+    }
 }

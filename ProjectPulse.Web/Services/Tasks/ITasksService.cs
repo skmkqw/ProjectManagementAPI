@@ -8,4 +8,6 @@ public interface ITasksService
 
 
     public Task CreateTask(CreateTaskDto newTask, string projectId);
+
+    public Task DeleteTask(string taskId);
 }
