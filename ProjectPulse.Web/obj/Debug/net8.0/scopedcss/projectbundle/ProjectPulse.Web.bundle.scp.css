@@ -24,6 +24,32 @@
 [b-d2gkava784] .add-project-form-submit > button{
     width: 100%;
 }
+/* _content/ProjectPulse.Web/Components/Layout/AddTask.razor.rz.scp.css */
+.modal.fade[b-3npfz1dw5r] {
+    display: none;
+}
+[b-3npfz1dw5r] .add-project-form {
+    display: flex;
+    flex-direction: column;
+}
+[b-3npfz1dw5r] .add-project-form-group {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.add-project-form-group > label[b-3npfz1dw5r]{
+    font-weight: bold;
+}
+
+[b-3npfz1dw5r] .add-project-form-submit {
+    margin-top: 20px;
+    width: 100%;
+}
+[b-3npfz1dw5r] .add-project-form-submit > button{
+    width: 100%;
+}
 /* _content/ProjectPulse.Web/Components/Layout/LogInLayout.razor.rz.scp.css */
 .login-wrapper[b-ojknlplxnm] {
     display: flex;

@@ -58,6 +58,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9MYXlvdXQvQWRkUHJvamVjdC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = b-d2gkava784
 
+[/Users/skmkqw/Documents/C\# Learning/ProjectManagementAPI/ProjectPulse.Web/Components/Layout/AddTask.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9MYXlvdXQvQWRkVGFzay5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-3npfz1dw5r
+
 [/Users/skmkqw/Documents/C\# Learning/ProjectManagementAPI/ProjectPulse.Web/Components/Layout/LogInLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9MYXlvdXQvTG9nSW5MYXlvdXQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-ojknlplxnm
