@@ -9,7 +9,7 @@ namespace ProjectPulse.API.Controllers;
 
 [ApiController]
 [Route("/api/accounts")]
-public class AccountController(UserManager<AppUser> userManager, IConfiguration configuration, IAccountsService accountsService) : ControllerBase
+public class AccountController(IAccountsService accountsService) : ControllerBase
 {
     [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] AddUserDto registerDto)

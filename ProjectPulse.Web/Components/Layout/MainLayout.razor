@@ -3,6 +3,7 @@
 @using ProjectPulse.Web.Services.Users
 @inherits LayoutComponentBase
 
+@inject NavigationManager Navigation
 @inject IUsersService UsersService
 @inject IProjectsService ProjectsService
 
@@ -32,6 +33,10 @@
     protected override async Task OnInitializedAsync()
     {
         string userId = UsersService.GetUserId();
+        if (userId == "User ID not found")
+        {
+            Navigation.NavigateTo("account/login");
+        }
         var projects = await ProjectsService.GetProjects(userId);
         Projects = projects!;
     }

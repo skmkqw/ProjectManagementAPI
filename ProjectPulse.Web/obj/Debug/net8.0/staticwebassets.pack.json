@@ -25,8 +25,16 @@
       "PackagePath": "staticwebassets/img/calendar.svg"
     },
     {
+      "Id": "/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/wwwroot/img/comment.svg",
+      "PackagePath": "staticwebassets/img/comment.svg"
+    },
+    {
       "Id": "/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/wwwroot/img/edit.svg",
       "PackagePath": "staticwebassets/img/edit.svg"
+    },
+    {
+      "Id": "/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/wwwroot/img/files.svg",
+      "PackagePath": "staticwebassets/img/files.svg"
     },
     {
       "Id": "/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/wwwroot/img/hide_sidebar.svg",
@@ -71,6 +79,10 @@
     {
       "Id": "/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/wwwroot/img/plus.svg",
       "PackagePath": "staticwebassets/img/plus.svg"
+    },
+    {
+      "Id": "/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/wwwroot/img/reposible.png",
+      "PackagePath": "staticwebassets/img/reposible.png"
     },
     {
       "Id": "/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/wwwroot/img/search.svg",

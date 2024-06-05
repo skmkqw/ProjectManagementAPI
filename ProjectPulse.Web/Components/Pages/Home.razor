@@ -1,6 +1,12 @@
 ﻿@page "/"
-@attribute [Authorize]
+@using ProjectPulse.Web.Services.Users
+
+@inject NavigationManager Navigation
+@inject  IUsersService UsersService
 @inject IHttpContextAccessor HttpContextAccessor
+
+@attribute [Authorize]
+
 
 <PageTitle>Home</PageTitle>
 
@@ -24,20 +30,14 @@ Your ID is: @UserId
 
     private void GetUserName()
     {
-        if (HttpContextAccessor.HttpContext!.Request.Cookies.TryGetValue("UserName", out var username))
-        {
-            UserName = username;
-        }
+        UserName = UsersService.GetUserName();
 
         StateHasChanged();
     }
     
     private void GetUserId()
     {
-        if (HttpContextAccessor.HttpContext!.Request.Cookies.TryGetValue("UserId", out var userId))
-        {
-            UserId = userId;
-        }
+        UserId = UsersService.GetUserId();
 
         StateHasChanged();
     }
