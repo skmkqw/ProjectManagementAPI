@@ -45,26 +45,25 @@
 }
 
 .dropdown-toggle-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     font-weight: bold;
     font-size: 18px;
-    cursor: pointer;
+    border-color: transparent;
+    padding: 0;
+    outline: none;
+    box-shadow: none;
+}
+
+.btn:first-child:active {
+    border-color: transparent;
+}
+
+.btn:active:focus {
+    box-shadow: none;
 }
 
 .dropdown-menu {
-    display: none;
-    position: absolute;
-    padding: 15px;
-    right: 30px;
-    background-color: white;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-    z-index: 1;
+    padding: 10px;
 }
-
 .dropdown-menu-item  {
     color: #787486;
     display: flex;
@@ -74,6 +73,8 @@
     cursor: pointer;
     padding: 4px;
     transition: all 0.3s ease;
+    --bs-dropdown-link-hover-bg: #ffffff;
+    --bs-dropdown-link-active-bg: #ffffff;
 }
 
 .dropdown-menu-item > p {
@@ -86,13 +87,9 @@
 
 .dropdown-menu-item :hover {
     color: black;
+    background-color: #ffffff;
 }
 
-.dropdown-menu.show {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
 
 .task-title {
     font-size: 18px;
