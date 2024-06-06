@@ -1,7 +1,7 @@
 .projects-wrapper {
     display: flex;
     flex-direction: column;
-    padding: 45px 45px 0;
+    padding: 15px 30px 0;
     gap: 40px;
     height: 100%;
 }
@@ -12,13 +12,40 @@
     gap: 20px;
 }
 
-.projects-top-head {
+.projects-top-head, .projects-top-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.projects-top-footer-left, .projects-top-head-right, .projects-top-head-left {
     display: flex;
     align-items: center;
     gap: 20px;
 }
 
-.projects-top-footer {
+.projects-invite {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #5030E5;
+}
+
+.project-filter {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    border: 1px #787486 solid;
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 16px;
+    color: #787486;
+    padding: 12px;
+}
+
+.projects-top-middle {
     color: #787486;
 }
 
