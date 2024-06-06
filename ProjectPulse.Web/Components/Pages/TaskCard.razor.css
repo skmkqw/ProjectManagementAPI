@@ -38,9 +38,60 @@
 }
 
 .task-buttons {
+    position: relative;
     display: flex;
     align-items: center;
     gap: 8px;
+}
+
+.dropdown-toggle-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    padding: 15px;
+    right: 30px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-menu-item  {
+    color: #787486;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 4px;
+    transition: all 0.3s ease;
+}
+
+.dropdown-menu-item > p {
+    width: 100%;
+}
+
+#delete {
+    border-bottom: none;
+}
+
+.dropdown-menu-item :hover {
+    color: black;
+}
+
+.dropdown-menu.show {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
 .task-title {

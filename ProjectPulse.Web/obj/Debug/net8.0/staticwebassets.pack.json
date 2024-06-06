@@ -33,6 +33,10 @@
       "PackagePath": "staticwebassets/img/edit.svg"
     },
     {
+      "Id": "/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/wwwroot/img/editgray.svg",
+      "PackagePath": "staticwebassets/img/editgray.svg"
+    },
+    {
       "Id": "/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/wwwroot/img/files.svg",
       "PackagePath": "staticwebassets/img/files.svg"
     },
