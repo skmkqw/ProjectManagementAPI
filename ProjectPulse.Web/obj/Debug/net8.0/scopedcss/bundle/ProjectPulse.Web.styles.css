@@ -1,82 +1,136 @@
 @import '_content/Blazored.Toast/Blazored.Toast.bundle.scp.css';
 
-/* _content/ProjectPulse.Web/Components/Layout/AddProject.razor.rz.scp.css */
-.modal.fade[b-d2gkava784] {
-    display: none;
+/* _content/ProjectPulse.Web/Components/Components/TaskCard.razor.rz.scp.css */
+.projects-buttons[b-nkcadq0xwp] {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
-[b-d2gkava784] .add-project-form {
+
+.projects-button-item[b-nkcadq0xwp] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 7px;
+    border-radius: 20%;
+    color: #5030E5;
+    font-weight: bold;
+    background-color: rgba(80, 48, 229, 0.2);
+}
+
+.task-card[b-nkcadq0xwp] {
+    width: 100%;
     display: flex;
     flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 25px;
 }
-[b-d2gkava784] .add-project-form-group {
-    margin-top: 20px;
+
+.task-card-head[b-nkcadq0xwp], .task-card-footer[b-nkcadq0xwp] {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.task-card-main[b-nkcadq0xwp] {
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
-.add-project-form-group > label[b-d2gkava784]{
+.task-buttons[b-nkcadq0xwp] {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.dropdown-toggle-button[b-nkcadq0xwp] {
     font-weight: bold;
+    font-size: 18px;
+    border-color: transparent;
+    padding: 0;
+    outline: none;
+    box-shadow: none;
 }
 
-[b-d2gkava784] .add-project-form-submit {
-    margin-top: 20px;
-    width: 100%;
+.btn:first-child:active[b-nkcadq0xwp] {
+    border-color: transparent;
 }
-[b-d2gkava784] .add-project-form-submit > button{
-    width: 100%;
+
+.btn:active:focus[b-nkcadq0xwp] {
+    box-shadow: none;
 }
-/* _content/ProjectPulse.Web/Components/Layout/AddTask.razor.rz.scp.css */
-.modal.fade[b-3npfz1dw5r] {
-    display: none;
+
+.dropdown-menu[b-nkcadq0xwp] {
+    padding: 10px;
 }
-[b-3npfz1dw5r] .add-project-form {
+.dropdown-menu-item[b-nkcadq0xwp]  {
+    color: #787486;
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    gap: 7px;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 4px;
+    transition: all 0.3s ease;
+    --bs-dropdown-link-hover-bg: #ffffff;
+    --bs-dropdown-link-active-bg: #ffffff;
 }
-[b-3npfz1dw5r] .add-project-form-group {
-    margin-top: 20px;
+
+.dropdown-menu-item > p[b-nkcadq0xwp] {
+    width: 100%;
+}
+
+#delete[b-nkcadq0xwp] {
+    border-bottom: none;
+}
+
+.dropdown-menu-item :hover[b-nkcadq0xwp] {
+    color: black;
+    background-color: #ffffff;
+}
+
+
+.task-title[b-nkcadq0xwp] {
+    font-size: 18px;
+    color: #0D062D;
+}
+
+.task-description[b-nkcadq0xwp] {
+    font-size: 12px;
+    color: #787486;
+}
+
+.task-priority[b-nkcadq0xwp] {
     display: flex;
-    flex-direction: column;
-    gap: 15px;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    font-weight: 500;
+    font-size: 12px;
+    border-radius: 20%;
+    color: #5030E5;
+    background-color: rgba(80, 48, 229, 0.2);
 }
 
-.add-project-form-group > label[b-3npfz1dw5r]{
-    font-weight: bold;
-}
-
-[b-3npfz1dw5r] .add-project-form-submit {
-    margin-top: 20px;
-    width: 100%;
-}
-[b-3npfz1dw5r] .add-project-form-submit > button{
-    width: 100%;
-}
-/* _content/ProjectPulse.Web/Components/Layout/EditProject.razor.rz.scp.css */
-.modal.fade[b-q51z5uytmc] {
-    display: none;
-}
-[b-q51z5uytmc] .add-project-form {
+.task-additional[b-nkcadq0xwp] {
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    gap: 12px;
 }
-[b-q51z5uytmc] .add-project-form-group {
-    margin-top: 20px;
+
+.task-additional-item[b-nkcadq0xwp] {
     display: flex;
-    flex-direction: column;
-    gap: 15px;
+    align-items: center;
+    gap: 5px;
 }
 
-.add-project-form-group > label[b-q51z5uytmc]{
-    font-weight: bold;
-}
-
-[b-q51z5uytmc] .add-project-form-submit {
-    margin-top: 20px;
-    width: 100%;
-}
-[b-q51z5uytmc] .add-project-form-submit > button{
-    width: 100%;
+.task-additional-item-text[b-nkcadq0xwp] {
+    font-size: 12px;
+    color: #787486;
 }
 /* _content/ProjectPulse.Web/Components/Layout/LogInLayout.razor.rz.scp.css */
 .login-wrapper[b-ojknlplxnm] {
@@ -289,6 +343,32 @@ nav[b-gx4u4j2n2e] {
 [b-shfs6p9qnm] .sidebar-options-content-item-active > p {
     color: #0D062D;
 }
+/* _content/ProjectPulse.Web/Components/Layout/ProjectLink.razor.rz.scp.css */
+[b-m1d4zgzfmc] .sidebar-projects-content-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 16px;
+    color: #787486;
+    text-decoration: none;
+    padding: 10px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+
+[b-m1d4zgzfmc] .sidebar-projects-content-item-active {
+    background-color: rgba(80, 48, 229, 0.08);
+    border-radius: 15px;
+    color: #0D062D;
+}
+
+[b-m1d4zgzfmc] .project-circle {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 100%;
+}
 /* _content/ProjectPulse.Web/Components/Layout/Sidebar.razor.rz.scp.css */
 .sidebar[b-8a4bwrdjto] {
     width: 16vw;
@@ -342,6 +422,84 @@ nav[b-gx4u4j2n2e] {
     color: #787486;
     font-weight: bold;
     margin-bottom: 20px;
+}
+/* _content/ProjectPulse.Web/Components/Modals/AddProject.razor.rz.scp.css */
+.modal.fade[b-528s00llkg] {
+    display: none;
+}
+[b-528s00llkg] .add-project-form {
+    display: flex;
+    flex-direction: column;
+}
+[b-528s00llkg] .add-project-form-group {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.add-project-form-group > label[b-528s00llkg]{
+    font-weight: bold;
+}
+
+[b-528s00llkg] .add-project-form-submit {
+    margin-top: 20px;
+    width: 100%;
+}
+[b-528s00llkg] .add-project-form-submit > button{
+    width: 100%;
+}
+/* _content/ProjectPulse.Web/Components/Modals/AddTask.razor.rz.scp.css */
+.modal.fade[b-dqe8bqqray] {
+    display: none;
+}
+[b-dqe8bqqray] .add-project-form {
+    display: flex;
+    flex-direction: column;
+}
+[b-dqe8bqqray] .add-project-form-group {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.add-project-form-group > label[b-dqe8bqqray]{
+    font-weight: bold;
+}
+
+[b-dqe8bqqray] .add-project-form-submit {
+    margin-top: 20px;
+    width: 100%;
+}
+[b-dqe8bqqray] .add-project-form-submit > button{
+    width: 100%;
+}
+/* _content/ProjectPulse.Web/Components/Modals/EditProject.razor.rz.scp.css */
+.modal.fade[b-ofak1ebs8j] {
+    display: none;
+}
+[b-ofak1ebs8j] .add-project-form {
+    display: flex;
+    flex-direction: column;
+}
+[b-ofak1ebs8j] .add-project-form-group {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.add-project-form-group > label[b-ofak1ebs8j]{
+    font-weight: bold;
+}
+
+[b-ofak1ebs8j] .add-project-form-submit {
+    margin-top: 20px;
+    width: 100%;
+}
+[b-ofak1ebs8j] .add-project-form-submit > button{
+    width: 100%;
 }
 /* _content/ProjectPulse.Web/Components/Pages/Login.razor.rz.scp.css */
 .login-container[b-sapm7f1hii] {
@@ -670,162 +828,4 @@ nav[b-gx4u4j2n2e] {
 .fail-message[b-wzjoklqnvg] {
     margin-top: 5px;
     color: red;
-}
-/* _content/ProjectPulse.Web/Components/Pages/TaskCard.razor.rz.scp.css */
-.projects-buttons[b-qvc1xm1hed] {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.projects-button-item[b-qvc1xm1hed] {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 7px;
-    border-radius: 20%;
-    color: #5030E5;
-    font-weight: bold;
-    background-color: rgba(80, 48, 229, 0.2);
-}
-
-.task-card[b-qvc1xm1hed] {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 25px;
-}
-
-.task-card-head[b-qvc1xm1hed], .task-card-footer[b-qvc1xm1hed] {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.task-card-main[b-qvc1xm1hed] {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.task-buttons[b-qvc1xm1hed] {
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.dropdown-toggle-button[b-qvc1xm1hed] {
-    font-weight: bold;
-    font-size: 18px;
-    border-color: transparent;
-    padding: 0;
-    outline: none;
-    box-shadow: none;
-}
-
-.btn:first-child:active[b-qvc1xm1hed] {
-    border-color: transparent;
-}
-
-.btn:active:focus[b-qvc1xm1hed] {
-    box-shadow: none;
-}
-
-.dropdown-menu[b-qvc1xm1hed] {
-    padding: 10px;
-}
-.dropdown-menu-item[b-qvc1xm1hed]  {
-    color: #787486;
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    text-decoration: none;
-    cursor: pointer;
-    padding: 4px;
-    transition: all 0.3s ease;
-    --bs-dropdown-link-hover-bg: #ffffff;
-    --bs-dropdown-link-active-bg: #ffffff;
-}
-
-.dropdown-menu-item > p[b-qvc1xm1hed] {
-    width: 100%;
-}
-
-#delete[b-qvc1xm1hed] {
-    border-bottom: none;
-}
-
-.dropdown-menu-item :hover[b-qvc1xm1hed] {
-    color: black;
-    background-color: #ffffff;
-}
-
-
-.task-title[b-qvc1xm1hed] {
-    font-size: 18px;
-    color: #0D062D;
-}
-
-.task-description[b-qvc1xm1hed] {
-    font-size: 12px;
-    color: #787486;
-}
-
-.task-priority[b-qvc1xm1hed] {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 6px;
-    font-weight: 500;
-    font-size: 12px;
-    border-radius: 20%;
-    color: #5030E5;
-    background-color: rgba(80, 48, 229, 0.2);
-}
-
-.task-additional[b-qvc1xm1hed] {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.task-additional-item[b-qvc1xm1hed] {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.task-additional-item-text[b-qvc1xm1hed] {
-    font-size: 12px;
-    color: #787486;
-}
-/* _content/ProjectPulse.Web/Components/ProjectLink.razor.rz.scp.css */
-[b-9ikym56fmr] .sidebar-projects-content-item {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    font-size: 16px;
-    color: #787486;
-    text-decoration: none;
-    padding: 10px;
-    transition: all 0.3s ease;
-    cursor: pointer;
-}
-
-
-[b-9ikym56fmr] .sidebar-projects-content-item-active {
-    background-color: rgba(80, 48, 229, 0.08);
-    border-radius: 15px;
-    color: #0D062D;
-}
-
-[b-9ikym56fmr] .project-circle {
-    content: "";
-    width: 8px;
-    height: 8px;
-    border-radius: 100%;
 }

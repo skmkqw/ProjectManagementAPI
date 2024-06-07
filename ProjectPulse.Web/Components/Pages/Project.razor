@@ -5,8 +5,9 @@
 @using ProjectPulse.DataAccess.DTOs.Tasks
 @using ProjectPulse.Web.Services.Projects
 @using ProjectPulse.Web.Services.Tasks
-@using ProjectPulse.Web.Components.Layout
 @using ProjectPulse.Web.Services.Users
+@using ProjectPulse.Web.Components.Components
+@using ProjectPulse.Web.Components.Modals
 
 @inject IToastService ToastService
 @inject NavigationManager Navigation
@@ -272,7 +273,7 @@
             StateHasChanged();
             ToastService.ShowSuccess("Status changed!");
         }
-        catch (ApplicationException e)
+        catch (ApplicationException)
         {
             ToastService.ShowError("Assign user for a task before changing status!");
         }

@@ -54,17 +54,9 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9fSW1wb3J0cy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/skmkqw/Documents/C\# Learning/ProjectManagementAPI/ProjectPulse.Web/Components/Layout/AddProject.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9MYXlvdXQvQWRkUHJvamVjdC5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = b-d2gkava784
-
-[/Users/skmkqw/Documents/C\# Learning/ProjectManagementAPI/ProjectPulse.Web/Components/Layout/AddTask.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9MYXlvdXQvQWRkVGFzay5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = b-3npfz1dw5r
-
-[/Users/skmkqw/Documents/C\# Learning/ProjectManagementAPI/ProjectPulse.Web/Components/Layout/EditProject.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9MYXlvdXQvRWRpdFByb2plY3QucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = b-q51z5uytmc
+[/Users/skmkqw/Documents/C\# Learning/ProjectManagementAPI/ProjectPulse.Web/Components/Components/TaskCard.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9Db21wb25lbnRzL1Rhc2tDYXJkLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-nkcadq0xwp
 
 [/Users/skmkqw/Documents/C\# Learning/ProjectManagementAPI/ProjectPulse.Web/Components/Layout/LogInLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9MYXlvdXQvTG9nSW5MYXlvdXQucmF6b3I=
@@ -82,9 +74,25 @@ build_metadata.AdditionalFiles.CssScope = b-gx4u4j2n2e
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9MYXlvdXQvTmF2SXRlbS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = b-shfs6p9qnm
 
+[/Users/skmkqw/Documents/C\# Learning/ProjectManagementAPI/ProjectPulse.Web/Components/Layout/ProjectLink.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9MYXlvdXQvUHJvamVjdExpbmsucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-m1d4zgzfmc
+
 [/Users/skmkqw/Documents/C\# Learning/ProjectManagementAPI/ProjectPulse.Web/Components/Layout/Sidebar.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9MYXlvdXQvU2lkZWJhci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = b-8a4bwrdjto
+
+[/Users/skmkqw/Documents/C\# Learning/ProjectManagementAPI/ProjectPulse.Web/Components/Modals/AddProject.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9Nb2RhbHMvQWRkUHJvamVjdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-528s00llkg
+
+[/Users/skmkqw/Documents/C\# Learning/ProjectManagementAPI/ProjectPulse.Web/Components/Modals/AddTask.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9Nb2RhbHMvQWRkVGFzay5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-dqe8bqqray
+
+[/Users/skmkqw/Documents/C\# Learning/ProjectManagementAPI/ProjectPulse.Web/Components/Modals/EditProject.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9Nb2RhbHMvRWRpdFByb2plY3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-ofak1ebs8j
 
 [/Users/skmkqw/Documents/C\# Learning/ProjectManagementAPI/ProjectPulse.Web/Components/Pages/Login.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9Mb2dpbi5yYXpvcg==
@@ -101,11 +109,3 @@ build_metadata.AdditionalFiles.CssScope = b-kxfshqzys0
 [/Users/skmkqw/Documents/C\# Learning/ProjectManagementAPI/ProjectPulse.Web/Components/Pages/Register.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9SZWdpc3Rlci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = b-wzjoklqnvg
-
-[/Users/skmkqw/Documents/C\# Learning/ProjectManagementAPI/ProjectPulse.Web/Components/Pages/TaskCard.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9UYXNrQ2FyZC5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = b-qvc1xm1hed
-
-[/Users/skmkqw/Documents/C\# Learning/ProjectManagementAPI/ProjectPulse.Web/Components/ProjectLink.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9Qcm9qZWN0TGluay5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = b-9ikym56fmr
