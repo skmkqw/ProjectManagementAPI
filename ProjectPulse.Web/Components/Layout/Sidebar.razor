@@ -6,6 +6,7 @@
 
 @inject IJSRuntime JS
 @inject NavigationManager Navigation
+@inject IToastService ToastService
 @inject IUsersService UsersService
 @inject IProjectsService ProjectsService
 
@@ -13,6 +14,15 @@
 {
     <AddProject DisplayModal="DisplayModal" OnClose="OnModalClose" CreateProjectCallback="CreateProject"></AddProject>
 }
+
+<BlazoredToasts Timeout="10">
+    <CloseButtonContent>
+        <div>
+            <span>&times;</span>
+        </div>
+    </CloseButtonContent>
+</BlazoredToasts>
+
 <div class="sidebar" id="sidebar">
     <div class="sidebar-content">
         <div class="row border-bottom">
@@ -43,10 +53,7 @@
             <div class="sidebar-projects-content">
                 @foreach (ProjectDto project in Projects!)
                 {
-                    <div class="sidebar-projects-content-item" @onclick="() => HandleProjectClick(project.Id)">
-                        <span class="project-circle"></span>
-                        <p>@project.Name</p>
-                    </div> 
+                    <ProjectLink Title="@project.Name" ProjectId="@project.Id.ToString()"></ProjectLink>
                 }
             </div>
         </div>
@@ -82,6 +89,7 @@
         string userId = UsersService.GetUserId();
         await ProjectsService.CreateProject(newProject, userId);
         await GetProjects(userId);
+        ToastService.ShowSuccess("Project created!");
     }
 
     private async Task HideSidebar()

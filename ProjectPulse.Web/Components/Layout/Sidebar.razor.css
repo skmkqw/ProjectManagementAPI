@@ -42,26 +42,6 @@
     flex-direction: column;
 }
 
-.sidebar-projects-content-item {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    font-size: 16px;
-    color: #787486;
-    text-decoration: none;
-    padding: 10px;
-    transition: all 0.3s ease;
-    cursor: pointer;
-}
-
-
-.sidebar-projects-content-item-active {
-    background-color: rgba(80, 48, 229, 0.08);
-    border-radius: 15px;
-    color: #0D062D;
-}
-
-
 .sidebar-projects-head {
     display: flex;
     align-items: center;
@@ -70,12 +50,4 @@
     color: #787486;
     font-weight: bold;
     margin-bottom: 20px;
-}
-
-.project-circle {
-    content: "";
-    width: 8px;
-    height: 8px;
-    background-color: #0a53be;
-    border-radius: 100%;
 }

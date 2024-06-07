@@ -334,26 +334,6 @@ nav[b-gx4u4j2n2e] {
     flex-direction: column;
 }
 
-.sidebar-projects-content-item[b-8a4bwrdjto] {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    font-size: 16px;
-    color: #787486;
-    text-decoration: none;
-    padding: 10px;
-    transition: all 0.3s ease;
-    cursor: pointer;
-}
-
-
-.sidebar-projects-content-item-active[b-8a4bwrdjto] {
-    background-color: rgba(80, 48, 229, 0.08);
-    border-radius: 15px;
-    color: #0D062D;
-}
-
-
 .sidebar-projects-head[b-8a4bwrdjto] {
     display: flex;
     align-items: center;
@@ -362,14 +342,6 @@ nav[b-gx4u4j2n2e] {
     color: #787486;
     font-weight: bold;
     margin-bottom: 20px;
-}
-
-.project-circle[b-8a4bwrdjto] {
-    content: "";
-    width: 8px;
-    height: 8px;
-    background-color: #0a53be;
-    border-radius: 100%;
 }
 /* _content/ProjectPulse.Web/Components/Pages/Login.razor.rz.scp.css */
 .login-container[b-sapm7f1hii] {
@@ -830,4 +802,31 @@ nav[b-gx4u4j2n2e] {
 .task-additional-item-text[b-qvc1xm1hed] {
     font-size: 12px;
     color: #787486;
+}
+/* _content/ProjectPulse.Web/Components/ProjectLink.razor.rz.scp.css */
+[b-9ikym56fmr] .sidebar-projects-content-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 16px;
+    color: #787486;
+    text-decoration: none;
+    padding: 10px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+
+[b-9ikym56fmr] .sidebar-projects-content-item-active {
+    background-color: rgba(80, 48, 229, 0.08);
+    border-radius: 15px;
+    color: #0D062D;
+}
+
+[b-9ikym56fmr] .project-circle {
+    content: "";
+    width: 8px;
+    height: 8px;
+    background-color: #0a53be;
+    border-radius: 100%;
 }

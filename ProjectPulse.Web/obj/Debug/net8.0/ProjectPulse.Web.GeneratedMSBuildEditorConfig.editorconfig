@@ -105,3 +105,7 @@ build_metadata.AdditionalFiles.CssScope = b-wzjoklqnvg
 [/Users/skmkqw/Documents/C\# Learning/ProjectManagementAPI/ProjectPulse.Web/Components/Pages/TaskCard.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9UYXNrQ2FyZC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = b-qvc1xm1hed
+
+[/Users/skmkqw/Documents/C\# Learning/ProjectManagementAPI/ProjectPulse.Web/Components/ProjectLink.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9Qcm9qZWN0TGluay5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-9ikym56fmr
