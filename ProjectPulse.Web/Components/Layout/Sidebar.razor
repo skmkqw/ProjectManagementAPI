@@ -53,7 +53,8 @@
             <div class="sidebar-projects-content">
                 @foreach (ProjectDto project in Projects!)
                 {
-                    <ProjectLink Title="@project.Name" ProjectId="@project.Id.ToString()"></ProjectLink>
+                    var color = GetProjectColor(project);
+                    <ProjectLink Title="@project.Name" ProjectId="@project.Id.ToString()" ProjectColor="@color"></ProjectLink>
                 }
             </div>
         </div>
@@ -66,6 +67,18 @@
     public List<ProjectDto>? Projects { get; set; } = new ();
     
     public bool DisplayModal { get; set; }
+
+    private string[] _projectColors = { "#5030E5", "#7AC555", "#FFA500", "#E4CCFD", "#76A5EA" };
+    
+    private string GetProjectColor(ProjectDto project)
+    {
+        if (Projects == null || Projects.Count == 0)
+            return _projectColors[0];
+
+        int index = Projects.IndexOf(project);
+        int colorIndex = index % _projectColors.Length;
+        return _projectColors[colorIndex];
+    }
 
     private void ShowModal()
     {

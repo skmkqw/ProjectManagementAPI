@@ -3,7 +3,7 @@
 
 <div>
     <NavLink href="@Href" class="sidebar-projects-content-item" Match="NavLinkMatch.All" activeClass="sidebar-projects-content-item-active" @onclick="HandleProjectTabClick">
-        <span class="project-circle"></span>
+        <span class="project-circle" style="background-color: @ProjectColor"></span>
         <p>@Title</p>
     </NavLink>
 </div>
@@ -16,6 +16,9 @@
 
     [Parameter]
     public string ProjectId { get; set; } = string.Empty;
+    
+    [Parameter]
+    public string ProjectColor { get; set; } = string.Empty;
 
     [Parameter] public string IconPath { get; set; } = string.Empty;
 
