@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "7laemyZXR2Sp3R1xcEAXOo3cRH68uA1mZcFx6pq9yvw=",
+  "Hash": "WjS3fxVXHocEgKePXoHamzgG4KhgKRNplbX6MehWxXE=",
   "Source": "ProjectPulse.Web",
   "BasePath": "_content/ProjectPulse.Web",
   "Mode": "Default",
@@ -16,6 +16,25 @@
     }
   ],
   "Assets": [
+    {
+      "Identity": "/Users/skmkqw/.nuget/packages/blazored.toast/4.2.1/staticwebassets/Blazored.Toast.bundle.scp.css",
+      "SourceId": "Blazored.Toast",
+      "SourceType": "Package",
+      "ContentRoot": "/Users/skmkqw/.nuget/packages/blazored.toast/4.2.1/staticwebassets/",
+      "BasePath": "_content/Blazored.Toast",
+      "RelativePath": "Blazored.Toast.bundle.scp.css",
+      "AssetKind": "All",
+      "AssetMode": "Reference",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "ScopedCss",
+      "AssetTraitValue": "ProjectBundle",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "/Users/skmkqw/.nuget/packages/blazored.toast/4.2.1/staticwebassets/Blazored.Toast.bundle.scp.css"
+    },
     {
       "Identity": "/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/obj/Debug/net8.0/scopedcss/bundle/ProjectPulse.Web.styles.css",
       "SourceId": "ProjectPulse.Web",

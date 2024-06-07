@@ -8,11 +8,17 @@
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/bin/Debug/net8.0/ProjectPulse.Web.pdb
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/bin/Debug/net8.0/Azure.Core.dll
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/bin/Debug/net8.0/Azure.Identity.dll
+/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/bin/Debug/net8.0/Blazored.Toast.dll
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/bin/Debug/net8.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/bin/Debug/net8.0/Microsoft.AspNetCore.Authorization.dll
+/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/bin/Debug/net8.0/Microsoft.AspNetCore.Components.dll
+/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/bin/Debug/net8.0/Microsoft.AspNetCore.Components.Forms.dll
+/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/bin/Debug/net8.0/Microsoft.AspNetCore.Components.Web.dll
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/bin/Debug/net8.0/Microsoft.AspNetCore.Cryptography.Internal.dll
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/bin/Debug/net8.0/Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/bin/Debug/net8.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/bin/Debug/net8.0/Microsoft.AspNetCore.JsonPatch.dll
+/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/bin/Debug/net8.0/Microsoft.AspNetCore.Metadata.dll
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/bin/Debug/net8.0/Microsoft.AspNetCore.Mvc.Razor.Extensions.dll
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/bin/Debug/net8.0/Microsoft.AspNetCore.Razor.Language.dll
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/bin/Debug/net8.0/Microsoft.Bcl.AsyncInterfaces.dll
@@ -25,6 +31,7 @@
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Abstractions.dll
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Relational.dll
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.SqlServer.dll
+/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/bin/Debug/net8.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/bin/Debug/net8.0/Microsoft.Extensions.DependencyModel.dll
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/bin/Debug/net8.0/Microsoft.Extensions.Identity.Core.dll
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/bin/Debug/net8.0/Microsoft.Extensions.Identity.Stores.dll
@@ -37,6 +44,7 @@
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.dll
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/bin/Debug/net8.0/Microsoft.IdentityModel.Tokens.dll
+/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/bin/Debug/net8.0/Microsoft.JSInterop.dll
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/bin/Debug/net8.0/Microsoft.SqlServer.Server.dll
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/bin/Debug/net8.0/Microsoft.Win32.SystemEvents.dll
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/bin/Debug/net8.0/Newtonsoft.Json.dll

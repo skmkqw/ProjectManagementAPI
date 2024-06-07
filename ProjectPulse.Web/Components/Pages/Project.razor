@@ -1,4 +1,5 @@
 @page "/Project/{projectId:guid}"
+@using Blazored.Toast.Configuration
 @using ProjectPulse.Core.Models
 @using ProjectPulse.DataAccess.DTOs.Projects
 @using ProjectPulse.DataAccess.DTOs.Tasks
@@ -7,7 +8,7 @@
 @using ProjectPulse.Web.Components.Layout
 @using ProjectPulse.Web.Services.Users
 
-@inject IJSRuntime JS
+@inject IToastService ToastService
 @inject NavigationManager Navigation
 @inject IUsersService UsersService
 @inject ITasksService TasksService
@@ -24,6 +25,14 @@
 {
     <EditProject DisplayModal="DisplayEditProjectModal" OnClose="OnEditProjectModalClose" EditProjectCallback="EditProject"></EditProject>
 }
+
+<BlazoredToasts Timeout="10">
+    <CloseButtonContent>
+        <div>
+            <span>&times;</span>
+        </div>
+    </CloseButtonContent>
+</BlazoredToasts>
 
 <section class="projects-wrapper">
     <div class="projects-top">
@@ -239,13 +248,14 @@
         TasksDone = new List<TaskDto>();
         SortTasks(tasks);
         StateHasChanged();
+        ToastService.ShowSuccess("Created a new task!");
     }
 
     private async Task AssignSelf(string taskId)
     {
         string userId = UsersService.GetUserId();
         await TasksService.AssignUser(taskId, userId);
-        await JS.InvokeVoidAsync("AlertUserAssignmentSuccess");
+        ToastService.ShowSuccess("Assigned user for a task!", settings => settings.IconType = IconType.None);
     }
 
     private async Task ChangeStatus(TaskStatuses status, string taskId)
@@ -260,10 +270,11 @@
             TasksDone = new List<TaskDto>();
             SortTasks(tasks);
             StateHasChanged();
+            ToastService.ShowSuccess("Status changed!");
         }
         catch (ApplicationException e)
         {
-            await JS.InvokeVoidAsync("AlertChangeStatusFailed");
+            ToastService.ShowError("Assign user for a task before changing status!");
         }
     }
 
@@ -277,6 +288,7 @@
         TasksDone = new List<TaskDto>();
         SortTasks(tasks);
         StateHasChanged();
+        ToastService.ShowSuccess("Deleted a task!");
     }
 
     private async Task EditProject(UpdateProjectDto updateProject)
@@ -287,6 +299,7 @@
         TasksDone = new List<TaskDto>();
         await OnInitializedAsync();
         StateHasChanged();
+        ToastService.ShowSuccess("Project edited!");
     }
 
     private async Task DeleteProject()
