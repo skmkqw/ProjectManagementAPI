@@ -54,3 +54,29 @@ html {
 .darker-border-checkbox.form-check-input {
     border-color: #929292;
 }
+
+
+.modal.fade {
+    display: none;
+}
+
+.modal-body {
+    padding: 0;
+}
+
+.modal-form-container {
+    padding: 20px;
+}
+
+.modal-header {
+    padding: 11px 20px;
+}
+
+.modal-title {
+    font-size: 18px;
+    color: #0D062D;
+}
+
+.modal-content {
+    border-radius: 20px;
+}

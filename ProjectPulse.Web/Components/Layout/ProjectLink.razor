@@ -2,7 +2,7 @@
 @inject NavigationManager Navigation
 
 <div>
-    <NavLink href="@Href" class="sidebar-projects-content-item" Match="NavLinkMatch.All" activeClass="sidebar-projects-content-item-active" @onclick="HandleProjectTabClick">
+    <NavLink href="@Href" class="sidebar-projects-content-item" Match="NavLinkMatch.All" activeClass="sidebar-projects-content-item-active">
         <span class="project-circle" style="background-color: @ProjectColor"></span>
         <p>@Title</p>
     </NavLink>
@@ -21,9 +21,4 @@
     public string ProjectColor { get; set; } = string.Empty;
 
     [Parameter] public string IconPath { get; set; } = string.Empty;
-
-    private async Task HandleProjectTabClick()
-    {
-        await JS.InvokeVoidAsync("HandleProjectTabClick");
-    }
 }

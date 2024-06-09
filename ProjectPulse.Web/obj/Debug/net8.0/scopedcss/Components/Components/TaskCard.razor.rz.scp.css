@@ -1,0 +1,131 @@
+.projects-buttons[b-nkcadq0xwp] {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.projects-button-item[b-nkcadq0xwp] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 7px;
+    border-radius: 20%;
+    color: #5030E5;
+    font-weight: bold;
+    background-color: rgba(80, 48, 229, 0.2);
+}
+
+.task-card[b-nkcadq0xwp] {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 25px;
+}
+
+.task-card-head[b-nkcadq0xwp], .task-card-footer[b-nkcadq0xwp] {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.task-card-main[b-nkcadq0xwp] {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.task-buttons[b-nkcadq0xwp] {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.dropdown-toggle-button[b-nkcadq0xwp] {
+    font-weight: bold;
+    font-size: 18px;
+    border-color: transparent;
+    padding: 0;
+    outline: none;
+    box-shadow: none;
+}
+
+.btn:first-child:active[b-nkcadq0xwp] {
+    border-color: transparent;
+}
+
+.btn:active:focus[b-nkcadq0xwp] {
+    box-shadow: none;
+}
+
+.dropdown-menu[b-nkcadq0xwp] {
+    padding: 10px;
+}
+.dropdown-menu-item[b-nkcadq0xwp]  {
+    color: #787486;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 4px;
+    transition: all 0.3s ease;
+    --bs-dropdown-link-hover-bg: #ffffff;
+    --bs-dropdown-link-active-bg: #ffffff;
+}
+
+.dropdown-menu-item > p[b-nkcadq0xwp] {
+    width: 100%;
+}
+
+#delete[b-nkcadq0xwp] {
+    border-bottom: none;
+}
+
+.dropdown-menu-item :hover[b-nkcadq0xwp] {
+    color: black;
+    background-color: #ffffff;
+}
+
+
+.task-title[b-nkcadq0xwp] {
+    font-size: 18px;
+    color: #0D062D;
+}
+
+.task-description[b-nkcadq0xwp] {
+    font-size: 12px;
+    color: #787486;
+}
+
+.task-priority[b-nkcadq0xwp] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    font-weight: 500;
+    font-size: 12px;
+    border-radius: 20%;
+    color: #5030E5;
+    background-color: rgba(80, 48, 229, 0.2);
+}
+
+.task-additional[b-nkcadq0xwp] {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.task-additional-item[b-nkcadq0xwp] {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.task-additional-item-text[b-nkcadq0xwp] {
+    font-size: 12px;
+    color: #787486;
+}

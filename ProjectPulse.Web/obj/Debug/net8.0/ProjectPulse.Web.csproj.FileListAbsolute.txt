@@ -88,11 +88,16 @@
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/obj/Debug/net8.0/staticwebassets/msbuild.buildMultiTargeting.ProjectPulse.Web.props
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.ProjectPulse.Web.props
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/obj/Debug/net8.0/staticwebassets.pack.json
+/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/obj/Debug/net8.0/scopedcss/Components/Components/TaskCard.razor.rz.scp.css
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/obj/Debug/net8.0/scopedcss/Components/Layout/LogInLayout.razor.rz.scp.css
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/obj/Debug/net8.0/scopedcss/Components/Layout/MainLayout.razor.rz.scp.css
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/obj/Debug/net8.0/scopedcss/Components/Layout/Navbar.razor.rz.scp.css
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/obj/Debug/net8.0/scopedcss/Components/Layout/NavItem.razor.rz.scp.css
+/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/obj/Debug/net8.0/scopedcss/Components/Layout/ProjectLink.razor.rz.scp.css
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/obj/Debug/net8.0/scopedcss/Components/Layout/Sidebar.razor.rz.scp.css
+/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/obj/Debug/net8.0/scopedcss/Components/Modals/AddProject.razor.rz.scp.css
+/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/obj/Debug/net8.0/scopedcss/Components/Modals/AddTask.razor.rz.scp.css
+/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/obj/Debug/net8.0/scopedcss/Components/Modals/EditProject.razor.rz.scp.css
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/obj/Debug/net8.0/scopedcss/Components/Pages/Login.razor.rz.scp.css
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/obj/Debug/net8.0/scopedcss/Components/Pages/Logout.razor.rz.scp.css
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/obj/Debug/net8.0/scopedcss/Components/Pages/Project.razor.rz.scp.css
@@ -105,8 +110,3 @@
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/obj/Debug/net8.0/ProjectPulse.Web.pdb
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/obj/Debug/net8.0/ProjectPulse.Web.genruntimeconfig.cache
 /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/obj/Debug/net8.0/ref/ProjectPulse.Web.dll
-/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/obj/Debug/net8.0/scopedcss/Components/Components/TaskCard.razor.rz.scp.css
-/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/obj/Debug/net8.0/scopedcss/Components/Layout/ProjectLink.razor.rz.scp.css
-/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/obj/Debug/net8.0/scopedcss/Components/Modals/AddProject.razor.rz.scp.css
-/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/obj/Debug/net8.0/scopedcss/Components/Modals/AddTask.razor.rz.scp.css
-/Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/obj/Debug/net8.0/scopedcss/Components/Modals/EditProject.razor.rz.scp.css

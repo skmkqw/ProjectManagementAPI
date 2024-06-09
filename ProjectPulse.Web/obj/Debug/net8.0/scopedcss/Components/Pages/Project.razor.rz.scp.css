@@ -166,3 +166,7 @@
 .done .task-column-border[b-kxfshqzys0]{
     background-color: #8BC48A;
 }
+
+.add-task-btn[b-kxfshqzys0] {
+    cursor: pointer;
+}

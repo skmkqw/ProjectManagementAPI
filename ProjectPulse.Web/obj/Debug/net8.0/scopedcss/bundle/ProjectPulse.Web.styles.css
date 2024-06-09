@@ -423,83 +423,165 @@ nav[b-gx4u4j2n2e] {
     font-weight: bold;
     margin-bottom: 20px;
 }
-/* _content/ProjectPulse.Web/Components/Modals/AddProject.razor.rz.scp.css */
-.modal.fade[b-528s00llkg] {
-    display: none;
+
+.add-project-btn[b-8a4bwrdjto] {
+    cursor: pointer;
 }
+/* _content/ProjectPulse.Web/Components/Modals/AddProject.razor.rz.scp.css */
 [b-528s00llkg] .add-project-form {
     display: flex;
     flex-direction: column;
+    gap: 20px;
 }
 [b-528s00llkg] .add-project-form-group {
-    margin-top: 20px;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
+}
+
+[b-528s00llkg] .add-project-form-group :focus {
+    box-shadow: 0 0 0 0.05rem white, 0 0 0 0.18rem #5030E5;
+    border-color: #5030E5;
 }
 
 .add-project-form-group > label[b-528s00llkg]{
-    font-weight: bold;
+    font-weight: 500;
+    color: #0D062D;
 }
 
 [b-528s00llkg] .add-project-form-submit {
-    margin-top: 20px;
     width: 100%;
 }
-[b-528s00llkg] .add-project-form-submit > button{
+
+[b-528s00llkg] .modal-form-submit-btn {
+    padding: 7px;
+    border-radius: 10px;
     width: 100%;
+    color: white;
+    background-color: #5030E5;
+    border-color: #5030E5;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+[b-528s00llkg] .modal-form-submit-btn :hover {
+    background-color: rgba(80, 48, 229, 0.4);
+}
+
+.modal-close-btn[b-528s00llkg] {
+    border: none;
+    background-color: transparent;
+    font-size: 25px;
+    color: grey;
+    transition: all 0.3s ease;
+}
+
+.modal-close-btn :hover[b-528s00llkg]{
+    color: #0D062D;
 }
 /* _content/ProjectPulse.Web/Components/Modals/AddTask.razor.rz.scp.css */
-.modal.fade[b-dqe8bqqray] {
-    display: none;
-}
 [b-dqe8bqqray] .add-project-form {
     display: flex;
     flex-direction: column;
+    gap: 20px;
 }
 [b-dqe8bqqray] .add-project-form-group {
-    margin-top: 20px;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
+}
+
+[b-dqe8bqqray] .add-project-form-group :focus {
+    box-shadow: 0 0 0 0.05rem white, 0 0 0 0.18rem #5030E5;
+    border-color: #5030E5;
 }
 
 .add-project-form-group > label[b-dqe8bqqray]{
-    font-weight: bold;
+    font-weight: 500;
+    color: #0D062D;
 }
 
 [b-dqe8bqqray] .add-project-form-submit {
-    margin-top: 20px;
     width: 100%;
 }
-[b-dqe8bqqray] .add-project-form-submit > button{
+
+[b-dqe8bqqray] .modal-form-submit-btn {
+    padding: 7px;
+    border-radius: 10px;
     width: 100%;
+    color: white;
+    background-color: #5030E5;
+    border-color: #5030E5;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+[b-dqe8bqqray] .modal-form-submit-btn :hover {
+    background-color: rgba(80, 48, 229, 0.4);
+}
+
+.modal-close-btn[b-dqe8bqqray] {
+    border: none;
+    background-color: transparent;
+    font-size: 25px;
+    color: grey;
+    transition: all 0.3s ease;
+}
+
+.modal-close-btn :hover[b-dqe8bqqray]{
+    color: #0D062D;
 }
 /* _content/ProjectPulse.Web/Components/Modals/EditProject.razor.rz.scp.css */
-.modal.fade[b-ofak1ebs8j] {
-    display: none;
-}
 [b-ofak1ebs8j] .add-project-form {
     display: flex;
     flex-direction: column;
+    gap: 20px;
 }
 [b-ofak1ebs8j] .add-project-form-group {
-    margin-top: 20px;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
+}
+
+[b-ofak1ebs8j] .add-project-form-group :focus {
+    box-shadow: 0 0 0 0.05rem white, 0 0 0 0.18rem #5030E5;
+    border-color: #5030E5;
 }
 
 .add-project-form-group > label[b-ofak1ebs8j]{
-    font-weight: bold;
+    font-weight: 500;
+    color: #0D062D;
 }
 
 [b-ofak1ebs8j] .add-project-form-submit {
-    margin-top: 20px;
     width: 100%;
 }
-[b-ofak1ebs8j] .add-project-form-submit > button{
+
+[b-ofak1ebs8j] .modal-form-submit-btn {
+    padding: 7px;
+    border-radius: 10px;
     width: 100%;
+    color: white;
+    background-color: #5030E5;
+    border-color: #5030E5;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+[b-ofak1ebs8j] .modal-form-submit-btn :hover {
+    background-color: rgba(80, 48, 229, 0.4);
+}
+
+.modal-close-btn[b-ofak1ebs8j] {
+    border: none;
+    background-color: transparent;
+    font-size: 25px;
+    color: grey;
+    transition: all 0.3s ease;
+}
+
+.modal-close-btn :hover[b-ofak1ebs8j]{
+    color: #0D062D;
 }
 /* _content/ProjectPulse.Web/Components/Pages/Login.razor.rz.scp.css */
 .login-container[b-sapm7f1hii] {
@@ -749,6 +831,10 @@ nav[b-gx4u4j2n2e] {
 
 .done .task-column-border[b-kxfshqzys0]{
     background-color: #8BC48A;
+}
+
+.add-task-btn[b-kxfshqzys0] {
+    cursor: pointer;
 }
 /* _content/ProjectPulse.Web/Components/Pages/Register.razor.rz.scp.css */
 .login-container[b-wzjoklqnvg] {

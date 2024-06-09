@@ -1,6 +1,7 @@
 ﻿@using ProjectPulse.DataAccess.DTOs.Projects
 @using ProjectPulse.Web.Services.Projects
 @using ProjectPulse.Web.Services.Users
+@using ProjectPulse.Web.Components.Modals
 @rendermode InteractiveServer
 
 
@@ -48,7 +49,7 @@
         <div class="row sidebar-projects">
             <div class="sidebar-projects-head">
                 <p>My projects</p>
-                <img src="img/add-project.svg" alt="" data-bs-toggle="modal" data-bs-target="#addProjectModal" @onclick="ShowModal">
+                <img src="img/add-project.svg" alt="" class="add-project-btn" @onclick="ShowModal">
             </div>
             <div class="sidebar-projects-content">
                 @foreach (ProjectDto project in Projects!)
@@ -110,9 +111,8 @@
         await JS.InvokeVoidAsync("HandleCloseSidebar");
     }
 
-    private async Task HandleProjectClick(Guid projectId)
+    private void HandleProjectClick(Guid projectId)
     {
-        await JS.InvokeVoidAsync("HandleProjectTabClick");
         Navigation.NavigateTo($"/Project/{projectId}");
     }
 }

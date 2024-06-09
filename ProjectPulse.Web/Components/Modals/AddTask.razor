@@ -2,16 +2,16 @@
 
 <div class="modal fade @ModalClass" tabindex="-1" role="dialog" style="display:@DisplayStyle; width: 100vw; height: 100vh; align-items: center; justify-content: center;" aria-hidden="true">
     <div>
-        <div class="modal-dialog add-project-modal-body" role="document" style="min-width: 500px">
+        <div class="modal-dialog add-project-modal-body" role="document" style="min-width: 400px">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Add New Task</h5>
-                    <button type="button" class="close" aria-label="Close" @onclick="CloseModal">
-                        <span aria-hidden="true">X</span>
+                    <button type="button" class="modal-close-btn" @onclick="CloseModal">
+                        &times;
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div>
+                    <div class="modal-form-container">
                         <EditForm Model="NewTask" OnValidSubmit="HandleTaskCreation" class="add-project-form">
                             <div class="form-group add-project-form-group">
                                 <label for="projectName">Task Name</label>
@@ -22,7 +22,7 @@
                                 <InputText id="projectDescription" class="form-control" @bind-Value="NewTask.Description" placeholder="Enter task description"></InputText>
                             </div>
                             <div class="add-project-form-submit">
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="modal-form-submit-btn">Submit</button>
                             </div>
                         </EditForm>
                     </div>
