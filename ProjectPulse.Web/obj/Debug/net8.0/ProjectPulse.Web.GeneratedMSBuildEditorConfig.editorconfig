@@ -1,0 +1,111 @@
+is_global = true
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = ProjectPulse.Web
+build_property.RootNamespace = ProjectPulse.Web
+build_property.ProjectDir = /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web/
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 8.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = /Users/skmkqw/Documents/C# Learning/ProjectManagementAPI/ProjectPulse.Web
+build_property._RazorSourceGeneratorDebug = 
+
+[/Users/skmkqw/Documents/C\# Learning/ProjectManagementAPI/ProjectPulse.Web/Components/App.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9BcHAucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/skmkqw/Documents/C\# Learning/ProjectManagementAPI/ProjectPulse.Web/Components/Pages/Error.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9FcnJvci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/skmkqw/Documents/C\# Learning/ProjectManagementAPI/ProjectPulse.Web/Components/Pages/Home.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9Ib21lLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/skmkqw/Documents/C\# Learning/ProjectManagementAPI/ProjectPulse.Web/Components/Pages/Members.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9NZW1iZXJzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/skmkqw/Documents/C\# Learning/ProjectManagementAPI/ProjectPulse.Web/Components/Pages/Messages.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9NZXNzYWdlcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/skmkqw/Documents/C\# Learning/ProjectManagementAPI/ProjectPulse.Web/Components/Pages/Settings.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9TZXR0aW5ncy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/skmkqw/Documents/C\# Learning/ProjectManagementAPI/ProjectPulse.Web/Components/Pages/Tasks.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9UYXNrcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/skmkqw/Documents/C\# Learning/ProjectManagementAPI/ProjectPulse.Web/Components/Routes.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9Sb3V0ZXMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/skmkqw/Documents/C\# Learning/ProjectManagementAPI/ProjectPulse.Web/Components/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9fSW1wb3J0cy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/skmkqw/Documents/C\# Learning/ProjectManagementAPI/ProjectPulse.Web/Components/Components/TaskCard.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9Db21wb25lbnRzL1Rhc2tDYXJkLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-nkcadq0xwp
+
+[/Users/skmkqw/Documents/C\# Learning/ProjectManagementAPI/ProjectPulse.Web/Components/Layout/LogInLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9MYXlvdXQvTG9nSW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-ojknlplxnm
+
+[/Users/skmkqw/Documents/C\# Learning/ProjectManagementAPI/ProjectPulse.Web/Components/Layout/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9MYXlvdXQvTWFpbkxheW91dC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-3fv9nij9hg
+
+[/Users/skmkqw/Documents/C\# Learning/ProjectManagementAPI/ProjectPulse.Web/Components/Layout/Navbar.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9MYXlvdXQvTmF2YmFyLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-gx4u4j2n2e
+
+[/Users/skmkqw/Documents/C\# Learning/ProjectManagementAPI/ProjectPulse.Web/Components/Layout/NavItem.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9MYXlvdXQvTmF2SXRlbS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-shfs6p9qnm
+
+[/Users/skmkqw/Documents/C\# Learning/ProjectManagementAPI/ProjectPulse.Web/Components/Layout/ProjectLink.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9MYXlvdXQvUHJvamVjdExpbmsucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-m1d4zgzfmc
+
+[/Users/skmkqw/Documents/C\# Learning/ProjectManagementAPI/ProjectPulse.Web/Components/Layout/Sidebar.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9MYXlvdXQvU2lkZWJhci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-8a4bwrdjto
+
+[/Users/skmkqw/Documents/C\# Learning/ProjectManagementAPI/ProjectPulse.Web/Components/Modals/AddProject.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9Nb2RhbHMvQWRkUHJvamVjdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-528s00llkg
+
+[/Users/skmkqw/Documents/C\# Learning/ProjectManagementAPI/ProjectPulse.Web/Components/Modals/AddTask.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9Nb2RhbHMvQWRkVGFzay5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-dqe8bqqray
+
+[/Users/skmkqw/Documents/C\# Learning/ProjectManagementAPI/ProjectPulse.Web/Components/Modals/EditProject.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9Nb2RhbHMvRWRpdFByb2plY3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-ofak1ebs8j
+
+[/Users/skmkqw/Documents/C\# Learning/ProjectManagementAPI/ProjectPulse.Web/Components/Pages/Login.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9Mb2dpbi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-sapm7f1hii
+
+[/Users/skmkqw/Documents/C\# Learning/ProjectManagementAPI/ProjectPulse.Web/Components/Pages/Logout.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9Mb2dvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-2f22eloj8t
+
+[/Users/skmkqw/Documents/C\# Learning/ProjectManagementAPI/ProjectPulse.Web/Components/Pages/Project.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9Qcm9qZWN0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-kxfshqzys0
+
+[/Users/skmkqw/Documents/C\# Learning/ProjectManagementAPI/ProjectPulse.Web/Components/Pages/Register.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9SZWdpc3Rlci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-wzjoklqnvg

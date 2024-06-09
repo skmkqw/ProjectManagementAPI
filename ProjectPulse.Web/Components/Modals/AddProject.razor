@@ -1,0 +1,64 @@
+@using ProjectPulse.DataAccess.DTOs.Projects
+
+<div class="modal fade @ModalClass" tabindex="-1" role="dialog" style="display:@DisplayStyle; width: 100vw; height: 100vh; align-items: center; justify-content: center;" aria-hidden="true">
+    <div>
+        <div class="modal-dialog add-project-modal-body" role="document" style="min-width: 400px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New Project</h5>
+                    <button type="button" class="modal-close-btn" @onclick="CloseModal">
+                        &times;
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-form-container">
+                        <EditForm Model="NewProject" OnValidSubmit="HandleProjectCreation" class="add-project-form">
+                            <div class="form-group add-project-form-group">
+                                <label for="projectName">Project Name</label>
+                                <InputText id="projectName" class="form-control" @bind-Value="NewProject.Name" placeholder="Enter project name"></InputText>
+                            </div>
+                            <div class="form-group add-project-form-group">
+                                <label for="projectDescription">Project Description</label>
+                                <InputText id="projectDescription" class="form-control" @bind-Value="NewProject.Description" placeholder="Enter project description"></InputText>
+                            </div>
+                            <div class="add-project-form-submit">
+                                <button type="submit" class="modal-form-submit-btn">Submit</button>
+                            </div>
+                        </EditForm>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    
+    [Parameter]
+    public EventCallback<bool> OnClose { get; set; }
+    
+    [Parameter]
+    public bool DisplayModal { get; set; }
+    
+    private string ModalClass => DisplayModal ? "show" : "";
+    private string DisplayStyle => DisplayModal ? "flex" : "none";
+    
+
+    private void CloseModal()
+    {
+        DisplayModal = false;
+        OnClose.InvokeAsync(DisplayModal);
+    }
+
+    [SupplyParameterFromForm] 
+    public CreateProjectDto NewProject { get; set; } = new CreateProjectDto();
+    
+    [Parameter]
+    public EventCallback<CreateProjectDto> CreateProjectCallback { get; set; }
+
+    private void HandleProjectCreation()
+    {
+        CreateProjectCallback.InvokeAsync(NewProject);
+        CloseModal();
+    }
+}

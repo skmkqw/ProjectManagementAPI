@@ -1,0 +1,18 @@
+@page "/Logout"
+@using ProjectPulse.Web.Services.Accounts
+
+@inject IAccountsService AccountsService
+@inject NavigationManager Navigation
+
+@attribute [Authorize]
+
+<h3>Logout</h3>
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        await AccountsService.Logout();
+        
+        Navigation.NavigateTo("/");
+    }
+}

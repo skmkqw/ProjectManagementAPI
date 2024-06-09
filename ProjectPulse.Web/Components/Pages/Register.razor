@@ -1,0 +1,53 @@
+@using ProjectPulse.DataAccess.DTOs.Users
+@using ProjectPulse.Web.Components.Layout
+@using ProjectPulse.Web.Services.Accounts
+@page "/Account/Register"
+@layout LogInLayout
+
+@inject IAccountsService AccountsService
+@inject NavigationManager Navigation
+
+<div class="login-container">
+    <h2 class="login-title">Register</h2>
+    <EditForm OnValidSubmit="HandleRegistration" Model="User" FormName="register">
+        <div class="form-group">
+            <label for="email">Email</label>
+            <InputText id="email" @bind-Value="User.Email" type="email" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <label for="username">Username</label>
+            <InputText id="username" @bind-Value="User.UserName" type="text" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <label for="password" class="form-label">Password</label>
+            <InputText id="password" @bind-Value="User.Password" type="password" class="form-control"/>
+        </div>
+        @if (!string.IsNullOrEmpty(ErrorMessage))
+        {
+            <div class="alert-danger">@ErrorMessage</div>
+        }
+        <button type="submit" class="btn btn-primary login-button">Register</button>
+    </EditForm>
+    <p class="register-link">
+        Already have a ProjectPulse account? <a href="/Account/Login">Log in now</a>
+    </p>
+</div>
+
+@code {
+    
+    [SupplyParameterFromForm]
+    private AddUserDto User { get; set; } = new ();
+    
+    private string ErrorMessage { get; set; } = string.Empty;
+
+    private async Task HandleRegistration()
+    {
+        string? error = await AccountsService.Register(User);
+        if (error == null)
+        {
+            Navigation.NavigateTo("/");
+        }
+
+        ErrorMessage = error!;
+    }
+}

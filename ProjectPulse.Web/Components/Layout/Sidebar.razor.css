@@ -1,0 +1,57 @@
+.sidebar {
+    width: 16vw;
+    min-width: 200px;
+    border-right: 1px #DBDBDB solid;
+    transition: all 0.3s ease;
+    height: 100vh;
+
+}
+.sidebar-hidden {
+    display: none;
+}
+
+.sidebar-fullscreen {
+    width: 100vw;
+}
+
+.sidebar-content {
+    padding: 0 25px;
+}
+
+.sidebar-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 25px 0;
+    height: 75px;
+}
+.sidebar-head-logo {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: 500;
+    font-size: clamp(1rem, 0.909rem + 0.45vw, 1.25rem);
+}
+
+.sidebar-options, .sidebar-projects {
+    padding: 20px 0;
+}
+
+.sidebar-options-content, .sidebar-projects-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-projects-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #787486;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.add-project-btn {
+    cursor: pointer;
+}

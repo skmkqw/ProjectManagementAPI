@@ -1,0 +1,62 @@
+@using ProjectPulse.Web.Services.Users
+
+@inject IJSRuntime JS
+@inject IUsersService UsersService
+@inject NavigationManager Navigation
+
+@rendermode InteractiveServer
+
+<nav class="border-bottom" id="navbar">
+    <div class="nav-left">
+        <div class="sidebar-show sidebar-show-hidden" id="show-sidebar" @onclick="OpenSidebar">
+            <img src="img/hide_sidebar.svg" alt="">
+        </div>
+        <div class="nav-search">
+            <form action="/search" method="GET">
+                <div class="search-box">
+                    <img src="img/search.svg" alt="">
+                    <input type="text" class="form-control" name="q" placeholder="Search for anything...">
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="nav-right">
+        <div class="nav-icons">
+            <div class="nav-icon-item"><img src="img/calendar.svg" alt=""></div>
+            <div class="nav-icon-item"><img src="img/message-question.svg" alt=""></div>
+            <div class="nav-icon-item"><img src="img/notification.svg" alt=""></div>
+        </div>
+        <div class="nav-user">
+            <p>@UserName</p>
+            <img src="img/user.jpeg" alt="" class="nav-user-img">
+            <img src="img/logout.png" alt="Logout" style="cursor: pointer; max-width: 18px; opacity: 0.8;" @onclick="Logout">
+        </div>
+    </div>
+</nav>
+
+@code
+{
+    private string UserName { get; set; } = "Guest";
+
+    protected override void OnInitialized()
+    {
+        GetUserName();
+    }
+
+    private void GetUserName()
+    {
+        UserName = UsersService.GetUserName();
+
+        StateHasChanged();
+    }
+    
+    private void Logout()
+    {
+        Navigation.NavigateTo("/Logout");
+    }
+
+    private async Task OpenSidebar()
+    {
+        await JS.InvokeVoidAsync("HandleOpenSidebar");
+    }
+}

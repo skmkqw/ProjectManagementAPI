@@ -1,0 +1,44 @@
+﻿@page "/"
+@using ProjectPulse.Web.Services.Users
+
+@inject  IUsersService UsersService
+
+@attribute [Authorize]
+
+
+<PageTitle>Home</PageTitle>
+
+<h1>Hello, @UserName!</h1>
+
+Your ID is: @UserId
+
+
+@code
+{
+    
+    private string UserName { get; set; } = "Guest";
+
+    private string UserId { get; set; } = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        GetUserName();
+        GetUserId();
+    }
+
+    private void GetUserName()
+    {
+        UserName = UsersService.GetUserName();
+
+        StateHasChanged();
+    }
+    
+    private void GetUserId()
+    {
+        UserId = UsersService.GetUserId();
+
+        StateHasChanged();
+    }
+}
+
+

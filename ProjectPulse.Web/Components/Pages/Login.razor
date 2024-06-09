@@ -1,0 +1,49 @@
+@using ProjectPulse.DataAccess.DTOs.Users
+@using ProjectPulse.Web.Components.Layout
+@using ProjectPulse.Web.Services.Accounts
+
+@inject IAccountsService AccountsService
+@inject NavigationManager Navigation
+
+@page "/Account/Login"
+@layout LogInLayout
+
+<div class="login-container">
+    <h2 class="login-title">Log in</h2>
+    <EditForm OnValidSubmit="HandleLogin" Model="User" FormName="login">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <InputText id="username" @bind-Value="User.UserName" type="text" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="password" class="form-label">Password</label>
+            <InputText id="password" @bind-Value="User.Password" type="password" class="form-control" />
+        </div>
+        @if (!string.IsNullOrEmpty(ErrorMessage))
+        {
+            <div class="alert-danger">@ErrorMessage</div>
+        }
+        <button type="submit" class="btn btn-primary login-button">Log in</button>
+    </EditForm>
+    <p class="register-link">
+        Don't have a ProjectPulse account? <a href="/Account/Register">Register now</a>
+    </p>
+</div>
+
+@code {
+    
+    [SupplyParameterFromForm]
+    private LoginUserDto User { get; set; } = new ();
+
+    private string ErrorMessage { get; set; } = string.Empty;
+
+    private async Task HandleLogin()
+    {
+        string? error = await AccountsService.Login(User);
+        if (error == null)
+        {
+            Navigation.NavigateTo("/");
+        }
+        ErrorMessage = error!;
+    }
+}

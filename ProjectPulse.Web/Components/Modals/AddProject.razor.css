@@ -1,0 +1,51 @@
+::deep .add-project-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+::deep .add-project-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+::deep .add-project-form-group :focus {
+    box-shadow: 0 0 0 0.05rem white, 0 0 0 0.18rem #5030E5;
+    border-color: #5030E5;
+}
+
+.add-project-form-group > label{
+    font-weight: 500;
+    color: #0D062D;
+}
+
+::deep .add-project-form-submit {
+    width: 100%;
+}
+
+::deep .modal-form-submit-btn {
+    padding: 7px;
+    border-radius: 10px;
+    width: 100%;
+    color: white;
+    background-color: #5030E5;
+    border-color: #5030E5;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+::deep .modal-form-submit-btn :hover {
+    background-color: rgba(80, 48, 229, 0.4);
+}
+
+.modal-close-btn {
+    border: none;
+    background-color: transparent;
+    font-size: 25px;
+    color: grey;
+    transition: all 0.3s ease;
+}
+
+.modal-close-btn :hover{
+    color: #0D062D;
+}

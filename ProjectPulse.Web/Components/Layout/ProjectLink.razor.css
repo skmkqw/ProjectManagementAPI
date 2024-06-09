@@ -1,0 +1,25 @@
+::deep .sidebar-projects-content-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 16px;
+    color: #787486;
+    text-decoration: none;
+    padding: 10px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+
+::deep .sidebar-projects-content-item-active {
+    background-color: rgba(80, 48, 229, 0.08);
+    border-radius: 15px;
+    color: #0D062D;
+}
+
+::deep .project-circle {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 100%;
+}

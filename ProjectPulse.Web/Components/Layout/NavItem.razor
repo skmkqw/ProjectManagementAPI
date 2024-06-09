@@ -1,0 +1,18 @@
+@inject IJSRuntime JS
+
+<div>
+    <NavLink href="@ToPage" class="sidebar-options-content-item" Match="NavLinkMatch.All" activeClass="sidebar-options-content-item-active">
+        <img src="@IconPath" alt="">
+        <p>@Title</p>
+    </NavLink>
+</div>
+
+@code {
+    [Parameter]
+    public string Title { get; set; } = string.Empty;
+
+    [Parameter]
+    public string ToPage { get; set; } = string.Empty;
+
+    [Parameter] public string IconPath { get; set; } = string.Empty;
+}

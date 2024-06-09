@@ -1,0 +1,24 @@
+[b-shfs6p9qnm] .sidebar-options-content-item  {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+[b-shfs6p9qnm] .sidebar-options-content-item > p {
+    font-size: 16px;
+    color: #787486;
+}
+
+[b-shfs6p9qnm] .sidebar-options-content-item-active {
+    background-color: rgba(151, 151, 151, 0.1);
+    border-radius: 15px;
+    color: #0D062D;
+}
+
+[b-shfs6p9qnm] .sidebar-options-content-item-active > p {
+    color: #0D062D;
+}
