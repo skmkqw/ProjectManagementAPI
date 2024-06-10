@@ -34,6 +34,9 @@ public class ProjectTasksConfiguration : IEntityTypeConfiguration<ProjectTaskEnt
         builder.Property(t => t.Status)
             .IsRequired();
         
+        builder.Property(t => t.Priority)
+            .IsRequired();
+        
         builder.Property(p => p.CreationDate)
             .HasDefaultValueSql("GETDATE()")
             .ValueGeneratedOnAdd();

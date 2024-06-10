@@ -17,5 +17,7 @@ public interface ITasksService
 
     public Task<(ProjectTask? task, string? error)> UpdateTaskStatus(Guid id, TaskStatuses status);
     
+    public Task<(ProjectTask? task, string? error)> UpdateTaskPriority(Guid id, TaskPriorities priority);
+    
     public Task<bool> DeleteTask(Guid id);
 }

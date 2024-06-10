@@ -16,6 +16,8 @@ public interface ITasksRepository
     public Task<ProjectTaskEntity> Update(ProjectTaskEntity projectTaskEntity, UpdateTaskDto updateTaskDto);
 
     public Task<ProjectTaskEntity> UpdateStatus(ProjectTaskEntity projectTaskEntity);
+    
+    public Task<ProjectTaskEntity> UpdatePriority(ProjectTaskEntity projectTaskEntity);
 
     public Task<bool> Delete(Guid id);
 }

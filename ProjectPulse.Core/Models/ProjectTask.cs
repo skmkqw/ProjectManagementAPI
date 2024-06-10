@@ -7,6 +7,13 @@ public enum TaskStatuses
     Done
 }
 
+public enum TaskPriorities
+{
+    Low,
+    Medium,
+    High,
+}
+
 public class ProjectTask
 {
     public Guid Id { get; set; }
@@ -24,6 +31,8 @@ public class ProjectTask
     public AppUser? AssignedUser { get; set; }
     
     public TaskStatuses Status { get; set; } = TaskStatuses.ToDo;
+
+    public TaskPriorities Priority { get; set; } = TaskPriorities.Low;
     
     public DateTime CreationDate { get; set; } = DateTime.UtcNow;
 

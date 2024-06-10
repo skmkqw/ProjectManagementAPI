@@ -15,6 +15,8 @@ public class TaskDto
     public Guid? AssignedUserId { get; set; }
     
     public TaskStatuses Status { get; set; } = TaskStatuses.ToDo;
+
+    public TaskPriorities Priority { get; set; } = TaskPriorities.Low;
     
     public DateTime CreationDate { get; set; } = DateTime.UtcNow;
 

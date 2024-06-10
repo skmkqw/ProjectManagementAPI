@@ -12,7 +12,8 @@ public static class ProjectTaskMappers
         {
             Title = createTaskDto.Title,
             Description = createTaskDto.Description,
-            Deadline = createTaskDto.Deadline
+            Deadline = createTaskDto.Deadline,
+            Priority = createTaskDto.Priority
         };
     }
     
@@ -26,6 +27,7 @@ public static class ProjectTaskMappers
             ProjectId = task.ProjectId,
             AssignedUserId = task.AssignedUserId,
             Status = task.Status,
+            Priority = task.Priority,
             CreationDate = task.CreationDate,
             LastUpdateTime = task.LastUpdateTime,
             Deadline = task.Deadline
@@ -42,6 +44,7 @@ public static class ProjectTaskMappers
             ProjectId = taskEntity.ProjectId,
             AssignedUserId = taskEntity.AssignedUserId,
             Status = taskEntity.Status,
+            Priority = taskEntity.Priority,
             CreationDate = taskEntity.CreationDate,
             LastUpdateTime = taskEntity.LastUpdateTime,
             Deadline = taskEntity.Deadline

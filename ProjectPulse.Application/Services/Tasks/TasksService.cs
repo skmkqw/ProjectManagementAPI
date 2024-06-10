@@ -67,7 +67,29 @@ public class TasksService : ITasksService
 
         return (taskEntity.ToTaskModel(), null);
     }
-    
+
+    public async Task<(ProjectTask? task, string? error)> UpdateTaskPriority(Guid id, TaskPriorities priority)
+    {
+        var taskEntity = await _tasksRepository.GetById(id);
+
+        if (taskEntity == null)
+        {
+            return (null, "Task not found");
+        }
+
+        if (taskEntity.Status == TaskStatuses.Done)
+        {
+            return (null, "Can't change the priority of done task!");
+        }
+
+        taskEntity.Priority = priority;
+        taskEntity.LastUpdateTime = DateTime.UtcNow;
+
+        await _tasksRepository.UpdatePriority(taskEntity);
+
+        return (taskEntity.ToTaskModel(), null);
+    }
+
     public async Task<(ProjectTask? task, string? error)> AssignUserToTask(Guid taskId, Guid userId)
     {
         (var task, string? error) = await _tasksRepository.AssignUser(taskId, userId);
