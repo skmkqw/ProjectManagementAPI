@@ -131,7 +131,7 @@ public class ProjectsRepository : IProjectsRepository
         await _context.ProjectUsers.AddAsync(projectUserEntity);
         projectEntity.ProjectUsers.Add(projectUserEntity);
         projectEntity.LastUpdateTime = DateTime.UtcNow;
-        userEntity.ProjectUsers.Add(projectUserEntity);
+        userEntity.ProjectUsers!.Add(projectUserEntity);
         
         await _context.SaveChangesAsync();
         

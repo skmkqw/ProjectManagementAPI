@@ -66,6 +66,18 @@ public class TasksController : ControllerBase
 
         return BadRequest(error);
     }
+    
+    [HttpPatch("{id}/priority")]
+    public async Task<IActionResult> UpdateStatus([FromRoute] Guid id, [FromQuery] TaskPriorities priority)
+    {
+        (var updatedTask, string? error) = await _tasksService.UpdateTaskPriority(id, priority);
+        if (updatedTask != null)
+        {
+            return Ok(updatedTask.ToTaskDto());
+        }
+
+        return BadRequest(error);
+    }
 
     [HttpPut("{taskId}/assign_user")]
     public async Task<IActionResult> AssignUser([FromRoute] Guid taskId, [FromQuery] Guid userId)

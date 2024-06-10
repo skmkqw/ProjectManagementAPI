@@ -11,5 +11,6 @@ public class UpdateTaskDto
     [JsonIgnore]
     public DateTime LastUpdateTime { get; set; } = DateTime.UtcNow;
     
+    
     public DateTime? Deadline { get; set; }
 }

@@ -1,3 +1,5 @@
+using ProjectPulse.Core.Models;
+
 namespace ProjectPulse.DataAccess.DTOs.Tasks;
 
 public class CreateTaskDto
@@ -7,4 +9,6 @@ public class CreateTaskDto
     public string Description { get; set; } = string.Empty;
 
     public DateTime? Deadline { get; set; } = null;
+
+    public TaskPriorities Priority { get; set; } = TaskPriorities.Low;
 }

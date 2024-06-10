@@ -20,6 +20,8 @@ public class ProjectTaskEntity
     
     public TaskStatuses Status { get; set; } = TaskStatuses.ToDo;
     
+    public TaskPriorities Priority { get; set; } = TaskPriorities.Low;
+    
     public DateTime CreationDate { get; set; } = DateTime.UtcNow;
 
     public DateTime LastUpdateTime { get; set; } = DateTime.UtcNow;

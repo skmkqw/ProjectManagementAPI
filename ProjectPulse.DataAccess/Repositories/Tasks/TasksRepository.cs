@@ -50,6 +50,13 @@ public class TasksRepository : ITasksRepository
         return taskEntity;
     }
 
+    public async Task<ProjectTaskEntity> UpdatePriority(ProjectTaskEntity taskEntity)
+    {
+        _context.Entry(taskEntity).State = EntityState.Modified;
+        await _context.SaveChangesAsync();
+        return taskEntity;
+    }
+
     public async Task<(ProjectTaskEntity? taskEntity, string? error)> AssignUser(Guid taskId, Guid userId)
     {
         var taskEntity = await _context.ProjectTasks.FindAsync(taskId);
