@@ -111,9 +111,22 @@
     padding: 6px;
     font-weight: 500;
     font-size: 12px;
-    border-radius: 20%;
-    color: #5030E5;
-    background-color: rgba(80, 48, 229, 0.2);
+    border-radius: 10px;
+}
+
+.task-priority.Low[b-nkcadq0xwp] {
+    color: #68B266;
+    background-color: rgba(131, 194, 157, 0.2);
+}
+
+.task-priority.Medium[b-nkcadq0xwp] {
+    color: rgb(213, 141, 73);
+    background-color: rgba(223, 168, 116, 0.2);
+}
+
+.task-priority.High[b-nkcadq0xwp] {
+    color: #D8727D;
+    background-color: rgba(216, 114, 125, 0.1);
 }
 
 .task-additional[b-nkcadq0xwp] {

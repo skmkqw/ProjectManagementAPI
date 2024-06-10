@@ -109,9 +109,7 @@
                 <div class="task-column-content">
                     @foreach (var task in TasksToDo)
                     {
-                        <TaskCard Id="@task.Id.ToString()"
-                                  Title="@task.Title"
-                                  Description="@task.Description"
+                        <TaskCard Task="task"
                                   IsDone="false"
                                   DeleteTaskCallback="id => DeleteTask(id)"
                                   AssignUserCallback="id => AssignSelf(id)"
@@ -137,9 +135,7 @@
                 <div class="task-column-content">
                     @foreach (var task in TasksInProgress)
                     {
-                        <TaskCard Id="@task.Id.ToString()"
-                                  Title="@task.Title"
-                                  Description="@task.Description"
+                        <TaskCard Task="task"
                                   IsDone="false"
                                   DeleteTaskCallback="id => DeleteTask(id)"
                                   AssignUserCallback="id => AssignSelf(id)"
@@ -165,9 +161,7 @@
                 <div class="task-column-content">
                     @foreach (var task in TasksDone)
                     {
-                        <TaskCard Id="@task.Id.ToString()"
-                                  Title="@task.Title"
-                                  Description="@task.Description"
+                        <TaskCard Task="task"
                                   IsDone="true"
                                   DeleteTaskCallback="id => DeleteTask(id)"
                                   AssignUserCallback="id => AssignSelf(id)"
@@ -256,7 +250,7 @@
     {
         string userId = UsersService.GetUserId();
         await TasksService.AssignUser(taskId, userId);
-        ToastService.ShowSuccess("Assigned user for a task!", settings => settings.IconType = IconType.None);
+        ToastService.ShowSuccess("Assigned user for a task!");
     }
 
     private async Task ChangeStatus(TaskStatuses status, string taskId)
