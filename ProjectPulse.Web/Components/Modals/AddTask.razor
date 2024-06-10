@@ -1,3 +1,4 @@
+@using ProjectPulse.Core.Models
 @using ProjectPulse.DataAccess.DTOs.Tasks
 
 <div class="modal fade @ModalClass" tabindex="-1" role="dialog" style="display:@DisplayStyle; width: 100vw; height: 100vh; align-items: center; justify-content: center;" aria-hidden="true">
@@ -14,12 +15,21 @@
                     <div class="modal-form-container">
                         <EditForm Model="NewTask" OnValidSubmit="HandleTaskCreation" class="add-project-form">
                             <div class="form-group add-project-form-group">
-                                <label for="projectName">Task Name</label>
-                                <InputText id="projectName" class="form-control" @bind-Value="NewTask.Title" placeholder="Enter task name"></InputText>
+                                <label for="taskName">Task Name</label>
+                                <InputText id="taskName" class="form-control" @bind-Value="NewTask.Title" placeholder="Enter task name"></InputText>
                             </div>
                             <div class="form-group add-project-form-group">
-                                <label for="projectDescription">Task Description</label>
-                                <InputText id="projectDescription" class="form-control" @bind-Value="NewTask.Description" placeholder="Enter task description"></InputText>
+                                <label for="taskDescription">Task Description</label>
+                                <InputText id="taskDescription" class="form-control" @bind-Value="NewTask.Description" placeholder="Enter task description"></InputText>
+                            </div>
+                            <div class="form-group add-project-form-group">
+                                <label for="taskPriority">Task Priority</label>
+                                <InputSelect id="taskPriority" class="form-control" @bind-Value="NewTask.Priority">
+                                    @foreach (var priority in Enum.GetValues(typeof(TaskPriorities)))
+                                    {
+                                    <option value="@priority">@priority</option>
+                                    }
+                                </InputSelect>
                             </div>
                             <div class="add-project-form-submit">
                                 <button type="submit" class="modal-form-submit-btn">Submit</button>
